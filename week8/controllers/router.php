@@ -4,7 +4,7 @@
 require_once __DIR__ . "/../middleware/middleware.php";
 
 // Controllera
-require_once "UsersController.php";
+require_once "userController.php";
 require_once "GroupsController.php";
 require_once "UsersGroupsController.php";
 
@@ -62,22 +62,33 @@ function Router($requestUrl){
             //Handle private msg
             break;
 
-        case "users":
-            
-            switch ($method) {
-               case "GET": 
-                    CorsMiddleware::handle();
-                    UsersController::handle($method, $input);
-                    break;
-                   
-                    
-                default:
-                    CorsMiddleware::handle();
-                    JsonMiddleware::handle();
-                    UsersController::handle(method: $method, input: $input);
-                    break;
-            }
-            break;
+        case "users": //Elias
+                switch ($method) {
+                    case "GET": 
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                     
+                    case "PUT":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                         
+                    case "POST":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+
+                    case "DELETE":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                    default:
+                        CorsMiddleware::handle();
+                        http_response_code(400);
+                        echo json_encode(["error" => "No method allowed"]);
+                        exit();
+                }
 
         case "users_availability":
             //Handle users_availability
