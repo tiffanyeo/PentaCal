@@ -78,5 +78,88 @@ async function test() {
     resource = await response.json(); 
     document.getElementById("userT6").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
     console.log(resource);
+
+    //Test 7
+    req = new Request("http://localhost:8000/users?id=65e10aa11a009", {
+        headers: { "Content-type": "application/json" },
+        method: "PATCH",
+        body: JSON.stringify({
+            name: "Elias Norrheden(Ändrat namn)",
+            pwd: "123(Ändrat)"
+        }) 
+    });
+    response = await fetch(req); 
+    resource = await response.json(); 
+    document.getElementById("userT7").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
+    console.log(resource);
+
+    //Test 8
+    req = new Request("http://localhost:8000/users", {
+        headers: { "Content-type": "application/json" },
+        method: "PATCH",
+        body: JSON.stringify({
+            name: "Elias Norrheden(Ändrat namn)",
+            pwd: "123(Ändrat)"
+        }) 
+    });
+    response = await fetch(req); 
+    resource = await response.json(); 
+    document.getElementById("userT8").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
+    console.log(resource);
+
+    //Test 9
+    req = new Request("http://localhost:8000/users?id=65e10aa11aasd009", {
+        headers: { "Content-type": "application/json" },
+        method: "PATCH",
+        body: JSON.stringify({
+            name: "Elias Norrheden(Ändrat namn)",
+            pwd: "123(Ändrat)"
+        }) 
+    });
+    response = await fetch(req); 
+    resource = await response.json(); 
+    document.getElementById("userT9").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
+    console.log(resource);
+
+    //Test 10
+    req = new Request("http://localhost:8000/users?id=65e10aa11a009", {
+        headers: { "Content-type": "application/json" },
+        method: "DELETE",
+        body: JSON.stringify({
+            email: "ivan@example.com",
+            pwd: "123(Ändrat)"
+        }) 
+    });
+    response = await fetch(req); 
+    resource = await response.json(); 
+    document.getElementById("userT10").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
+    console.log(resource);
+
+    //Test 11
+    req = new Request("http://localhost:8000/users?id=65e10aa11a009", {
+        headers: { "Content-type": "application/json" },
+        method: "DELETE",
+        body: JSON.stringify({
+            email: "ivan@example.com",
+        }) 
+    });
+    response = await fetch(req); 
+    resource = await response.json(); 
+    document.getElementById("userT11").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
+    console.log(resource);
+
+    //Test 12
+    req = new Request("http://localhost:8000/users?id=65e10aa11a008", {
+        headers: { "Content-type": "application/json" },
+        method: "DELETE",
+        body: JSON.stringify({
+            email: "heidi@example.com",
+            pwd: "pwdasd9"
+        }) 
+    });
+    response = await fetch(req); 
+    resource = await response.json(); 
+    document.getElementById("userT12").textContent = `Result: ${JSON.stringify(resource)}, ${response.status}`;
+    console.log(resource);
 }
 test();

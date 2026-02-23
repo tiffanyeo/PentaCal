@@ -36,6 +36,34 @@
             }
             
         }
+
+        public static function changeUser($id, $data) {
+            $db = new DBAccess("users");
+            $result = $db->findById($id);
+            if($result === null) {
+                return ["error" => "User not found"];
+            } else {
+                $newData = array_filter($data, function ($value) {
+                    return $value !== null;
+                });
+                $result = $db->patchData($id, $newData);
+                return $result;
+            }
+        }
+
+        public static function deleteUser($id, $data) {
+            $db = new DBAccess("users");
+            $result = $db->findById($id);
+            if ($result === null) {
+                return ["error" => "User not found"];
+            }
+            if ($result["email"] === $data["email"] && $result["pwd"] === $data["pwd"]) {
+                $deleteResult = $db->deleteData($id);
+                return ["message" => "User succesfully deleted"];
+            }
+            return ["error" => "Invalid email or password"];
+        }
+        
     }
 
 
