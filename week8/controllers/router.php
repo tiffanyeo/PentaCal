@@ -6,11 +6,12 @@ require_once __DIR__ . "/../middleware/Middleware.php";
 // Controllera
 require_once "UserController.php";
 require_once "GroupsController.php";
-require_once "UsersGroupsController.php";
+require_once "UsersCalendarsController.php";
 require_once "UsersAvailabilitiesController.php";
 require_once "EventsRSVPController.php";
 require_once "BackupDBController.php";
 require_once "RestoreDBController.php";
+require_once "friendshipsController.php";
 
 
 function Router($requestUrl = null){   
@@ -66,8 +67,28 @@ function Router($requestUrl = null){
             break;
 
         case "friendships":
-            //Handle friendships
-            break;
+                switch ($method) {
+                    case "GET": 
+                        CorsMiddleware::handle();
+                        FriendshipsController::handle($method, $input);
+                        exit();
+                     
+                    case "POST":
+                        CorsMiddleware::handle();
+                        FriendshipsController::handle($method, $input);
+                        exit();
+
+                    case "DELETE":
+                        $input = $_GET ?? [];
+                        CorsMiddleware::handle();
+                        FriendshipsController::handle($method, $input);
+                        exit();
+                    default:
+                        CorsMiddleware::handle();
+                        http_response_code(400);
+                        echo json_encode(["error" => "No method allowed"]);
+                        exit();
+                }
 
         case "private_msg":
             //Handle private msg
