@@ -6,13 +6,46 @@ class CalendarsMSGService {
     /* ---- GET ---- */
     public static function getAll($input){
         
-        $eventId = $input["eventId"] ?? null;
-        $userId = $input["userId"] ?? null;
+        $senderId = $input["senderID"] ?? null;
+        $calId = $input["calID"] ?? null;
         
-        if (!isset($userId, $eventId)) {
+        if (!isset($senderId, $calId)) {
             throw new Exception("Missing attributes");
         }
         
+        $db = new DBAccess("calendar_msg");
+        $items = $db->getAll();
+                   
+        $filtered = [];
+
+        // Säkerställer vi bara en rad med samma userID och eventId?
+        foreach ($items as $currItem) {
+            if ($currItem["senderID"] == $senderId && 
+                $currItem["calId"] == $calId 
+                ) {
+                $filtered[] = $currItem;
+            }
+        }
+
+        if (!$filtered) {
+            throw new Exception("Messages not found");
+        }
+        
+        return json_decode(json_encode($filtered), true);
+ 
+    }
+    
+    //????
+    public static function getByDate($input){
+        
+        $senderId = $input["senderID"] ?? null;
+        $calId = $input["calID"] ?? null;
+        $date = $input["date"] ?? null;
+        
+        if (!isset($senderId, $calId, $date)) {
+            throw new Exception("Missing attributes");
+        }
+
         $db = new DBAccess("events_rsvp");
         $items = $db->getAll();
                    
@@ -34,6 +67,7 @@ class CalendarsMSGService {
         return json_decode(json_encode($filtered), true);
  
     }
+    
 
     /* --- POST ---- */
     public static function create($input){
