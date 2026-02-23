@@ -1,15 +1,14 @@
-let req = new Request("http://localhost:8000/users?id=65e10aa11a00a", {
+let req = new Request("http://localhost:8000/users?id=65e10aa11a009", {
     headers: {"Content-type": "application/json"},
-    method: "GET",
+    method: "PATCH",
+    body: JSON.stringify({
+        pwd: "hejhejLösen"
+    })
     
 });
 
 fetch(req).then(resp => resp.json()).then(reso => console.log(reso));
 
 /*
-body: JSON.stringify({
-        name: "test",
-        email: "test@gmail.com",
-        pwd: "123"
-    })
+
 */

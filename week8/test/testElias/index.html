@@ -31,6 +31,18 @@
     <h2>/user?id="0aa10a" GET ERROR</h1>
     <h3>Expect: User not exist, 404</h2>
     <h3 id="userT6"></h2>
+
+    <h2>/user?id="65e10aa11a009" PATCH OK</h1>
+    <h3>Expect: Change user, 200</h2>
+    <h3 id="userT7"></h2>
+
+    <h2>/user" PATCH ERROR</h1>
+    <h3>Expect: Missing id, 400</h2>
+    <h3 id="userT8"></h2>
+
+    <h2>/user?id="65e10aa11aasd009" PATCH ERROR</h1>
+    <h3>Expect: User not found, 404</h2>
+    <h3 id="userT9"></h2>
     
     <script src="index.js"></script>
 </body>

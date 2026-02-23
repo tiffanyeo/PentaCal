@@ -48,19 +48,25 @@
                     $pwd =  $reqBody["pwd"] ?? null;
                     $email = $reqBody["email"] ?? null;
 
-                    $data = [
-                        "id" => $input["id"],
-                        "data" => [
-                            "name" => $name,
-                            "pwd" => $pwd,
-                            "email" => $email
-                        ]
+                    $data = [                      
+                        "name" => $name,
+                        "pwd" => $pwd,
+                        "email" => $email                       
                     ];
-                    $result = UserService::changeUser($data);
+                    $result = UserService::changeUser($input["id"], $data);
+                    if(isset($result["error"])) {
+                        http_response_code(404);
+                        echo json_encode($result);
+                        return;
+                    } else {
+                        http_response_code(200);
+                        echo json_encode($result);
+                        return;
+                    }
                     
                 } else {
                     http_response_code(400);
-                    echo json_encode(["error" => "Missing user id"]);
+                    echo json_encode(["error" => "Missing user id parameter"]);
                     return;
                 }
 

@@ -36,6 +36,20 @@
             }
             
         }
+
+        public static function changeUser($id, $data) {
+            $db = new DBAccess("users");
+            $result = $db->findById($id);
+            if($result === null) {
+                return ["error" => "User not found"];
+            } else {
+                $newData = array_filter($data, function ($value) {
+                    return $value !== null;
+                });
+                $result = $db->patchData($id, $newData);
+                return $result;
+            }
+        }
     }
 
 
