@@ -80,8 +80,8 @@ function testCalMsgGet_200()
     ];
 
     $query = [
-        "senderID" => "65e10aa11a001",
-        "calID" => "65e10aa11b001"
+        "senderId" => "65e10aa11a002",
+        "calId" => "65e10aa11b001"
     ];
 
     $actual = runRequest(
@@ -113,7 +113,7 @@ function testCalMsgGet_400()
     ];
 
     $query = [
-        "senderID" => "65e10aa11a001"
+        "senderId" => "65e10aa11a001"
     ];
 
     $actual = runRequest(
@@ -145,8 +145,8 @@ function testCalMsgGet_404()
     ];
 
     $query = [
-        "senderID" => "65e10aa11a999",
-        "calID" => "65e10aa11b999"
+        "senderId" => "65e10aa11a999",
+        "calId" => "65e10aa11b999"
     ];
 
     $actual = runRequest(
@@ -191,8 +191,8 @@ function testCalMsgPost_201()
     ];
 
     $body = [
-        "senderID" => "65e10aa11a001",
-        "calID" => "65e10aa11b001",
+        "senderId" => "65e10aa11a001",
+        "calId" => "65e10aa11b002",
         "content" => "Hello calendar!"
     ];
 
@@ -228,8 +228,8 @@ function testCalMsgPost_400()
     ];
 
     $body = [
-        "senderID" => "65e10aa11a001",
-        "calID" => "65e10aa11b001"
+        "senderId" => "65e10aa11a001",
+        "calId" => "65e10aa11b001"
     ];
 
     $actual = runRequest(
@@ -261,8 +261,8 @@ function testCalMsgPost_404()
     ];
 
     $body = [
-        "senderID" => "65e10aa11a001",
-        "calID" => "000000000000",
+        "senderId" => "65e10aa11a001",
+        "calId" => "000000000000",
         "content" => "Hello?"
     ];
 
@@ -306,7 +306,7 @@ function testCalMsgPatch_200()
     ];
 
     $body = [
-        "id" => "65e10aa15c001",
+        "id" => "65e10aa153002",
         "content" => "Updated message"
     ];
 
@@ -422,7 +422,7 @@ function testCalMsgDelete_200()
     ];
 
     $body = [
-        "id" => "65e10aa15c001"
+        "id" => "65e10aa153003"
     ];
 
     $actual = runRequest(

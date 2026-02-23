@@ -42,7 +42,7 @@ class CalendarsMSGService {
         $calId = $input["calId"] ?? null;
         $content = $input["content"] ?? null;
         
-        if (!isset($eventId, $userId, $content)) {
+        if (!isset($senderId, $calId, $content)) {
             throw new Exception("Missing attributes");
         }
         
@@ -51,11 +51,16 @@ class CalendarsMSGService {
         $dbCals =  new DBAccess("calendars");
         $itemsCals = $dbCals->getAll();
         
+        $foundCalendar = false;
         // Does calendar exist
         foreach ($itemsCals as $currItem) {
-            if ($currItem["userId"] == $calId) {
-                throw new Exception("Invalid calendar");
+            if ($currItem["id"] == $calId) {
+                $foundCalendar = true;
             }
+        }
+        
+        if ($foundCalendar == false) {
+            throw new Exception("Invalid calendar");
         }
     
         // Create new MSG
@@ -127,7 +132,7 @@ class CalendarsMSGService {
         
         foreach($items as $currItem) {
             if (
-                $currItem["eventId"] == $id ) {
+                $currItem["id"] == $id ) {
                     // Returns deleted item
                     return $db->deleteData($id);
                 }
