@@ -1,24 +1,26 @@
 <?php
 
-class calendarsController{
+class CalendarsController{
     public static function calendarHandler($method, $input){
 
         if($method == "GET"){
             try{
+                // OM det inte finns några parameter, hämta alla
                 if(empty($input)){
-                    return calendarsService::getAll();
+                    return calendarsService::calendarsGetAll();
                 } else {
-                    // Hämta en specifik calendar med id
+                    // Hämta en specifik calendar med id parameter
                     if(isset($input["id"])){
-                        return calendarsService::getById($input);
+                        return calendarsService::calendarsGetById($input);
     
                     } else {
                         return ["error" => "Value missing", "code" => 400];
                     }
                 } 
-            } catch(Exception $error){
-
-            }       
+                // Denna tar emot flera catchs beroende på id eller alla
+            } catch(emptyCalendars $error){
+                return ["error" => $error, "code" => 404];
+            } 
         }
 
         if($method == "POST"){
@@ -26,7 +28,7 @@ class calendarsController{
                 if(!isset($input["creatorId"]) || !isset($input["name"]) || !isset($input["type"])){
                     return ["error" => "Attributes missing", "code" => 400];
                 } else {
-                    return calendarPost($input);
+                    return calendarsPost($input);
                 }
             } catch(Exception $error){
                 // Kolla upp vad man kan returnera här och vad $error kommer bli sen
@@ -38,16 +40,28 @@ class calendarsController{
         if($method == "PATCH"){
             try{
                 if(!isset($input["id"])){
-                    
+                    return ["error" => "Id missing", "code" => 400];
+                } else {
+                    return calendarsPatch($input);
                 }
 
             } catch(Exception $error){
-
+                return ["error" => $error, "code" => 400];
             }
 
         }
 
         if($method == "DELETE"){
+            try{
+                if(!isset($input["id"]) && !isset($input["creatorId"])){
+                    return ["error" => "Only creator can delete group", "code" => 400];
+                } else {
+                    return calendarsDelete($input);
+                }
+
+            } catch(Exception $error){
+                return ["error" => $error, "code" => 400];
+            }
 
 
 
