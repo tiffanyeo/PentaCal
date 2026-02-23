@@ -88,13 +88,13 @@ function Router($requestUrl = null){
             switch ($method) {
                 case "GET":
                     CorsMiddleware::handle();
-                    EventAdminsController::handle($method, $input);
+                    // EventAdminsController::handle($method, $input);
                     break;
                 
                 default: 
                     CorsMiddleware::handle();
                     JsonMiddleware::handle();
-                    EventAdminsController::handle($method, $input);
+                    // EventAdminsController::handle($method, $input);
                     break;
             }
             break;
