@@ -1,6 +1,6 @@
 <?php
 
-require_once "services/eventsService.php";
+require_once "services/EventsService.php";
 
 
 
