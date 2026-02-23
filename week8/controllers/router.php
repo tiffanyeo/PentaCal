@@ -18,9 +18,6 @@ require_once "RestoreDBController.php";
 require_once "CalendarsController.php";
 require_once "PinnedCalendarsController.php";
 
-require_once "BackupDBController.php";
-require_once "RestoreDBController.php"
-;
 
 function Router($requestUrl = null){   
     
