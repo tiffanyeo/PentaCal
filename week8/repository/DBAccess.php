@@ -47,6 +47,18 @@ class DBAccess
 
         return null;
     }
+    public function findByEmail($email)
+    {
+        $db = DBIO::readDb($this->resource);
+        $items = $db[$this->resource] ?? [];
+
+        foreach ($items as $item) {
+            if ($item["email"] == $email) {
+                return $item;
+            }
+        }
+        return null;
+    }
 
 
     public function postData($input)

@@ -1,10 +1,15 @@
-let req = new Request("http://localhost:8000/users_groups", {
+let req = new Request("http://localhost:8000/users?id=65e10aa11a00a", {
     headers: {"Content-type": "application/json"},
-    method: "POST",
-    body: JSON.stringify({
-        userID: 5,
-        groupID: 3
-    })
+    method: "GET",
+    
 });
 
 fetch(req).then(resp => resp.json()).then(reso => console.log(reso));
+
+/*
+body: JSON.stringify({
+        name: "test",
+        email: "test@gmail.com",
+        pwd: "123"
+    })
+*/

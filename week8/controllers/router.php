@@ -1,12 +1,10 @@
 <?php
 
 // Middleware
-require_once __DIR__ . "/../middleware/middleware.php";
+require_once __DIR__ . "/../middleware/Middleware.php";
 
 // Controllera
-require_once "BackupDBController.php";
-require_once "RestoreDBController.php";
-require_once "UsersController.php";
+require_once "UserController.php";
 require_once "GroupsController.php";
 require_once "UsersGroupsController.php";
 require_once "UsersAvailabilitiesController.php";
@@ -73,22 +71,36 @@ function Router($requestUrl = null){
             //Handle private msg
             break;
 
-        case "users":
-            
-            switch ($method) {
-               case "GET": 
-                    CorsMiddleware::handle();
-                    UsersController::handle($method, $input);
-                    break;
-                   
-                    
-                default:
-                    CorsMiddleware::handle();
-                    JsonMiddleware::handle();
-                    UsersController::handle(method: $method, input: $input);
-                    break;
-            }
-            break;
+        case "users": //Elias
+                switch ($method) {
+                    case "GET": 
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                     
+                    case "PUT":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                         
+                    case "POST":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                    case "PATCH":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                    case "DELETE":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
+                    default:
+                        CorsMiddleware::handle();
+                        http_response_code(400);
+                        echo json_encode(["error" => "No method allowed"]);
+                        exit();
+                }
 
         case "users_availabilities":
             
