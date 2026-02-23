@@ -33,9 +33,6 @@ function runRequest($method, $endpoint, $data = null)
     $responseBody = curl_exec($curlReq);
     $responseCode = curl_getinfo($curlReq, CURLINFO_HTTP_CODE);
     
-    // Stäng curl
-    curl_close($curlReq);
-
     $response = ["status" => $responseCode, "body" => $responseBody]; 
     return $response;
     
@@ -471,7 +468,8 @@ function runTests()
     $results[] = testGet_404();
     $results[] = testGet_400();
 
-/*     // POST
+/*
+    // POST
     $results[] = testPost_201();
     $results[] = testPost_400();
     $results[] = testPost_404();

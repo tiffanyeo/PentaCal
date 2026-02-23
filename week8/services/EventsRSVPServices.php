@@ -122,24 +122,32 @@ class EventsRSVPService {
 
 
     /* --- DELETE ---- */
-    public static function delete($userId, $date, $calId)
+    public static function delete($input)
     {
 
+        $eventId = $input["eventId"] ?? null;
+        $userId = $input["userId"] ?? null;
+        
+        if (!isset($eventId, $userId)) {
+            return new ErrorException("Missing attributes");
+        }
+        
         $db = new DBAccess("events_rsvp");
         $items = $db->getAll();
         
+
+        
         foreach($items as $currAvailability) {
             if (
-                $currAvailability["userId"] == $userId &&
-                $currAvailability["date"] == $date &&
-                $currAvailability["calId"] == $calId 
+                $currAvailability["eventId"] == $eventId &&
+                $currAvailability["userId"] == $userId
                 ) {
                     // Returns deleted item
                     return $db->deleteData($currAvailability["id"]);
                 }
         }
     
-        throw new Exception("Availability not found");
+        throw new Exception("RSVP not found");
         
     }
 

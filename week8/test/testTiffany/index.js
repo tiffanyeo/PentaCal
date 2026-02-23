@@ -231,10 +231,21 @@ async function runAllTests() {
     
     
     /* -- Resources -- */
+    
+    // Users Availabilities
     await loadTestsForResource(
         "usersAvailabilities",
         "/resources/UsersAvailabilitiesTest.php"
     );
+    
+    // Events RSVP (NÅR EJ/FÅR EJ FEEDBACK ATM, kolla sökvägar + html klasser)
+    await loadTestsForResource(
+        "usersAvailabilities",
+        "/resources/EventsRSVPTest.php"
+    );
+    
+    
+    
 
     // await loadTestsForResource("users", "resources/Users.php");
     // await loadTestsForResource("groups", "resources/Groups.php");
