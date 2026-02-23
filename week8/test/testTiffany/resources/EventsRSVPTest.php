@@ -560,4 +560,4 @@ function runTests()
     ];
 }
 
-echo json_encode(["tests" => runTests()], JSON_PRETTY_PRINT);
+echo json_encode(["tests" => runTests()], flags: JSON_PRETTY_PRINT);

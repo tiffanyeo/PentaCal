@@ -232,6 +232,24 @@ async function runAllTests() {
         "POST", 
         "/backup_database"
     );
+    // Users
+    await loadTestsForResource(
+        "usersAvailabilities",
+        "/resources/UsersAvailabilitiesTest.php"
+    );
+    console.log("Efter U.AVAILS AV runAllTests")
+    /* -- Rollback -- */
+    await runRequest(
+        "POST", 
+        "/restore_database"
+    );
+    
+    
+    /* -- Rollback start -- */
+    await runRequest(
+        "POST", 
+        "/backup_database"
+    );
     // Users Availabilities
     await loadTestsForResource(
         "usersAvailabilities",
