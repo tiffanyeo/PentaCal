@@ -17,13 +17,23 @@
                 $data = [
                     "id" => uniqid(),
                     "email" => $input["email"],
-                    "pwd" => $input["name"],
-                    "name" => $input
+                    "pwd" => $input["pwd"],
+                    "name" => $input["name"]
                 ];
                 $result = $db->postData($data);
                 return $result;
             }
 
+            
+        }
+        public static function getSpecUser($id) {
+            $db = new DBAccess("users");
+            $result = $db->findById($id);
+            if($result === null) {
+                return ["error" => "User not found"];
+            } else {
+                return $result;
+            }
             
         }
     }

@@ -1,7 +1,7 @@
 <?php
 
 // Middleware
-require_once __DIR__ . "/../middleware/middleware.php";
+require_once __DIR__ . "/../middleware/Middleware.php";
 
 // Controllera
 require_once "userController.php";
@@ -78,7 +78,10 @@ function Router($requestUrl){
                         CorsMiddleware::handle();
                         UserController::handle($method, $input);
                         exit();
-
+                    case "PATCH":
+                        CorsMiddleware::handle();
+                        UserController::handle($method, $input);
+                        exit();
                     case "DELETE":
                         CorsMiddleware::handle();
                         UserController::handle($method, $input);
