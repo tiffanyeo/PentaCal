@@ -31,7 +31,7 @@ class CalendarsController{
                 } 
                 // Denna tar emot flera catchs beroende på id eller alla
             } catch(Exception $error){
-                return self::sendResponse(["error" => $error->getMessage()], 400);
+                return self::sendResponse(["error" => $error->getMessage()], 404);
             } 
         }
 

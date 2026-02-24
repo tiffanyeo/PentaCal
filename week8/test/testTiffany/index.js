@@ -319,6 +319,20 @@ async function runAllTests() {
         "/restore_database"
     );
 
+    // Pinned calendars
+    await runRequest(
+        "POST",
+        "/backup_database"
+    );
+    await loadTestsForResource(
+        "pinnedCalendars",
+        "/resources/PinnedCalendarsTest.php"
+    );
+    await runRequest(
+        "POST",
+        "/restore_database"
+    );
+
 
 
 
