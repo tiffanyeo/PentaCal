@@ -234,35 +234,6 @@ async function runAllTests() {
         "/restore_database"
     ) */;
      
-    ///FRiendships
-
-    await runRequest(
-        "POST",
-        "/backup_database"
-    );
-    await loadTestsForResource(
-        "friendships",
-        "/resources/FriendshipsTest.php"
-    );
-    await runRequest(
-        "POST",
-        "/restore_database"
-    );
-
-    // USERS_CALENDARS
-
-    await runRequest(
-        "POST",
-        "/backup_database"
-    );
-    await loadTestsForResource(
-        "users_calendars",
-        "/resources/UsersCalendarsTest.php"
-    );
-    await runRequest(
-        "POST",
-        "/restore_database"
-    );
 
     // Private MSG
   
@@ -405,7 +376,35 @@ async function runAllTests() {
          "/restore_database"
     );
     
-    
+    /// Friendships
+
+    await runRequest(
+        "POST",
+        "/backup_database"
+    );
+    await loadTestsForResource(
+        "friendships",
+        "/resources/FriendshipsTest.php"
+    );
+    await runRequest(
+        "POST",
+        "/restore_database"
+    );
+
+    // USERS_CALENDARS
+
+    await runRequest(
+        "POST",
+        "/backup_database"
+    );
+    await loadTestsForResource(
+        "users_calendars",
+        "/resources/UsersCalendarsTest.php"
+    );
+    await runRequest(
+        "POST",
+        "/restore_database"
+    );    
 
 }
 
