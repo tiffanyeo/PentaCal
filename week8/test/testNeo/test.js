@@ -198,8 +198,10 @@ const runTests = async function() {
 
 //runTests();
 
-// fetch("http://localhost:8000/events", {
-//     method: "DELETE",
-//     body: JSON.stringify({eventId: "699c6d0e23afe", calId: "65e10aa11b001"}),
-//     headers: {"Content-Type": "application/json"}
-// }).then(resp => resp.json()).then(reso => console.log(reso));
+fetch("http://localhost:8000/event_admins?eventId=65e10aa11c002", {
+    method: "GET"
+}).then(resp => resp.json()).then(reso => console.log(reso));
+
+fetch("http://localhost:8000/event_admins?userId=65e10aa11a002", {
+    method: "GET"
+}).then(resp => resp.json()).then(reso => console.log(reso));
