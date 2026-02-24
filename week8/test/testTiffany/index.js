@@ -219,9 +219,9 @@ async function runAllTests() {
 
     /* -- Resources -- */
     
-    
-    // Events Admins 
-/*     await runRequest(
+/*     
+    // Events Admins  (EJ KLAR)
+    await runRequest(
         "POST", 
         "/backup_database"
     );
@@ -232,10 +232,10 @@ async function runAllTests() {
     await runRequest(
         "POST",
         "/restore_database"
-    ) */; 
+    )
+     */
     
-    
-/*     // Private MSG
+    // Private MSG
     await runRequest(
         "POST",
         "/backup_database"
@@ -248,7 +248,7 @@ async function runAllTests() {
         "POST",
         "/restore_database"
     );
- */
+
 
     // Users
     await runRequest(
@@ -264,7 +264,7 @@ async function runAllTests() {
         "/restore_database"
     );
 
-/* 
+
     // Users Availabilities
     await runRequest(
         "POST",
@@ -336,7 +336,7 @@ async function runAllTests() {
         "POST",
         "/restore_database"
     );
- */
+
     // Events
     await runRequest(
         "POST", 

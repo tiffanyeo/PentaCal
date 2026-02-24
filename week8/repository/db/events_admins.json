@@ -176,6 +176,22 @@
             "canDelete": true,
             "canEdit": false,
             "isCreator": false
+        },
+        {
+            "id": "699da19a5ee45",
+            "userId": "65e10aa11a005",
+            "eventId": "65e10aa11c006",
+            "canDelete": true,
+            "canEdit": false,
+            "isCreator": false
+        },
+        {
+            "id": "699da19a5f518",
+            "userId": "65e10aa11a005",
+            "eventId": "65e10aa11c001",
+            "canDelete": true,
+            "canEdit": false,
+            "isCreator": false
         }
     ]
 }
