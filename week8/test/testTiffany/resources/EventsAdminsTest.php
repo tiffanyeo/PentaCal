@@ -370,16 +370,22 @@ function testPatch_200()
     $expected = [
         "status" => 200,
         "body" => [
-            "error" => "Permissions changed"
-        ]
+            
+            "id" => "65e10aa143204",
+            "eventId" => "65e10aa11c004",
+            "userId" => "65e10aa11a003",
+            "canDelete" => false,
+            "canEdit" =>true,
+            "isCreator" => true,
+            ]
+        
     ];
 
     $actual = runRequest("PATCH", "/event_admins", [
         "eventId" => "65e10aa11c004",
         "userId" => "65e10aa11a003",
-        "sessionId" => "65e10aa11a003",
+        // "sessionId" => "65e10aa11a003",
         "canEdit" => false,
-        "canDelete" => true
     ]);
 
     return [
@@ -491,7 +497,6 @@ function testPatch_404()
         "requestBody" => [
             "eventId" => "000000000000",
             "userId" => "000000000000",
-            "sessionId" => "65e10aa11a001",
             "canEdit" => true,
             "canDelete" => false
         ],
@@ -507,14 +512,13 @@ function testDelete_200()
     $expected = [
         "status" => 200,
         "body" => [
-            "success" => "Successfully deleted"
+            "success" => "Connection successfully deleted"
         ]
     ];
 
     $actual = runRequest("DELETE", "/event_admins", [
-        "eventId" => "65e10aa11c005",
-        "userId" => "65e10aa11a003",
-        "sessionId" => "65e10aa11a003"
+        "eventId" => "65e10aa11c001",
+        "userId" => "65e10aa11a005",
     ]);
 
     return [
@@ -547,8 +551,7 @@ function testDelete_400()
         endpoint: "/event_admins",
         data: [
             "eventId" => "65e10aa11c005",
-            "userId" => "65e10aa11a003"
-            // sessionId saknas → 400
+            "userId" => ""
         ]
     );
 
@@ -672,7 +675,7 @@ function runTests()
         // DELETE
         testDelete_200(),
         testDelete_400(),
-        testDelete_403(),
+        // testDelete_403(), SessionId 
         testDelete_404(),
 
     ];

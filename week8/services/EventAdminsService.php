@@ -97,7 +97,7 @@ class EventAdminsService {
 
         $patchAttributes = [
             "canDelete" => $canDelete,
-            "canEdir" => $canEdit,
+            "canEdit" => $canEdit,
             "isCreator" => $isCreator
         ];
         $patchBody = [];
