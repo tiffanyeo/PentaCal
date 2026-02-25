@@ -59,7 +59,7 @@ function runRequest($method, $endpoint, $data = null)
 
 /* ---------------- USERS_CALENDARS ---------------- */
 
-function testGet_200()
+function testGetAll_200()
 {
     $expected = [
         "status" => 200,
@@ -76,7 +76,7 @@ function testGet_200()
     );
 
     $result = [
-        "name" => "GET 200",
+        "name" => "GET 200 All",
         "method" => "GET",
         "endpoint" => "/users_calendars",
         "queryParams" => null,
@@ -88,6 +88,113 @@ function testGet_200()
 
     return $result;
 };
+
+function testGetUserId_200()
+{
+    $expected = [
+        "status" => 200,
+        "body" => [[
+            "id" => "ID", 
+            "userId" => "ID", 
+            "calId" => "ID", 
+            "isAdmin" => "bool"
+        ]]
+    ];
+
+    $query=[
+        "userId" => "65e10aa11a001"
+    ];
+
+    $actual = runRequest(
+        method: "GET",
+        endpoint: "/users_calendars",
+        data: $query
+    );
+
+    $result = [
+        "name" => "GET 200 - userId",
+        "method" => "GET",
+        "endpoint" => "/users_calendars",
+        "queryParams" => $query,
+        "requestBody" => null,
+        "expected" => $expected,
+        "actual" => $actual,
+        "info" => "Returns all connections between one user and calendars."
+    ];
+
+    return $result;
+};
+
+function testGetUserId_400()
+{
+    $expected = [
+        "status" => 400,
+        "body" => [
+            "error" => "User not found."
+        ]
+    ];
+
+    $query=[
+        "userId" => "65e10a001"
+    ];
+
+    $actual = runRequest(
+        method: "GET",
+        endpoint: "/users_calendars",
+        data: $query
+    );
+
+    $result = [
+        "name" => "GET 400 - userId",
+        "method" => "GET",
+        "endpoint" => "/users_calendars",
+        "queryParams" => $query,
+        "requestBody" => null,
+        "expected" => $expected,
+        "actual" => $actual,
+        "info" => "User not found."
+    ];
+
+    return $result;
+};
+
+function testGetCalId_200()
+{
+    $expected = [
+        "status" => 200,
+        "body" => [[
+            "id" => "ID", 
+            "userId" => "ID", 
+            "calId" => "ID", 
+            "isAdmin" => "bool"
+        ]]
+    ];
+
+    $query=[
+        "calId" => "65e10aa11b003"
+    ];
+
+    $actual = runRequest(
+        method: "GET",
+        endpoint: "/users_calendars",
+        data: $query
+    );
+
+    $result = [
+        "name" => "GET 200 - calId",
+        "method" => "GET",
+        "endpoint" => "/users_calendars",
+        "queryParams" => $query,
+        "requestBody" => null,
+        "expected" => $expected,
+        "actual" => $actual,
+        "info" => "Returns all connections between one calendar and users."
+    ];
+
+    return $result;
+};
+
+
 
 function testPost_201()
 {
@@ -341,7 +448,10 @@ function runTests()
     $tests = [];
 
     // GET
-    $tests[] = testGet_200();
+    $tests[] = testGetAll_200();
+    $tests[] = testGetUserId_200();
+    $tests[] = testGetCalId_200();
+    $tests[] = testGetUserId_400();
 
     // POST
     $tests[] = testPost_201();

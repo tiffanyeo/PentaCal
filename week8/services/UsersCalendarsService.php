@@ -51,9 +51,25 @@ class UsersCalendarsService {
         $relations = $db->getAll();
 
         return array_values(
-            array_filter($relations, fn($x) => $x["userID"] == $userId)
+            array_filter($relations, fn($x) => $x["userId"] == $userId)
         );
     }
+
+    public static function getAllEventsByCalId($calId){
+        // Validate user exists
+        $dbCals = new DBAccess("calendars");
+        if (!$dbUsers->findById($calId)) {
+            throw new Exception("Calendar not found.");
+        }
+
+        $db = new DBAccess("events");
+        $events = $db->getAll();
+
+        return array_values(
+            array_filter($events, fn($x) => $x["calId"] == $calId)
+        );
+    }
+    
 
 
  
@@ -163,7 +179,7 @@ class UsersCalendarsService {
 
 
 
-    //  Requires: id (relation id), adminId
+    //  Requires: id (relation id), adminId? Denna inte klar.
     public static function makeUserCalAdmin($input)
     {
         if (!isset($input["id"]))      throw new Exception("Relation ID missing.");

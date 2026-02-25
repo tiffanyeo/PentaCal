@@ -17,7 +17,7 @@ class UsersCalendarsController {
                 } elseif ($userId) {
                     $result = UsersCalendarsService::getAllRelationsByUser($userId);
                 } elseif ($calId) {
-                    $result = UsersCalendarsService::getAllRelationsByCalendar($calId);
+                    $result = UsersCalendarsService::getAllRelationsByCalId($calId);
                 } else {
                     $result = UsersCalendarsService::getAll();
                 }
