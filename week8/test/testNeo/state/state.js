@@ -15,11 +15,22 @@ class Calendar extends HTMLElement {
         <h2>${this.data.name}</h2>
         <p>${this.data.type} calendar</p>
         <p>Events:</p>
+        <div class="events"></div>
         `;
         this.style.backgroundColor = "yellow";
         this.style.padding = "10px";
         this.style.borderRadius = "10px";
         this.style.display = "block";
+        for (let event of this.events) {
+            let div = document.createElement("div");
+            div.classList.add("event");
+            div.innerHTML = `
+            <h4>${event.name}</h4>
+            <p>Description: ${event.description}</p>
+            <p>Location: ${event.location}</p>
+            `;
+            document.querySelector(".events").appendChild(div);
+        }
     }
 }
 
@@ -83,8 +94,8 @@ logIn.addEventListener("click", async () => {
         div.data = cal;
         let resp = await fetch(`http://localhost:8000/events?calId=${cal.id}`);
         let reso = await resp.json();
-        console.log(reso);
-        //document.querySelector("#cals").appendChild(div);
+        div.events = reso;
+        document.querySelector("#cals").appendChild(div);
     }
 });
 
