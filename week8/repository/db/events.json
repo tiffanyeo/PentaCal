@@ -3,6 +3,7 @@
         {
             "id": "65e10aa11c001",
             "date": "2026-03-01",
+            "time": "18:00",
             "type": "lecture",
             "name": "Sprint Review",
             "description": "Genomg\u00e5ng",
@@ -15,6 +16,7 @@
         {
             "id": "65e10aa11c002",
             "date": "2026-03-05",
+            "time": "18:00",
             "type": "deadline",
             "name": "Inl\u00e4mning 1",
             "description": "Deadline för inlämning 1",
@@ -27,6 +29,7 @@
         {
             "id": "65e10aa11c003",
             "date": "2026-03-10",
+            "time": "18:00",
             "type": "aw",
             "name": "After Work",
             "description": "Team AW",
@@ -39,6 +42,7 @@
         {
             "id": "65e10aa11c004",
             "date": "2026-03-12",
+            "time": "18:00",
             "type": "lecture",
             "name": "F\u00f6rel\u00e4sning 2",
             "description": "Föreläsning 2: For-loops",
@@ -51,6 +55,7 @@
         {
             "id": "65e10aa11c005",
             "date": "2026-03-15",
+            "time": "18:00",
             "type": "gym",
             "name": "Leg Day",
             "description": "No description",
@@ -63,6 +68,7 @@
         {
             "id": "65e10aa11c006",
             "date": "2026-03-18",
+            "time": "18:00",
             "type": "meeting",
             "name": "Planeringsm\u00f6te",
             "description": "Planering",
@@ -75,6 +81,7 @@
         {
             "id": "65e10aa11c007",
             "date": "2026-03-20",
+            "time": "18:00",
             "type": "deadline",
             "name": "Projektdeadline",
             "description": "Deadline för projekt",
@@ -87,6 +94,7 @@
         {
             "id": "65e10aa11c008",
             "date": "2026-03-22",
+            "time": "18:00",
             "type": "lecture",
             "name": "Seminarium",
             "description": "Sem",
@@ -99,6 +107,7 @@
         {
             "id": "65e10aa11c009",
             "date": "2026-03-25",
+            "time": "18:00",
             "type": "aw",
             "name": "AW 2",
             "description": "AW igen",
@@ -111,6 +120,7 @@
         {
             "id": "65e10aa11c00a",
             "date": "2026-03-28",
+            "time": "18:00",
             "type": "gym",
             "name": "Cardio",
             "description": "No description",
@@ -123,6 +133,7 @@
         {
             "id": "699c6d0e23afe",
             "date": "2026-03-01",
+            "time": "18:00",
             "type": "test",
             "name": "test",
             "description": "test",
