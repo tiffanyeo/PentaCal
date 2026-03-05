@@ -1,4 +1,4 @@
-import displayHome from "../views/home/home.js";
+import displayHome from "../views/home/homeView.js";
 const routes = { // Navbaren
     "/home": () => {
       displayHome();
