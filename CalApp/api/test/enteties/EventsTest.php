@@ -173,6 +173,8 @@ function testPost_201() {
             "id" => "ID",
             "type" => "type",
             "name" => "name",
+            "date" => "date",
+            "time" => "time",
             "description" => "description",
             "location" => "location",
             "needsConfirmation" => false,
@@ -188,6 +190,8 @@ function testPost_201() {
         data: [
             "type" => "Test",
             "name" => "Test event",
+            "date" => "2026-03-10",
+            "time" => "12:00",
             "description" => "Bleh bleh bleh",
             "location" => "Saudi",
             "needsConfirmation" => true,
