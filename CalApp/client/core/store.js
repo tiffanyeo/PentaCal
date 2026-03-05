@@ -19,6 +19,6 @@ class Store {
         Store.listeners[eventName].push(listener);
     }
     notify() {
-        this.listeners.forEach(listener => listener());
+        Store.listeners.forEach(listener => listener(this.state));
     }
 }
