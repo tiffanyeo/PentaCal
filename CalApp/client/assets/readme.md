@@ -1,0 +1,1 @@
+Endast statiska filer
