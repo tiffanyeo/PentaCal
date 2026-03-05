@@ -10,6 +10,9 @@ class Store {
         return structuredClone(this.state);
     }
     setState(newState) {
+        if (typeof newState !== "object" || Array.isArray(newState)) {
+            return false;
+        }
         this.lastState = this.state;
         this.state = newState;
     }
