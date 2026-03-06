@@ -4,10 +4,31 @@ export class AppInput extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        
+        // SE ÖVER **, följ Eriks förslag ist
+        this.shadowRoot.innerHTML = `
+            <style>
+                @import "./appInput.css";
+            </style>
+            
+            <label class="label"></label>
+            <input class="input" />
+        `
     }
     
     connectedCallback() {
-        // Initial attribuyte
+
+        this.shadowRoot.querySelector(".label").textContent = this.getAttribute("label") || "";
+            
+        const inputField = this.shadowRoot.querySelector(".input");
+        inputField.placeholder = this.getAttribute("placeholder") || "";
+        inputField.value = this.getAttribute("value") || "";
+        
+        // Om view själv vill styra width
+        const widthAttribute = this.getAttribute("width");
+        if (widthAttribute) {
+            this.style.width = widthAttribute;
+        }
     }
     
     getValue() {
