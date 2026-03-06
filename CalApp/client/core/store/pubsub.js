@@ -10,6 +10,7 @@ export class Pubsub {
 
         this.events[event].push(callBack);
 
+        // Unsubscribe
         return () => {
             this.events[event] = this.events[event].filter(eventCallback => eventCallback != callBack);
         }
