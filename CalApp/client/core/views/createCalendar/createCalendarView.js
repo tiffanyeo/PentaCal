@@ -58,7 +58,7 @@ export class CreateCalendarView {
             
             // Mockdata
             const payload = {
-                creatorId: "65e10aa11a002",
+                creatorId: "65e10aa11a062",
                 name: "Studiegrupp",
                 type: "private"
             }
