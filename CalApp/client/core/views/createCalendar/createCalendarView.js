@@ -15,6 +15,11 @@ export class CreateCalendarView {
         this.root.innerHTML = `
             <h2>Create new calendar</h2>
 
+            <toggle-btn
+                
+            ></toggle-btn>
+
+                    
             <app-input
                 label="Calendar name"
                 placeholder="Enter name"
@@ -42,7 +47,7 @@ export class CreateCalendarView {
 
         /* 
             {
-                "id": "65e10aa11b002",
+              "id": "65e10aa11b002",
                 "creatorId": "65e10aa11a002",
                 "name": "Studiegrupp",
                 "type": "private"
@@ -92,9 +97,6 @@ export class CreateCalendarView {
 
 
 
-
-
-
 /* 
 
     Varje view bestämmer vilka events som är relevanta för viewns komponenter. Komponenterna kopplas ej till store själva. 
@@ -114,4 +116,37 @@ export class CreateCalendarView {
         this.groups = groups;
         this.render;
     }
+*/
+
+/* 
+
+
+
+ render() {
+        
+        this.root.innerHTML = `
+            <h2>Create new calendar</h2>
+
+            <app-input
+                label="Calendar name"
+                placeholder="Enter name"
+                width="100%"
+                id="calName"
+            ></app-input>
+
+            <app-input
+                label="Description"
+                placeholder="Enter description"
+                width="100%"
+                id="calDesc"
+            ></app-input>
+
+            <button id="createBtn">Create</button>
+        `;
+        
+        // DOM mst skapas först
+        this.addListeners();
+    }
+
+
 */
