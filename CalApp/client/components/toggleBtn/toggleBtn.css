@@ -10,24 +10,26 @@
     width: 100%;
 }
 
-.text-container {
-    background-color: aquamarine;
-}
 
 .button-container {
-    background-color: darkorange;
     display: flex;
     justify-content: center;
     align-content: center;
 }
 
 .info-text {
-    background-color: chartreuse;
+    color: rgb(71, 70, 70);
+    margin: 0;
+    font-size: small;
 }
 
 .header-text {
-    margin-bottom: 0;
+    color: rgb(57, 57, 57);
+    margin-top: 3px;
+    margin-bottom: 5px;
 }
+
+
 .component-text {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
