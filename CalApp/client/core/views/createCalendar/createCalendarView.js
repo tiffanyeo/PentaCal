@@ -13,6 +13,7 @@ export class CreateCalendarView {
     render() {
         
         this.root.innerHTML = `
+            <link rel="stylesheet" href="/CalApp/client/core/views/createCalendar/createCalendarView.css">
             <h2>Create new calendar</h2>
 
             <app-input
@@ -26,14 +27,15 @@ export class CreateCalendarView {
                 label="Description"
                 placeholder="Enter description of the group"
                 width="100%"
+                height="100px"
                 id="calDesc"
             ></app-input>
             
             <toggle-btn
                 inactive-header-text="Make calendar public"
-                inactive-info-text="Calendar will be visible for all users"
-                active-header-text="Calendar is now set to public"
-                active-info-text="Toggle for private calendar"
+                inactive-info-text="If privare only members will be able to see calendar"
+                active-header-text="Make calendar public"
+                active-info-text="Calendar is now set to public and will be available to all users"
             ></toggle-btn>
 
         
