@@ -4,10 +4,14 @@ class EventCard extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.render();
+
+        store.subscribe("request:sent:events:get", function (event) {
+            this.render(event)
+        })
+
     }
 
-    html() {
-        const event = state.userData.events
+    html(event) {
         const date = new Date(event.date);
         const days = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
 
@@ -48,9 +52,9 @@ class EventCard extends HTMLElement {
         `;
     }
 
-    render() {
+    render(event) {
         this.shadowRoot.innerHTML = `
-            ${this.html()}
+            ${this.html(event)}
             ${this.style()}
         `
     }
