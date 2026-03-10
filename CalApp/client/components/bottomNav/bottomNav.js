@@ -64,11 +64,12 @@ export class BottomNav extends HTMLElement {
                     // Sätt page till vad man trycker på
                     Store.setState({
                         data: {
+                            ...Store.getState().data,
                             activePage: page
                         }
                     });
                     
-                    // se över
+                    // se över i events 
                     Store.notify(EVENTS.STORE.UPDATED)
                     
                 })
