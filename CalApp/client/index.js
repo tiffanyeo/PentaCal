@@ -9,7 +9,6 @@ import "./components/toggleBtn/toggleBtn.js";
 // services
 import { initCalendarService } from "./core/services/calendarsService.js";
 import { initNotificationsService } from "./core/services/notificationsService.js";
-
 // Kör routern
 UrlRouter();
 

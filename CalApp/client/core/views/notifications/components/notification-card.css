@@ -18,7 +18,9 @@ h2 {
     font-family: 'Courier New', Courier, monospace;
 }
 
-notification-card {
+:host {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

@@ -14,8 +14,9 @@ export function initNotificationsService() {
 
             // PubSub.publish(EVENTS.RESPONSE.RECEIVED.EVENTS.GET);
             // PubSub.publish(EVENTS.RESOURCE.RECEIVED.EVENTS.GET);
-
+            
             if (!store.getState().data.notis) {
+                console.log("test");
                 store.setState({
                     data: {
                         ...store.getState().data,
@@ -45,4 +46,7 @@ export function initNotificationsService() {
             console.log(e.stack, e.message);
         }
     })
+
+    console.log(store.getState());
+    PubSub.publish(EVENTS.REQUEST.SENT.EVENTS.GET);
 }
