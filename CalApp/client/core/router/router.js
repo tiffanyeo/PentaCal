@@ -3,11 +3,13 @@
 import { CreateCalendarView } from "../views/createCalendar/createCalendarView.js";
 import { CreateNotificationsView } from "../views/notifications/notifications.js";
 import { createGroupLandingView } from "../views/groupLanding/groupLanding.js";
+import HomeView from "../views/home/homeView.js";
 
 
 const routes = {
     "/": () => {
-        displayHome();
+        const app = document.querySelector("#app");
+        app.replaceChildren(new HomeView());
     },
     "groupsView": () => {
         groupsView();
