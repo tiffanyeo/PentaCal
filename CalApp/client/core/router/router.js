@@ -21,7 +21,7 @@
 
 import { CreateNotificationsView } from "../views/notifications/notifications.js";
 import { createGroupLandingView } from "../views/groupLanding/groupLanding.js";
-
+import { myGroupView } from "../views/myGroupView/myGroupView.js";
 
 
 
@@ -34,7 +34,7 @@ const routes = {
     },
     "groupsView": () => {
         console.log("/groupsView page");
-        groupsView();
+        myGroupView();
     },
     "createNewCalendar": () => {
         const view = new CreateCalendarView(document.querySelector("#app"));
