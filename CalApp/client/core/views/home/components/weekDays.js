@@ -62,6 +62,7 @@ export class WeekDays extends HTMLElement{
             padding: 0 4px;
             border-radius: 4px;
             background-color: #9ccea9;
+            border: 1px solid #84b291;
         }
         `;
 
