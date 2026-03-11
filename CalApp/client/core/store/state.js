@@ -7,9 +7,15 @@ export const state = {
         email: "Elias@mau.se"
     },
 
+<<<<<<< Updated upstream
     // pages: {
     //     currentPage: "",
     // },
+=======
+    pages: {
+         currentPage: "my-calendar",
+    },
+>>>>>>> Stashed changes
 
     userData: {
         cals: [{
