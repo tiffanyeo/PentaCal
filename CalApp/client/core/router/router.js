@@ -30,9 +30,10 @@ const routes = {
     "/CalApp/index.html": () => {
         console.log("/CalApp/index.html page");
     },
-    "/": () => {
-        const view = new HomeView(document.querySelector("#app"));
-        view.render();
+    "": () => {
+        const app = document.querySelector("#app")
+        const view = new HomeView();
+        app.replaceChildren(view);
     },
     "groupsView": () => {
         console.log("/groupsView page");
