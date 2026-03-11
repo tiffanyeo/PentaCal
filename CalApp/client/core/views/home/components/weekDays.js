@@ -1,14 +1,15 @@
-class WeekDays extends HTMLElement{
+export class WeekDays extends HTMLElement{
     constructor(){
         super();
+        this.attachShadow({mode: "open"});
     };
     connectedCallback(){
         this.render();
     };
     getCurrWeek(){
         let today = new Date();
-
         const monday = new Date(today);
+        const day = monday.getDay();
         const diff = monday.getDate() - day + (day === 0 ? -6 : 1);
         monday.setDate(diff + 0 * 7);
 
@@ -30,7 +31,11 @@ class WeekDays extends HTMLElement{
 
     style(){
         return `
-        #week {
+        :host{
+            display: inline-block;
+
+        }
+        #week{
             box-sizing: border-box;
             margin: 0;
             height: 72px;
@@ -38,7 +43,7 @@ class WeekDays extends HTMLElement{
             display: flex;
             justify-content: space-around;
             align-items: center;
-        }
+}
         .day-cell{
             margin:0;
             font-size: 12px;
@@ -51,31 +56,18 @@ class WeekDays extends HTMLElement{
         .day-cell p{
             margin: 0;
         }
-        .today{
-            background-color = "blue";
-        }
         `;
 
     }
 
     render(){
-        let weekCal = document.createElement("div");
-        weekCal.id = "week";
-        let weekdays = getDays();
+        let html = ``;
+        let weekdays = this.getCurrWeek();
         for (let day of weekdays){
-            let div = document.createElement("div");
-            div.classList.add("day-cell");
-            if (day.isToday) {
-                div.classList.add("today");
-            }
-            div.innerHTML = `
-            <p>${day.label}</p>
-            <p>${day.date}</p>
-            `;
-            weekCal.appendChild(day);
+            html += `<div class="day-cell"><p>${day.label}</p><p>${day.date}</p></div>`;
         }
-        return weekCal;
+        this.shadowRoot.innerHTML = `<style>${this.style()}</style><div id="week">${html}</div>`;
     };
 }
 
-customElements.define("week-days");
+customElements.define("week-chart", WeekDays);

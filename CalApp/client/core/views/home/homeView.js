@@ -2,6 +2,7 @@ import { store } from "../../store/store.js";
 import { PubSub } from "../../store/pubsub.js";
 import { EVENTS } from "../../store/events.js";
 import {LandingButton} from "./components/button.js";
+import { MyCalLandingView } from "./components/myCalLandingView.js";
 
 export class HomeView extends HTMLElement{
     constructor(){

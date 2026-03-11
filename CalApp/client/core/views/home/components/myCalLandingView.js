@@ -1,4 +1,6 @@
-class MyCalLandingView extends HTMLElement {
+import { WeekDays } from "./weekDays.js";
+
+export class MyCalLandingView extends HTMLElement {
 
     constructor() {
         super();
@@ -7,12 +9,17 @@ class MyCalLandingView extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = `
-            <week-days></week-days>
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host{
+                    display: block;
+                }
+            </style>
+            <week-chart></week-chart>
             <h5>Upcoming Events</h5>
             <event-cards></event-cards>
         `;
     }
 }
 
-customElements.define("my-calendar");
+customElements.define("my-calendar", MyCalLandingView);
