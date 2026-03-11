@@ -21,6 +21,7 @@
 
 import { CreateNotificationsView } from "../views/notifications/notifications.js";
 import { createGroupLandingView } from "../views/groupLanding/groupLanding.js";
+import { HomeView } from "../views/home/homeView.js";
 
 
 
@@ -29,8 +30,9 @@ const routes = {
     "/CalApp/index.html": () => {
         console.log("/CalApp/index.html page");
     },
-    "": () => {
-        console.log("/ page");
+    "/": () => {
+        const view = new HomeView(document.querySelector("#app"));
+        view.render();
     },
     "groupsView": () => {
         console.log("/groupsView page");

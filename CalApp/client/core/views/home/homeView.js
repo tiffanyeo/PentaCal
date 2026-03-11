@@ -1,3 +1,7 @@
+import { store } from "../../store/store.js";
+import { PubSub } from "../../store/pubsub.js";
+import { EVENT } from "../../store/events.js";
+
 export class HomeView extends HTMLElement{
     constructor(){
         super();
