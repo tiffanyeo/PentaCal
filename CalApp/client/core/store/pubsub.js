@@ -18,6 +18,7 @@ export class Pubsub {
     }
 
     publish(event, data = null) {
+        console.log("Pubsub.publish")
         if (!this.events[event]) {
             return;
         }

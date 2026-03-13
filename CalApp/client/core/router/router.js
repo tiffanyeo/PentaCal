@@ -1,11 +1,12 @@
 import { store } from "../store/store.js";
 import { pubSub } from "../store/pubsub.js";
+import { renderApp } from "../views/renderApp.js"
 
 // Andra förslag på lösning av router? 
 
 function resolveRoute(path) {
     const cleanPath = path.split("?")[0];
-
+    const pathSplit = path.split("/");
     let view; 
     // Dynamisk route: /events/event/3 -> kom på bättre lösning
     if (cleanPath.startsWith("/events/event/")) {
@@ -17,13 +18,12 @@ function resolveRoute(path) {
         store.notify("pageChanged");
         return;
     }
-    
+    console.log("resolve2")
     // Gör lösning ovan så detta fungerar
-    view = path[1];
-    pubSub.publish("pageChanged");
-//    store.setState({ currentPage: view });
-
-
+    
+    view = pathSplit[2];
+    console.log(view);
+    renderApp(view);
 }
 
 export const Router = {
@@ -36,9 +36,11 @@ export const Router = {
     init() {
         resolveRoute(window.location.pathname);
         console.log(window.location.pathname);
+        
 
         window.addEventListener("popstate", () => {
             resolveRoute(window.location.pathname);
+            console.log("eventListener")
         });
     }
 };
