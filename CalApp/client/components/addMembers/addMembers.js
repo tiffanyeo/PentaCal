@@ -39,14 +39,15 @@ export class AddMembers extends HTMLElement {
         
         // When user clicks "+", open a search modal? -> *** TODO ***
         this.addMemberBtn.addEventListener("click", () => {
-            PubSub.publish("Members::OpenSearchModal"); // Eller liknade
+            PubSub.publish("Users::OpenSearchModal"); // Eller liknade
         });
         
         // Global listeneer and toggle member
         // Måste unsubscribas senare (disconnectedCallback)
-        this.unsubscribe = PubSub.subscribe("Members::UserSelected", selectedUser => {
+        this.unsubscribe = PubSub.subscribe("Users::UserSelected", selectedUser => {
             this.toggleMembership(selectedUser);
         });
+
     }
     
     // Remove the global listener when the component no longer is in use/DOM
