@@ -8,7 +8,6 @@ import { BottomNav } from "../../components/bottomNav/bottomNav.js";
 export function renderApp(view) {
     switch (view) {
         case "home":
-            if(window.location.pathname === "home/my-groups");
             renderHome();
             break;
         

@@ -24,7 +24,6 @@ function resolveRoute(path) {
     if (!view){
         view = "home";
     }
-    console.log(view);
     renderApp(view);
     
 }
