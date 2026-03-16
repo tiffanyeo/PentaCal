@@ -13,12 +13,16 @@
 
 .button-container {
     border-top: 1px solid gray;
-    width: 100%;
+    position: fixed;
+    bottom: 0;
+    width: 390px;
     display: flex;
     justify-content: space-around;
     padding-top: 12px;
     padding-bottom: 12px;
     box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    
 }
 
 .nav-btn {

@@ -28,6 +28,14 @@ export class HomeView extends HTMLElement{
     render(){
 
         this.app.innerHTML = `
+        <style>
+            landing-button-container{
+                margin: 16px;
+            }
+            my-calendar{
+                margin: 16px 16px 60px;
+            }
+        </style>
         <landing-button-container>
             <landing-button label="My Calendar" view="home" active></landing-button>
             <landing-button label="My Groups" view="event"></landing-button>
