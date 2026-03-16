@@ -113,7 +113,7 @@ export class SearchUsersModal extends HTMLElement {
             // Klick på user > publicera event 
             row.addEventListener("click", () => {
                 PubSub.publish("Users::UserSelected", {
-                    currUser,
+                    user: currUser,
                     context: this.currContext // From comp. using search module
                 });
                 this.closeModal();
