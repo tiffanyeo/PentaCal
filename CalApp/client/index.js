@@ -12,13 +12,8 @@ import "./components/toggleBtn/toggleBtn.js";
 import "../services/calendarService.js";
 import "./core/services/calendarService.js";
 
-console.log("index loaded")
 
-Router.init();
-
-
-
-// TEST
+// ROUTER
 
 import "./core/views/groupLanding/groupLanding.js";
 
