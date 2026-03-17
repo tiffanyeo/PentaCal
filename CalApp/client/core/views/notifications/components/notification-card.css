@@ -47,4 +47,5 @@ h2 img:hover {
     display: flex;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 10px 0px 10px 0px;
 }

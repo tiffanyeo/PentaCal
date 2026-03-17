@@ -1,7 +1,7 @@
 
 import { PubSub } from "../../store/pubsub.js";
-import { store } from "../../store/store.js";
 import { EVENTS } from "../../store/events.js";
+import { store } from "../../store/store.js";
 // import { CalendarService } from "../../services/calendarsService.js";
 
 export class CreateCalendarView {
@@ -32,7 +32,7 @@ export class CreateCalendarView {
             <h2>Create new calendar</h2>
 
             <app-input
-                label="Calendar name"
+                label="CalendarName"
                 placeholder="Enter name"
                 width="100%"
                 id="calName"
@@ -75,11 +75,11 @@ export class CreateCalendarView {
 
     addListeners() {
 
-        // + Lägg till ev "view specifika" eventListeners på globala komponenter 
-
         const createBtn = this.app.querySelector("#createBtn");
 
+        // Create calendar 
         createBtn.addEventListener("click", () => {
+
             const state = store.getState();
             console.log("HEJSANSTATE" + state);
 
@@ -96,10 +96,16 @@ export class CreateCalendarView {
             const creatorId = state.isLoggedIn.id;
             const toggleStatus = document.querySelector("toggle-btn").getValue()
             let groupType;
+            const groupNameInput = document.querySelector('app-input[label="CalendarName"]');
+
+            // Calendar
+            const currGroupName = groupNameInput.getValue() || "Group";
+            const currCreatorId = state.isLoggedIn.id;
+            let currGroupType;
             if (toggleStatus == "active") {
-                groupType = "public"
+                currGroupType = "public"
             } else {
-                groupType = "private"
+                currGroupType = "private"
             }
 
             // Membership (in calendar)
@@ -118,9 +124,23 @@ export class CreateCalendarView {
                 members: members
             }
 
+            // Membership / userGroups
+            const addedAdmins = document.querySelector('add-members[userListName="admins"]').getValue();
+            const addedMembers = document.querySelector('add-members[userListName="members"]').getValue();
+
+
             const payload = {
-                calendarPayload: calendar,
-                membershipPayload: membership
+
+                calendarPayload: {
+                    creatorId: currCreatorId,
+                    name: currGroupName,
+                    type: currGroupType
+                },
+                membershipPayload: {
+                    admins: addedAdmins,
+                    members: addedMembers
+                }
+
             }
 
             // Listener?
@@ -133,7 +153,7 @@ export class CreateCalendarView {
     // Lyssna på förändringar i store
     subscribeToStore() {
 
-        Store.subscribe("calendarsUpdated", () => {
+        store.subscribe("calendarsUpdated", () => {
 
             // Utveckla store
             console.log("Created Calendar")

@@ -13,7 +13,7 @@ export class NotificationCard extends HTMLElement {
         <div class="noti-body">
             <h3>${this.data.name}<p>${this.data.date}, ${this.data.time}</p></h3>
             <p class="desc">${this.data.description}</p>
-            <p class="location">${this.data.location} <button>View</button></p>
+            <p class="location">${this.data.location} <button>View →</button></p>
         </div>
         `;
 

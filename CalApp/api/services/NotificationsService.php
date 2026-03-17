@@ -1,5 +1,12 @@
 <?php
 require_once "repository/DBAccess.php";
+require_once "services/UsersNotificationsService.php";
+require_once "services/eventsService.php";
+require_once "services/PrivateMsgService.php";
+require_once "services/CalendarsMSGService.php";
+require_once "services/calendarsService.php";
+require_once "services/UsersCalendarsService.php";
+
 
 class NotificationsService {
     //GET
@@ -22,6 +29,70 @@ class NotificationsService {
             }
 
             return $notis;
+        }
+    }
+
+    //POST
+    public static function postNoti($input) {
+        $notiContent = $input["notiContent"] ?? null;
+        $msgId = $input["messageId"] ?? null;
+        $eventId = $input["eventId"] ?? null;
+        $sessionId = $input["sessionID"] ?? null;
+
+        if ($eventId && $msgId) {
+            throw new Exception("Not acceptable, both event and msg set");
+        }
+
+        if ((!$notiContent || !$type || !$sessionId) || (!$msgId && !$eventId)) {
+            throw new Exception("Missing attributes");
+        }
+
+        $db = new DBAccess("notifications");
+        $connectionsDb = new DBAccess("users_notifications");
+
+        $type = null;
+        if ($eventId) {
+            $type = "event";
+        } else if ($msgId) {
+            $type = "message";
+        }
+        $noti = [
+            "id" => uniqid(),
+            "type" => $type,
+            "notiContent" => $notiContent,
+            "messageId" => $msgId,
+            "eventId" => $eventId,
+            "read" => false
+        ];
+        $createdNoti = $db->postData($noti);
+        
+        //Skapa connection med alla users som är med i calendar (eventId och msgId(calendarMsg))
+        //Eller till en user (msgId = privateMsg)
+        if ($eventId) {
+            $event = EventsService::getEventById($eventId);
+            $cal = CalendarsService::calendarsGetById(["id" => $event["calId"]]);
+            $usersCalendars = UsersCalendarsService::getAllRelationsByCalId($cal["id"]);
+            foreach($usersCalendars as $usrCal) {
+                UsersNotificationsService::postUserNoti(["notiId" => $createdNoti["id"], "userId" => $usrCal["userId"]]);
+            }
+
+            return $createdNoti;
+        } else if ($msgId) {
+            $privateMsg = array_find(PrivateMsgService::getAllPrivateMsg(), fn($x) => $x["id"] === $msgId);
+            $calMsgs = new DBAccess("calendar_msg");
+            $calMsg = array_find($calMsgs->getAll(), fn($x) => $x["id"] === $msgId);
+
+            if ($privateMsg) {
+                UsersNotificationsService::postUserNoti(["notiId" => $createdNoti["id"], "userId" => $privateMsg["receiverId"]]);
+                return $createdNoti;
+            } else if ($calMsg) {
+                $cal = CalendarsService::calendarsGetById(["id" => $calMsg["calId"]]);
+                $usersCalendars = UsersCalendarsService::getAllRelationsByCalId($cal["id"]);
+                foreach($usersCalendars as $usrCal) {
+                    UsersNotificationsService::postUserNoti(["notiId" => $createdNoti["id"], "userId" => $usrCal["userId"]]);
+                }
+                return $createdNoti;
+            }
         }
     }
 
@@ -54,6 +125,25 @@ class NotificationsService {
 
             return ["success" => "Notification read"];
         }
+    }
+
+    //DELETE
+    public static function deleteNoti($input) {
+        $notiId = $input["notiId"] ?? null;
+        $userId = $input["userId"] ?? null;
+        $db = new DBAccess("notifications");
+
+        if (!$notiId && !$userId) {
+            throw new Exception("Missing attributes");
+        }
+
+        $noti = array_find($db->getAll(), fn($x) => $x["id"] === $notiId);
+        if (!$noti) {
+            throw new Exception("Not found");
+        }
+
+        $db->deleteData($noti["id"]);
+        return ["success" => "Notification deleted"];
     }
 }
 ?>
