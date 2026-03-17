@@ -77,7 +77,10 @@ class NotificationsController {
                 } else if ($msg === "Not acceptable, both event and msg set") {
                     self::createResp(["error" => $msg], 406);
                     return;
-                } 
+                } //else if ($msg === "Conflict") {
+                //     self::createResp(["error" => $msg], 409);
+                //     return;
+                // } 
             }
         } 
     }

@@ -19,6 +19,7 @@ require_once "CalendarsController.php";
 require_once "PinnedCalendarsController.php";
 require_once "FriendshipsController.php";
 require_once "NotificationsController.php";
+require_once "UsersNotificationsController.php";
 
 
 function Router($requestUrl = null){   
@@ -263,6 +264,19 @@ function Router($requestUrl = null){
                     CorsMiddleware::handle();
                     JsonMiddleware::handle();
                     NotificationsController::handle($method, $input);
+                    break;
+            }
+
+            case "users_notifications":
+            switch($method) {
+                case "GET":
+                    CorsMiddleware::handle();
+                    UsersNotificationsController::handle($method, $input);
+                    break;
+                default:
+                    CorsMiddleware::handle();
+                    JsonMiddleware::handle();
+                    UsersNotificationsController::handle($method, $input);
                     break;
             }
             
