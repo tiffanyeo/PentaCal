@@ -1,19 +1,22 @@
 import { PubSub } from "../../store/pubsub.js";
 
+
 export class CreateEvent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode : "open"});
+
         PubSub.subscribe("change:page", (data) => {
             if(data.page === "add"){ //bottom Nav
                 this.render();
             }
         });
         PubSub.subscribe("change:view", (data) => {
-            if(data.url.pathname === "/home/createEvent"){ //url
+            if(data.url.pathname === "/calendars/createEvent"){ 
                 this.render();
             }
         });
+
     }
 
     html() {
@@ -92,3 +95,6 @@ export class CreateEvent extends HTMLElement {
     }
 }
 customElements.define("create-event", CreateEvent);
+
+new CreateEvent();
+

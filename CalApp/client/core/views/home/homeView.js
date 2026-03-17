@@ -13,13 +13,14 @@ export class HomeView extends HTMLElement{
         this.attachShadow({mode: "open"});
         this.currentView = "my-calendar";
         this.sub();
+        
     }
     sub() {
         PubSub.subscribe("change:view", (data) => {
             if(data.url.pathname === "/"){
                 this.render();
             }
-            if (data.url === "/home") {
+            if (data.url.pathname === "/home") {
                 this.render();
             }
         })
