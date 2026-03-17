@@ -57,15 +57,19 @@ export class CreateNotificationsView {
             notifications = notifications.sort((a, b) => a.time.localeCompare(b.time));
             notifications = notifications.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            store.setState({notis: notifications});
+            store.setState({userData: {
+                ...store.getState().userData,
+                notis: notifications
+            }});
+            console.log(store.getState());
 
             this.root.innerHTML = `<h1 style="font-family: Helvetica;">Notifications</h1>
             <div style="display: flex; gap: 10px;">
             <regular-button id="mark-read">Mark all as read</regular-button>
             <regular-button id='delete-all'>Delete all notifications</regular-button>
             </div>`;
-            console.log(store.getState().notis);
-            for (let noti of store.getState().notis) {
+            console.log(store.getState().userData.notis);
+            for (let noti of store.getState().userData.notis) {
                 let notiCard = document.createElement("notification-card");
                 notiCard.data = noti;
                 this.root.appendChild(notiCard);
