@@ -62,6 +62,23 @@ class NotificationsController {
                     return;
                 }
             }
+        } else if ($method === "POST") {
+            try {
+                self::createResp(NotificationsService::postNoti($input), 201);
+                return;
+            } catch (Exception $e) {
+                $msg = $e->getMessage();
+                if ($msg === "Missing attributes") {
+                    self::createResp(["error" => $msg], 400);
+                    return;
+                } else if ($msg === "Not found") {
+                    self::createResp(["error" => $msg], 404);
+                    return;
+                } else if ($msg === "Not acceptable, both event and msg set") {
+                    self::createResp(["error" => $msg], 406);
+                    return;
+                } 
+            }
         } 
     }
 

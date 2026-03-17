@@ -3,8 +3,10 @@ import { PubSub } from "../../store/pubsub.js";
 import { store } from "../../store/store.js";
 import { EVENTS } from "../../store/events.js";
 import { NotificationCard } from "./components/notification-card.js";
+import { RegularButton } from "../../../components/regularButton/regularButton.js";
 
 customElements.define("notification-card", NotificationCard);
+customElements.define("regular-button", RegularButton);
 
 export class CreateNotificationsView {
     constructor(root) {
@@ -29,17 +31,17 @@ export class CreateNotificationsView {
         });
     }
 
-    errorMsg(type, error) {
-        console.log(error);
-        // if (type === "network") {
-        //     this.root.innerHTML = `
-        //     <p>Network error, server unreachable</p>
-        //     `
-        // } else {
-        //     this.root.innerHTML = `
-        //     <p>
-        //     `
-        // }
+    async errorMsg(type, resp) {
+        let reso = await resp.json();
+        if (type === "network") {
+            this.root.innerHTML = `
+            <p>Network error, server unreachable</p>
+            `
+        } else {
+            this.root.innerHTML = `
+            <p>Status: ${resp.status}<br>${reso.error}</p>
+            `
+        }
     }
 
     async render() {
@@ -48,7 +50,7 @@ export class CreateNotificationsView {
         //store.getState().notis var bara en tom array [] (loopen kördes inte).
         try {
             let notifications = await apiRequest({
-                entity: "events?eventId=2",
+                entity: "events",
                 method: "GET"
             });
 
@@ -57,7 +59,11 @@ export class CreateNotificationsView {
 
             store.setState({notis: notifications});
 
-            this.root.innerHTML = "<h1>Notifications</h1> <button id='mark-read'>Mark all as read</button><button id='delete-all'>Delete all notifications</button>";
+            this.root.innerHTML = `<h1 style="font-family: Helvetica;">Notifications</h1>
+            <div style="display: flex; gap: 10px;">
+            <regular-button id="mark-read">Mark all as read</regular-button>
+            <regular-button id='delete-all'>Delete all notifications</regular-button>
+            </div>`;
             console.log(store.getState().notis);
             for (let noti of store.getState().notis) {
                 let notiCard = document.createElement("notification-card");
@@ -78,7 +84,7 @@ export class CreateNotificationsView {
                 this.root.innerHTML += "<p>No notifications to view!</p>";
             });
         } catch (e) {
-            this.errorMsg("other", e);
+            this.errorMsg("other", e.response);
         } 
     }
 

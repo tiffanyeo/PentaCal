@@ -25,6 +25,41 @@ class NotificationsService {
         }
     }
 
+    //POST
+    public static function postNoti($input) {
+        $notiContent = $input["notiContent"] ?? null;
+        $msgId = $input["messageId"] ?? null;
+        $eventId = $input["eventId"] ?? null;
+        $sessionId = $input["sessionID"] ?? null;
+
+        if ($eventId && $msgId) {
+            throw new Exception("Not acceptable, both event and msg set");
+        }
+
+        if ((!$notiContent || !$type || !$sessionId) || (!$msgId && !$eventId)) {
+            throw new Exception("Missing attributes");
+        }
+
+        $db = new DBAccess("notifications");
+        $connectionsDb = new DBAccess("users_notifications");
+
+        $type = null;
+        if ($eventId) {
+            $type = "event";
+        } else if ($msgId) {
+            $type = "message";
+        }
+        $noti = [
+            "id" => uniqid(),
+            "type" => $type,
+            "notiContent" => $notiContent,
+            "messageId" => $msgId,
+            "eventId" => $eventId
+        ];
+
+        
+    }
+
     //PATCH
     public static function patchNoti($input) {
         $db = new DBAccess("notifications");
