@@ -29,7 +29,7 @@ export class Router {
     init() {
         console.log("Init func")
         window.addEventListener("popstate", () => {
-            new Router(window.location.pathname);
+            this.navigate(window.location.pathname);
         });
     }
 
