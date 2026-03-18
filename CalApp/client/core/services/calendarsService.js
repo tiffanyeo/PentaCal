@@ -17,16 +17,11 @@ export function CalendarService() {
 
             const calRequest = {
                 entity: "/calendars",
-                method: "POST",
-                body: payload.calendarPayload
+                method: "GET",
             }
 
-            
-            const membershipPayload = payload.membershipPayload
-            // Skicka request data och payload till api.js
-            console.log("BEFORE REQUETS POST CAL")
             const response = await apiRequest(calRequest);
-            console.log("AFTER REQUETS POST CAL")
+
 
             // Publish att response och resource är recieved 
             PubSub.publish(EVENTS.RESPONSE.RECEIVED.CALENDARS.GET, response)
@@ -69,6 +64,9 @@ export function CalendarService() {
                 body: calendarPayload
             });
 
+            
+            console.log("1. DETTA SKICKAS TILL USER_GROUPS: ", response);
+            console.log("2. DETTA SKICKAS TILL USER_GROUPS:", JSON.stringify(response, null, 2));
             // If ok (trigga // POST /calendars (received)
             PubSub.publish(EVENTS.RESPONSE.RECEIVED.CALENDARS.POST, {
                 calendar: response,
@@ -76,9 +74,6 @@ export function CalendarService() {
                 members: members
             });
             
-            // Response (om ngn bara vull lysssna på d)
-            PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.POST, response);
-
             const curr = store.getState().userData.cals;
             const updatedCals = [...curr, response];
 
@@ -102,28 +97,32 @@ export function CalendarService() {
     // POST /calendars (received)
     PubSub.subscribe(EVENTS.RESPONSE.RECEIVED.CALENDARS.POST, function (pubsubData) {
 
+        console.log(pubsubData + " PUBSUB DATAAAA")
         // Create memberships in group
         const calendar = pubsubData.calendar;
         const admins = pubsubData.admins;
         const members = pubsubData.members;
-
         const calendarId = calendar.id;
-
+        
+        console.log("MEMBERSHIPS/UG IN CAL. SERVICE")
         // Trigga userGroups Service (admins)
         for (const currAdmin of admins) {
             
+            console.log(`MEMBERSHIPS/UG IN CAL. SERVICE ${currAdmin} and req. Obj: ${calendarId} and ${currAdmin.id}`);
+            
             PubSub.publish(EVENTS.REQUEST.SENT.USERGROUPS.POST, {
-                calendarId: calendarId,
+                calId: calendarId,
                 userId: currAdmin.id,
                 isAdmin: true
             });
         }
-
+        
         // Trigga userGroups Service (members)
         for (const currMember of members) {
-
+            
+            console.log("MEMBERSHIPS/UG IN CAL. SERVICE")
             PubSub.publish(EVENTS.REQUEST.SENT.USERGROUPS.POST, {
-                calendarId: calendarId,
+                calId: calendarId,
                 userId: currMember.id,
                 isAdmin: false
             });

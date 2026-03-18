@@ -21,6 +21,9 @@ export class CreateCalendarView {
             if (data.mainPath == "home/createGroup") {
                 this.render();
             }
+            if (data.mainPath == "home/createGroup") {
+                this.render();
+            }
         })
     }
 
@@ -32,7 +35,7 @@ export class CreateCalendarView {
             <h2>Create new calendar</h2>
 
             <app-input
-                label="CalendarName"
+                label="Calendar Name"
                 placeholder="Enter name"
                 width="100%"
                 id="calName"
@@ -81,31 +84,20 @@ export class CreateCalendarView {
         createBtn.addEventListener("click", () => {
 
             const state = store.getState();
-            console.log("HEJSANSTATE" + state);
-
-
-
-
-            // let state = store.getState();
-            let params = route.url.searchParams;
-            let cal = state.userData.cals.find(cal => cal.id == params.get("id"));
-            if (cal.id != params.get("id")) {
-                return;
-            }
+            
             // Calendars
             const creatorId = state.isLoggedIn.id;
             const toggleStatus = document.querySelector("toggle-btn").getValue()
-            let groupType;
-            const groupNameInput = document.querySelector('app-input[label="CalendarName"]');
+            const groupNameInput = document.querySelector('app-input[label="Calendar Name"]');
 
             // Calendar
             const currGroupName = groupNameInput.getValue() || "Group";
             const currCreatorId = state.isLoggedIn.id;
             let currGroupType;
             if (toggleStatus == "active") {
-                currGroupType = "public"
-            } else {
                 currGroupType = "private"
+            } else {
+                currGroupType = "public"
             }
 
             // Membership (in calendar)
