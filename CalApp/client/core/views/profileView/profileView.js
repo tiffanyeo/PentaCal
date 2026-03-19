@@ -71,6 +71,7 @@ export class ProfileView extends HTMLElement {
                 <h2>${this.username ? this.username : "Guest"}</h2>
                 <p>${this.email ? this.email : ""}</p>
                 <div class="btnContainer">
+                
                     <button class=" btnProfile profileBtnEdit ">Edit profile</button>
                     <button class=" btnProfile profileLogout">Log out</button>
                 </div>
