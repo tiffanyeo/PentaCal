@@ -21,7 +21,11 @@ export class GroupContainerBoxComp extends HTMLElement {
     html() {
         return `
             <div class="content">
-                <h1>My Groups</h1>
+                <landing-button-container>
+                    <landing-button label="My Calendar" view="home" active></landing-button>
+                    <landing-button label="My Groups" view="groupcalendar"></landing-button>
+                </landing-button-container>
+                <h3>My Groups</h3>
                 <div class="container">
                     <div class="box">
                         <img src="" alt="Group image">
@@ -91,7 +95,7 @@ export class GroupContainerBoxComp extends HTMLElement {
     }
     style() {
         return `
-        h1 {
+        h3 {
             text-align: center;
         }
         .content {
