@@ -104,7 +104,6 @@ export class CreateNotificationsView {
                     notis: notifications
                 }});
                 console.log(store.getState());
-                console.log(store.getState().userData.notis);
 
                 for (let noti of store.getState().userData.notis) {
                     let notiCard = document.createElement("notification-card");
