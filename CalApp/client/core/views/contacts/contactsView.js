@@ -5,6 +5,7 @@ import { BottomNav } from "../../../components/bottomNav/bottomNav.js";
 import { LandingButtonContainer } from "../home/components/landingButtons.js";
 import { AppInput } from "../../../components/appInput/appInput.js";
 import { ContactCardContainer } from "./components/contactCardContainer.js";
+import { apiRequest } from "../../services/api.js";
 
 
 export class ContactsView extends HTMLElement{
@@ -22,7 +23,7 @@ export class ContactsView extends HTMLElement{
 
         });
         PubSub.subscribe("change:view", (data) => {
-            if (data.page === "contacts"){
+            if (data.view === "contacts"){
                 this.render();
             }
 
@@ -34,6 +35,19 @@ export class ContactsView extends HTMLElement{
             location.pathname.startsWith("/groups") &&
             params.has("id");
         const groupId = params.get("id");
+        let context = "My Contacts";
+        if (isGroupContext){
+            try {
+                context = apiRequest({
+                    entity: `calendars?id=${groupId}`,
+                    method: "GET"
+                })
+
+            } catch(err){
+                return err;
+            }
+        }
+        console.log(context);
         this.app.innerHTML = `
         <style>
             app-input{
@@ -57,7 +71,7 @@ export class ContactsView extends HTMLElement{
         </landing-button-container>
         <div class="view">
             <div class="rubrik"></div>
-            <h3>My Contacts</h3>
+            <h3>${context}</h3>
             <app-input placeholder="Search" width="350px"></app-input>
             <contact-card-container context="${isGroupContext ? "group" : "friends"}" group-id="${groupId || ''}"></contact-card-container>
         </div>
