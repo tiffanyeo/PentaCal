@@ -17,7 +17,6 @@ export class Store {
 
     // Förväntar sig keyName för att kalla på notify internt
     // Förväntar sig data för datan från setState
-
     setState(newState) {
 
         // Neka fel format
@@ -28,10 +27,11 @@ export class Store {
         this.lastState = this._state;
         this._state = Object.assign(this._state, newState);
 
-        // Notifyar alla keyNames som blivit ändrat
-        for (let keyName in newState) {
-            this.notify(keyName, newState[keyName])
+        for(let keyName in newState) {
+            this.notify(keyName, newState[keyName]);
         }
+
+        return {ok: true};
 
     }
 
@@ -39,27 +39,20 @@ export class Store {
         throw new Error("Not allowed");
     }
 
-    // eventName -> keyName
     subscribe(keyName, listener) {
-
         if (!Store.allListeners[keyName]) {
-
-            console.log("Hej event ", keyName)
+            console.log("Hej")
             Store.allListeners[keyName] = []
         };
-
         Store.allListeners[keyName].push(listener);
     }
 
-
-    // Byt ut till keyName 
+    // skicka event OBS->->-> gör detta varje gång estState är utfört
+    // Skickar med data för att hantera datan typ?
     notify(keyName, data) {
-
         if (!Store.allListeners[keyName]) {
-
             return "No listeners for event"
         } else {
-
             Store.allListeners[keyName].forEach(listener => listener(data));
         }
     }

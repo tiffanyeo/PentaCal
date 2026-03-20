@@ -2,9 +2,9 @@
     "users": [
         {
             "id": "65e10aa11a001",
-            "email": "alice@example.com",
-            "pwd": "pwd1",
-            "name": "Alice"
+            "email": "elle@gamil.com",
+            "pwd": "testpass",
+            "name": "Elias"
         },
         {
             "id": "65e10aa11a002",
