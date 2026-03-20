@@ -26,6 +26,7 @@ import "./core/views/notifications/notifications.js";
 import "./core/views/myGroupView/groupBoxContainerComp.js"; 
 import "./core/views/contacts/contactsView.js";
 import "./core/views/profileView/profileView.js";
+import "./core/views/login/loginView.js"
 
 
 

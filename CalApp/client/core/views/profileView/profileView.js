@@ -7,9 +7,6 @@ export class ProfileView extends HTMLElement {
         super();
         this.attachShadow({mode : "open"});
 
-        this.username = store.getState().isLoggedIn.username;
-        this.email = store.getState().isLoggedIn.email;
-
         PubSub.subscribe("change:page", (data) => {
             if(data.page === "profile"){ //bottom Nav
                 this.render();
@@ -68,10 +65,9 @@ export class ProfileView extends HTMLElement {
             <h3>Profile</h3>
             <div id="container">
                 <img src="./../assets/icons/home-dark.png"></img>
-                <h2>${this.username ? this.username : "Guest"}</h2>
-                <p>${this.email ? this.email : ""}</p>
+                <h2 id="username">${store.getState().isLoggedIn.username}</h2>
+                <p id="email">${store.getState().isLoggedIn.email}</p>
                 <div class="btnContainer">
-                
                     <button class=" btnProfile profileBtnEdit ">Edit profile</button>
                     <button class=" btnProfile profileLogout">Log out</button>
                 </div>
@@ -80,6 +76,14 @@ export class ProfileView extends HTMLElement {
             
         </div>            
         `;
+
+        let usernameDOM = document.getElementById("username");
+        let emailDOM = document.getElementById("email");
+        store.subscribe("isLoggedIn", (newState) => {
+            usernameDOM.textContent = newState.username;
+            emailDOM.textContent = newState.email;
+        })
+        
         const btnProfile = app.querySelectorAll(".btnProfile");
         for(let btn of btnProfile) {
             if(btn.classList.contains("profileBtnEdit")) {
@@ -95,6 +99,7 @@ export class ProfileView extends HTMLElement {
                 });
             } 
         }
+
         
     }
 }

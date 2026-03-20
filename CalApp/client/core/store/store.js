@@ -18,7 +18,7 @@ export class Store {
     // responseStatus för att säkerställa att DB uppdateras innan state 
     // Förväntar sig eventName för att kalla på notify internt
     // Förväntar sig data för datan från setState
-    setState(newState, responseStatus, eventName, data) {
+    setState(newState) {
 
         // Neka fel format
         if (typeof newState !== "object" || Array.isArray(newState)) {
@@ -32,9 +32,11 @@ export class Store {
         // target, source (shallow merge?) OBS->->-> gör om
         this._state = Object.assign(this._state, newState);
 
-        this.notify(eventName, data);
+        for(let keyName in newState) {
+            this.notify(keyName, newState[keyName]);
+        }
 
-        return { ok: true };
+        return {ok: true};
 
     }
 
@@ -42,21 +44,21 @@ export class Store {
         throw new Error("Not allowed");
     }
 
-    subscribe(eventName, listener) {
-        if (!Store.allListeners[eventName]) {
+    subscribe(keyName, listener) {
+        if (!Store.allListeners[keyName]) {
             console.log("Hej")
-            Store.allListeners[eventName] = []
+            Store.allListeners[keyName] = []
         };
-        Store.allListeners[eventName].push(listener);
+        Store.allListeners[keyName].push(listener);
     }
 
     // skicka event OBS->->-> gör detta varje gång estState är utfört
     // Skickar med data för att hantera datan typ?
-    notify(eventName, data) {
-        if (!Store.allListeners[eventName]) {
+    notify(keyName, data) {
+        if (!Store.allListeners[keyName]) {
             return "No listeners for event"
         } else {
-            Store.allListeners[eventName].forEach(listener => listener(data));
+            Store.allListeners[keyName].forEach(listener => listener(data));
         }
     }
 }
