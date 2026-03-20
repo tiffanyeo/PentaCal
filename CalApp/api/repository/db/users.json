@@ -169,13 +169,13 @@
             "name": "Samuel"
         },
         {
-            "id": "65f3aa11a012",
+            "id": "65f3aaa1a012",
             "email": "lejla@example.com",
             "pwd": "pass18",
             "name": "Lejla"
         },
         {
-            "id": "65f3aa11a013",
+            "id": "65f3aa11a012",
             "email": "diego@example.com",
             "pwd": "pass19",
             "name": "Diego"
@@ -184,7 +184,7 @@
             "id": "65f3aa11a014",
             "email": "sofia2@example.com",
             "pwd": "pass20",
-            "name": "Sofía"
+            "name": "Sophie"
         },
         {
             "id": "65f3aa11a015",
@@ -245,6 +245,24 @@
             "email": "lina@example.com",
             "pwd": "pass30",
             "name": "Lina"
+        },
+        {
+            "id": "65f3bb11b00a",
+            "email": "erik@example.com",
+            "pwd": "pass30",
+            "name": "Erik"
+        },
+        {
+            "id": "65f3bb11b009",
+            "email": "sebastian@example.com",
+            "pwd": "pass31",
+            "name": "Sebbe"
+        },
+        {
+            "id": "65f3be11b009",
+            "email": "sebastian@example.com",
+            "pwd": "pass34",
+            "name": "Johannes"
         }
     ]
 }
