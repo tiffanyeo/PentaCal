@@ -43,9 +43,9 @@
             }
             if($method === "PATCH") {
                 if(isset($input["id"])){
-                    $name = $reqBody["name"] ?? null;
-                    $pwd =  $reqBody["pwd"] ?? null;
-                    $email = $reqBody["email"] ?? null;
+                    $name = $input["name"] ?? null;
+                    $pwd =  $input["pwd"] ?? null;
+                    $email = $input["email"] ?? null;
 
                     $data = [                      
                         "name" => $name,
