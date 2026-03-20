@@ -86,7 +86,7 @@ export class GroupWeekDays extends HTMLElement {
 
          <div id="calWindow">
             <div class="weeks">
-                <div class="Monday"></div>
+                <div class="Monday">Cal popup, for weekdays</div>
                 <div class="Tuesday"></div>
                 <div class="Wednesday"></div>
                 <div class="Thursday"></div>
