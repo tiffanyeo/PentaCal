@@ -66,7 +66,7 @@ export class CalDetailBtn extends HTMLElement{
         const dropdown = this.shadowRoot.querySelector("#dropdown");
 
         let isDown = false;
-        let holdTime = 1000;
+        let holdTime = 200;
 
         let clicked = 0;
 
