@@ -17,10 +17,15 @@ export class GroupWeekDays extends HTMLElement {
         //         return date.getDate() + i;
         //     }
         // }
-
+        console.log(array[date.getDay() - 1])
         for (let i = 0; i < array.length; i++) {
             if (dayName == array[i]) {
                 // Typ räkna ut diffen här? Kolla över!
+                if (dayName != array[date.getDay() - 1]) {
+                    let diff = i - (date.getDay() - 1);
+                    return date.getDate() + diff;
+                }
+                return date.getDate();
             }
         }
 

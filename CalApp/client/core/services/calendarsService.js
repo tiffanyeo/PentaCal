@@ -37,10 +37,10 @@ export function CalendarService() {
 
 
         } catch {
-            
+
             console.error("CALENDARS GET ERROR:", err);
             PubSub.publish(EVENTS.REQUEST.ERROR.CALENDARS.GET, err);
-            
+
         }
 
     })
@@ -52,21 +52,21 @@ export function CalendarService() {
         const membershipPayload = payload.membershipPayload;
         const admins = membershipPayload.admins;
         const members = membershipPayload.members;
-        
+
         let hasNonCreatorUser = false;
-        
+
         try {
-            
+
             const resource = await apiRequest({
                 entity: "calendars",
                 method: "POST",
                 body: calendarPayload
             });
-            
+
             const calendarId = resource.id;
             const creatorId = resource.creatorId;
             let creatorIsAdmin = false;
-            
+
             for (const a of admins) {
                 if (a.id === creatorId) {
                     creatorIsAdmin = true;
@@ -81,7 +81,7 @@ export function CalendarService() {
                 });
             }
             // START OF ROLLBACK (needs to add at least one member)
-                
+
             // Check if any admins has been added
             for (const a of admins) {
                 if (a.id !== creatorId) {
@@ -89,7 +89,7 @@ export function CalendarService() {
                     break;
                 }
             }
-            
+
             // Check if member has been added
             if (!hasNonCreatorUser) {
                 for (const m of members) {
@@ -97,9 +97,9 @@ export function CalendarService() {
                         hasNonCreatorUser = true;
                         break;
                     }
-                } 
+                }
             }
-            
+
             // If no other users added, abort create calendar
             if (!hasNonCreatorUser) {
 
@@ -111,21 +111,21 @@ export function CalendarService() {
                         creatorId: creatorId
                     }
                 });
-                
+
                 console.error("At least one member needs to be added to create a calendar");
-                return; 
-            }   
-            
+                return;
+            }
+
             // END OF ROLLBACK 
-            
-            
+
+
             // If ok (trigger / POST /calendars (received)
             PubSub.publish(EVENTS.RESPONSE.RECEIVED.CALENDARS.POST, {
                 calendar: resource,
                 admins: admins,
                 members: members
             });
-            
+
             const curr = store.getState().userData.cals;
             const updatedCals = [...curr, resource];
 
@@ -141,16 +141,16 @@ export function CalendarService() {
             PubSub.publish("change:page", {
                 page: "myCal"
             })
-            
+
         } catch (err) {
-            
+
             console.log("CALENDARS POST ERROR:", err);
             PubSub.publish(EVENTS.RESPONSE.ERROR.CALENDARS.POST, err);
-            
+
         }
     });
 
-    
+
     // POST /calendars (received)
     PubSub.subscribe(EVENTS.RESPONSE.RECEIVED.CALENDARS.POST, function (pubsubData) {
 
@@ -159,21 +159,21 @@ export function CalendarService() {
         const admins = pubsubData.admins;
         const members = pubsubData.members;
         const calendarId = calendar.id;
-        
+
 
         // Trigga userGroups Service (admins)
         for (const currAdmin of admins) {
-            
+
             PubSub.publish(EVENTS.REQUEST.SENT.USERGROUPS.POST, {
                 calId: calendarId,
                 userId: currAdmin.id,
                 isAdmin: true
             });
         }
-        
+
         // Trigga userGroups Service (members)
         for (const currMember of members) {
-            
+
             let isAlreadyAdmin = false;
 
             // Om user redan är tiillagd som admin, ska ej user kunna vara member/!admin också

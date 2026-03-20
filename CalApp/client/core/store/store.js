@@ -17,9 +17,8 @@ export class Store {
 
     // Förväntar sig keyName för att kalla på notify internt
     // Förväntar sig data för datan från setState
-    
-    // Görs om till -> setState (newstate) {}
-    setState(newState, responseStatus, eventName, data) {
+
+    setState(newState) {
 
         // Neka fel format
         if (typeof newState !== "object" || Array.isArray(newState)) {
@@ -29,15 +28,10 @@ export class Store {
         this.lastState = this._state;
         this._state = Object.assign(this._state, newState);
 
-    
-        this.notify(eventName, data);
-        /*    Görs om till ->     
-            for (let key in neState) {
+        // Notifyar alla keyNames som blivit ändrat
+        for (let keyName in newState) {
             this.notify(keyName, newState[keyName])
-        } */
-       
-            
-        return { ok: true };
+        }
 
     }
 
@@ -46,27 +40,27 @@ export class Store {
     }
 
     // eventName -> keyName
-    subscribe(eventName, listener) {
-        
-        if (!Store.allListeners[eventName]) {
-            
-            console.log("Hej event ", eventName)
-            Store.allListeners[eventName] = []
+    subscribe(keyName, listener) {
+
+        if (!Store.allListeners[keyName]) {
+
+            console.log("Hej event ", keyName)
+            Store.allListeners[keyName] = []
         };
-        
-        Store.allListeners[eventName].push(listener);
+
+        Store.allListeners[keyName].push(listener);
     }
 
 
     // Byt ut till keyName 
-    notify(eventName, data) {
-        
-        if (!Store.allListeners[eventName]) {
-            
+    notify(keyName, data) {
+
+        if (!Store.allListeners[keyName]) {
+
             return "No listeners for event"
         } else {
-            
-            Store.allListeners[eventName].forEach(listener => listener(data));
+
+            Store.allListeners[keyName].forEach(listener => listener(data));
         }
     }
 }

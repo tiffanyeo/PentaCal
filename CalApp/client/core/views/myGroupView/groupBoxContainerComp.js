@@ -22,7 +22,7 @@ export class GroupContainerBoxComp extends HTMLElement {
         this.render();
         this.eventListeners();
     }
-    
+
     html() {
         return `
             <div class="content">
@@ -128,7 +128,7 @@ export class GroupContainerBoxComp extends HTMLElement {
         }
     `;
     }
-    
+
     render() {
         let app = document.getElementById("app");
         let content = this.shadowRoot.innerHTML = `
