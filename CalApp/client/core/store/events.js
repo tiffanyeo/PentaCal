@@ -19,7 +19,9 @@ const POPUPS = [
 
 export const PAGES = [
     "home",
+    "add",
     "profile",
+    "users",
     "contacts",
     "createGroup",
     "createEvent"

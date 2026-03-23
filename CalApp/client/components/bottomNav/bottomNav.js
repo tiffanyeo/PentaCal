@@ -87,12 +87,17 @@ export class BottomNav extends HTMLElement {
                     const currPage = currBtn.classList[1]; 
                     console.log(currPage);
                     
+                    // Få nedan att fungera
+                    // PubSub(EVENTS.VIEW.PAGE.SHOW[currPage]);
+                    
+                    /*  OK?                  
                     PubSub.publish("change:page", {
                         page: currPage
                     });
                     PubSub.publish("change:view", {
                         page: currPage
-                    });
+                    }); 
+                    */
                     
                     this.switchView(currPage);
 
