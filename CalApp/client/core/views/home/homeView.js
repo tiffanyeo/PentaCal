@@ -19,16 +19,15 @@ export class HomeView extends HTMLElement {
     sub() {
 
 
-        // Visar ursprungs homeview, har kommenterat bort för att testa newHomeView
-        // PubSub.subscribe(EVENTS.VIEW.PAGE.SHOW.HOME, (data) => {
+        PubSub.subscribe(EVENTS.VIEW.PAGE.SHOW.HOME, (data) => {
 
-        //     console.log("HOME EVENT TRIGGERED", data);
+            console.log("HOME EVENT TRIGGERED", data);
 
-        //     if (data.page === "home") {
-        //         this.render(data);
-        //     }
+            if (data.page === "home") {
+                this.render(data);
+            }
 
-        // });
+        });
 
         PubSub.subscribe(EVENTS.STATE.LOGIN.SUCCESS, () => {
             // Re-render home, inloggad
@@ -42,10 +41,9 @@ export class HomeView extends HTMLElement {
 
         PubSub.subscribe("change:view", (data) => {
 
-            // Samma med denna bortkommenterat, som test så körs newHomeView nu
-            // if (data.mainPath === "home" || "/") {
-            //     this.render();
-            // }
+            if (data.mainPath === "home" || "/") {
+                this.render();
+            }
             /*             
                 if (data.url.pathname === "/") {
                     this.render();

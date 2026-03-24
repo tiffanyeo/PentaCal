@@ -13,14 +13,14 @@ class CreateGroupLandingView {
     }
 
     sub() {
-        PubSub.subscribe(EVENTS.VIEW.PAGE.SHOW.HOME, (data) => {
-            this.render();
-        });
-        PubSub.subscribe("change:view", (route) => {
-            if (route.url.pathname === "/newHomeViewTest") {
-                this.render();
-            }
-        })
+        // PubSub.subscribe(EVENTS.VIEW.PAGE.SHOW.HOME, (data) => {
+        //     this.render();
+        // });
+        // PubSub.subscribe("change:view", (route) => {
+        //     if (route.url.pathname === "/newHomeViewTest") {
+        //         this.render();
+        //     }
+        // })
     }
 
 

@@ -25,38 +25,55 @@ export class EventCard extends HTMLElement {
         //     <p>Kommande evenemang</p>
         //     <p>${months[date.getMonth()]}</p>`;
         const currentDate = new Date();
-        let allHtml = `<p>${months[currentDate.getMonth()]}</p>`;
+        // let allHtml = `<p>${months[currentDate.getMonth()]}</p>`;
+        let allHtml = "";
+        let monthElements = {}
+        const eventsContainer = document.createElement("div");
+        eventsContainer.id = "events";
+
         for (let event of this.events) {
             const date = new Date(event.date);
             // Denna kollar antingen eller, men till sen, ändra så det kontrollerar att båda stämmer, månad och datum
-            if (date.getDate() == currentDate.getDate() || date.getMonth() == currentDate.getMonth()) {
-                allHtml += `
-                
-                <div class="eventCardOuter">
-                <div class="imgCont">Image here</div>
-                    <div class="eventDesc"> 
-                        <div class="date">
-                            <p>${days[date.getDay()]}</p>
-                            <p>${date.getDate()}</p>
-                        </div>
-                        <div class="eventInfo">
-                            <p>${event.name}</p>
-                            <p>${event.location}</p>
+            // if (date.getMonth() == currentDate.getMonth()) {
+
+            if (!monthElements[date.getMonth()]) {
+                const monthDiv = document.createElement("div");
+                monthDiv.id = `month-${date.getMonth()}`
+                monthDiv.classList.add("events");
+                monthDiv.innerHTML = `<p>${months[date.getMonth()]}</p>`;
+                eventsContainer.appendChild(monthDiv);
+                monthElements[date.getMonth()] = monthDiv;
+            }
+
+            let monthDiv = monthElements[date.getMonth()];
+            monthDiv.innerHTML += `
+                    <div class="eventCardOuter">
+                    <div class="imgCont">Image here</div>
+                        <div class="eventDesc"> 
+                            <div class="date">
+                                <p>${days[date.getDay()]}</p>
+                                <p>${date.getDate()}</p>
+                            </div>
+                            <div class="eventInfo">
+                                <p>${event.name}</p>
+                                <p>${event.location}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 ` ;
-            }
+            // }
         }
-        return allHtml;
+        // VARFÖR INNERHTML OCH INTE BARA EVENTS!?!?
+        return eventsContainer.innerHTML;
+
     }
 
 
     style() {
         return `
         <style>
-            #events {
-                display: flex; 
+            .events {
+                display: flex;
                 flex-direction: column;
                 gap: 20px;
             }
@@ -72,8 +89,8 @@ export class EventCard extends HTMLElement {
                 overflow: hidden;
             }
             .eventDesc {
-               display: flex;
-               gap: 30px;
+                display: flex;
+                gap: 30px;
                 padding: 5px;
                 height: 75px;
             }
@@ -92,20 +109,21 @@ export class EventCard extends HTMLElement {
                 align-items: center;
                 gap: 10px;
             }
-            .eventInfo p:first-child {
+            .eventInfo p: first-child {
                 font-size: 16px;
             }
         </style>
-        `;
+                `;
     }
 
     render() {
         this.shadowRoot.innerHTML = `
             ${this.style()}
-            <div id="events">
-                  ${this.html()}
-            </div>
-        `
+
+                ${this.html()}
+
+   
+            `
     }
 
 }
