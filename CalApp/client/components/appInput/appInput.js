@@ -41,15 +41,13 @@ export class AppInput extends HTMLElement {
 
                 .input {
                     width: 100%;
-                    height: 100%;
                     padding: 10px;
                     font-size: small;
                     border-radius: 8px;
-                    background-color:   rgb(224, 227, 227);
+                    background-color: rgb(224, 227, 227);
                     border: 1px solid #ccc;
                     box-sizing: border-box;
-                    text-align:start;
-                    justify-self: flex-start;
+                    resize: vertical;
                 }
 
                 .input:focus {
@@ -62,45 +60,44 @@ export class AppInput extends HTMLElement {
                 <label class="label"></label>
                 <input class="input" />
             </div>
-
-        `
+        `;
     }
     
     connectedCallback() {
 
-        this.shadowRoot.querySelector(".label").textContent = this.getAttribute("label") || "";
-            
-        const inputField = this.shadowRoot.querySelector(".input");
-        inputField.placeholder = this.getAttribute("placeholder") || "";
-        inputField.value = this.getAttribute("value") || "";
+        this.shadowRoot.querySelector(".label").textContent =
+            this.getAttribute("label") || "";
         
-        // Om view själv vill styra width
         const widthAttribute = this.getAttribute("width");
         if (widthAttribute) {
             this.style.width = widthAttribute;
         }
-    
-        // Om view själv vill styra height
+
         const heightAttribute = this.getAttribute("height");
+        const container = this.shadowRoot.querySelector(".label-input-container");
+
+        let field;
+
         if (heightAttribute) {
-            const container = this.shadowRoot.querySelector(".label-input-container");
-
-            // Sätt till textattri om height, för att kunna styra höjd
-            const textarea = document.createElement("textarea");
-            textarea.classList.add("input");
-            textarea.placeholder = this.getAttribute("placeholder") || "";
-            textarea.style.height = heightAttribute;
-
-            const oldInput = this.shadowRoot.querySelector("input");
-            container.replaceChild(textarea, oldInput);
+            // Om view själv vill styra height
+            field = document.createElement("textarea");
+            field.style.height = heightAttribute;
+        } else {
+            field = document.createElement("input");
+            field.type = "text";
         }
 
+        field.classList.add("input");
+        field.placeholder = this.getAttribute("placeholder") || "";
+        field.value = this.getAttribute("value") || "";
+
+        const old = this.shadowRoot.querySelector(".input");
+        container.replaceChild(field, old);
     }
     
-     // Komponentens "public API" 
+    // Komponentens "public API" 
     getValue() {
-        const inputValue = this.shadowRoot.querySelector("input").value;
-        return inputValue;
+        return this.shadowRoot.querySelector(".input").value;
     }
     
     setValue(newValue) {

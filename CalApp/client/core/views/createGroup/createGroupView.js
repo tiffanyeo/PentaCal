@@ -92,9 +92,12 @@ export class CreateCalendarView {
             const state = store.getState();
             const toggleStatus = document.querySelector("toggle-btn").getValue()
             const groupNameInput = document.querySelector('app-input[label="Calendar Name"]');
+            const descriptionInput = document.querySelector('app-input[label="Description"]');
 
             // Calendar
             const currGroupName = groupNameInput.getValue() || "Group";
+            const currDescription = descriptionInput.getValue() || "";
+            console.log(currDescription, "heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
             const currCreatorId = state.isLoggedIn.id;
             const currGroupType = toggleStatus === "active" ? "private" : "public";
 
@@ -108,6 +111,7 @@ export class CreateCalendarView {
                 calendarPayload: {
                     creatorId: currCreatorId,
                     name: currGroupName,
+                    description: currDescription,
                     type: currGroupType
                 },
                 membershipPayload: {

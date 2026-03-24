@@ -4,119 +4,119 @@
             "id": "65e10aa11b001",
             "creatorId": "65e10aa11a001",
             "name": "Projekt A",
-            "description": "En samlingsplats för allt som rör projektet.",
+            "description": "En samlingsplats f\u00f6r allt som r\u00f6r projektet.",
             "type": "public"
         },
         {
             "id": "65e10aa11b002",
             "creatorId": "65e10aa11a002",
             "name": "Studiegrupp",
-            "description": "Här försöker vi hålla koll på plugg, träffar och allt kaos som uppstår när alla har olika scheman. Perfekt för att undvika att någon 'glömmer' seminariet igen.",
+            "description": "H\u00e4r f\u00f6rs\u00f6ker vi h\u00e5lla koll p\u00e5 plugg, tr\u00e4ffar och allt kaos som uppst\u00e5r n\u00e4r alla har olika scheman. Perfekt f\u00f6r att undvika att n\u00e5gon 'gl\u00f6mmer' seminariet igen.",
             "type": "private"
         },
         {
             "id": "65e10aa11b003",
             "creatorId": "65e10aa11a003",
             "name": "Gym-schema",
-            "description": "Träning och gains.",
+            "description": "Tr\u00e4ning och gains.",
             "type": "public"
         },
         {
             "id": "65e10aa11b004",
             "creatorId": "65e10aa11a004",
             "name": "newNameGroup",
-            "description": null,
+            "description": "",
             "type": "public"
         },
         {
             "id": "699d8717f007a",
             "creatorId": "65f3be11b009",
             "name": "LatestTestgroup",
-            "description": "En experimentkalender där allt testas, ändras, kastas om och ibland bara råkar funka ändå.",
+            "description": "En experimentkalender d\u00e4r allt testas, \u00e4ndras, kastas om och ibland bara r\u00e5kar funka \u00e4nd\u00e5.",
             "type": "public"
         },
         {
             "id": "69ac867f767b5",
             "creatorId": "65f3aa11a003",
             "name": "Studiegrupp",
-            "description": "Plugg och möten.",
+            "description": "Plugg och m\u00f6ten.",
             "type": "private"
         },
         {
             "id": "69bc0311e91e4",
             "creatorId": "65e10aa11a001",
             "name": "Dancing Queens",
-            "description": "En kalender fylld med danspass, glitter, energi och allt som behövs för att hålla rytmen vid liv.",
+            "description": "En kalender fylld med danspass, glitter, energi och allt som beh\u00f6vs f\u00f6r att h\u00e5lla rytmen vid liv.",
             "type": "public"
         },
         {
             "id": "65f3bb11b001",
             "creatorId": "65f3aa11a001",
             "name": "MAU Tech Support",
-            "description": "Planering av supportpass, felsökningsträffar.",
+            "description": "Planering av supportpass, fels\u00f6kningstr\u00e4ffar.",
             "type": "public"
         },
         {
             "id": "65f3bb11b002",
             "creatorId": "65f3aa11a003",
             "name": "Ekonomi HT26",
-            "description": "Alla kursmoment, föreläsningar och deadlines samlade så ingen behöver panikscrolla Canvas 03:12 på natten.",
+            "description": "Alla kursmoment, f\u00f6rel\u00e4sningar och deadlines samlade s\u00e5 ingen beh\u00f6ver panikscrolla Canvas 03:12 p\u00e5 natten.",
             "type": "public"
         },
         {
             "id": "65f3bb11b003",
             "creatorId": "65f3aa11a007",
             "name": "Yoga Mindfulness Club",
-            "description": "En lugn och harmonisk kalender där vi försöker komma ihåg att andas, sträcka ut och inte stressa sönder.",
+            "description": "En lugn och harmonisk kalender d\u00e4r vi f\u00f6rs\u00f6ker komma ih\u00e5g att andas, str\u00e4cka ut och inte stressa s\u00f6nder.",
             "type": "public"
         },
         {
             "id": "65f3bb11b004",
             "creatorId": "65f3aa11a009",
             "name": "Spy Bar Crew",
-            "description": "Arbetspass, möten och allt annat som händer bakom kulisserna när natten lever sitt eget liv.",
+            "description": "Arbetspass, m\u00f6ten och allt annat som h\u00e4nder bakom kulisserna n\u00e4r natten lever sitt eget liv.",
             "type": "private"
         },
         {
             "id": "65f3bb11b00d",
             "creatorId": "65f3aa11a009",
             "name": "Spy Bar VIP",
-            "description": "Allt som är lite extra, lite hemligt och lite mer 'du måste känna någon för att ens veta att detta existerar'.",
+            "description": "Allt som \u00e4r lite extra, lite hemligt och lite mer 'du m\u00e5ste k\u00e4nna n\u00e5gon f\u00f6r att ens veta att detta existerar'.",
             "type": "private"
         },
         {
             "id": "65f3bb11b005",
             "creatorId": "65f3aa11a00b",
-            "name": "Malmö Futsal Team",
-            "description": "Matcher, träningar och lagaktiviteter.",
+            "name": "Malm\u00f6 Futsal Team",
+            "description": "Matcher, tr\u00e4ningar och lagaktiviteter.",
             "type": "public"
         },
         {
             "id": "65f3bb11b006",
             "creatorId": "65f3aa11a00d",
             "name": "Lund Running Club",
-            "description": "En kalender för löprundor, intervaller och spontana 'ska vi springa 12 km fast vi sa 5?'-idéer.",
+            "description": "En kalender f\u00f6r l\u00f6prundor, intervaller och spontana 'ska vi springa 12 km fast vi sa 5?'-id\u00e9er.",
             "type": "public"
         },
         {
             "id": "65f3bb11b007",
             "creatorId": "65f3aa11a010",
             "name": "Foto & Film Studio",
-            "description": "Här samlas allt från planerade fotoshoots till sena kvällar där någon säger 'vi testar bara en grej' och plötsligt står alla med tre lampor, två stativ och en idé som kanske eller kanske inte fungerar. Perfekt för kreativa kaosprojekt.",
+            "description": "H\u00e4r samlas allt fr\u00e5n planerade fotoshoots till sena kv\u00e4llar d\u00e4r n\u00e5gon s\u00e4ger 'vi testar bara en grej' och pl\u00f6tsligt st\u00e5r alla med tre lampor, tv\u00e5 stativ och en id\u00e9 som kanske eller kanske inte fungerar. Perfekt f\u00f6r kreativa kaosprojekt.",
             "type": "public"
         },
         {
             "id": "65f3bb11b008",
             "creatorId": "65f3aa11a012",
             "name": "Coding Night Group",
-            "description": "Kodkvällar, snacks och projekt som föds av ren koffeinenergi.",
+            "description": "Kodkv\u00e4llar, snacks och projekt som f\u00f6ds av ren koffeinenergi.",
             "type": "public"
         },
         {
             "id": "65f3bb11b009",
             "creatorId": "65f3aa11a015",
             "name": "Projekt Orion",
-            "description": "En mer omfattande projektkalender där idéer, planering, research, möten och långsiktiga mål vävs ihop till en tydlig riktning. Perfekt för att hålla koll på allt som annars hade försvunnit i en chattråd någon glömde scrolla upp i.",
+            "description": "En mer omfattande projektkalender d\u00e4r id\u00e9er, planering, research, m\u00f6ten och l\u00e5ngsiktiga m\u00e5l v\u00e4vs ihop till en tydlig riktning. Perfekt f\u00f6r att h\u00e5lla koll p\u00e5 allt som annars hade f\u00f6rsvunnit i en chattr\u00e5d n\u00e5gon gl\u00f6mde scrolla upp i.",
             "type": "private"
         },
         {
@@ -129,15 +129,15 @@
         {
             "id": "65f3bb11b00b",
             "creatorId": "65f3aa11a019",
-            "name": "Malmö Gaming League",
-            "description": "Turneringar, scrims och allt som gör gaminglivet lite mer organiserat.",
+            "name": "Malm\u00f6 Gaming League",
+            "description": "Turneringar, scrims och allt som g\u00f6r gaminglivet lite mer organiserat.",
             "type": "public"
         },
         {
             "id": "65f3bb11b00c",
             "creatorId": "65f3aa11a01c",
             "name": "Sustainability Research Lab",
-            "description": "En kalender fylld med forskningsmöten, analyser, workshops och långsiktiga projekt som kretsar kring hållbarhet, innovation och framtidens lösningar. Här samlas både små och stora steg mot en mer genomtänkt värld.",
+            "description": "En kalender fylld med forskningsm\u00f6ten, analyser, workshops och l\u00e5ngsiktiga projekt som kretsar kring h\u00e5llbarhet, innovation och framtidens l\u00f6sningar. H\u00e4r samlas b\u00e5de sm\u00e5 och stora steg mot en mer genomt\u00e4nkt v\u00e4rld.",
             "type": "public"
         },
         {
@@ -150,9 +150,30 @@
         {
             "id": "65fa00bb11b01",
             "creatorId": "65e10aa11a001",
-            "name": "Vad händer i Malmö",
-            "description": "En levande samling av allt som händer i stan - konserter, små events, spontana happenings och mindre evenemang.",
+            "name": "Vad h\u00e4nder i Malm\u00f6",
+            "description": "En levande samling av allt som h\u00e4nder i stan - konserter, sm\u00e5 events, spontana happenings och mindre evenemang.",
             "type": "public"
+        },
+        {
+            "id": "69c31731daf11",
+            "creatorId": "",
+            "name": "Hejsan",
+            "description": "",
+            "type": "private"
+        },
+        {
+            "id": "69c31914a2768",
+            "creatorId": "",
+            "name": "c",
+            "description": "",
+            "type": "private"
+        },
+        {
+            "id": "69c31a3bdbf80",
+            "creatorId": "",
+            "name": "ka",
+            "description": "heyy",
+            "type": "private"
         }
     ]
 }
