@@ -92,7 +92,7 @@ export class GroupWeekDays extends HTMLElement {
     }
 
     calWindowHtml() {
-        const months = ["January", "February", "March", "June", "July", "August", "September", "November", "December"];
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let lastMonthDay = new Date(2026, 1 + new Date().getMonth(), 0).getDate();
         let allHtml = "";
         for (let i = 1; i <= lastMonthDay; i++) {

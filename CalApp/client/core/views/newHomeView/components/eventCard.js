@@ -18,24 +18,20 @@ export class EventCard extends HTMLElement {
 
 
     html() {
-        const days = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
-        const months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
-
-        PubSub.subscribe("change:date", data => {
-            
-        })
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        const months = ["January", "February", "March", "April", "May", "July", "July", "August", "September", "October", "November", "December"];
 
         // const infoForEvent = `
         //     <p>Kommande evenemang</p>
         //     <p>${months[date.getMonth()]}</p>`;
-        let allHtml = "";
+        const currentDate = new Date();
+        let allHtml = `<p>${months[currentDate.getMonth()]}</p>`;
         for (let event of this.events) {
             const date = new Date(event.date);
-            const currentDate = new Date();
+            // Denna kollar antingen eller, men till sen, ändra så det kontrollerar att båda stämmer, månad och datum
             if (date.getDate() == currentDate.getDate() || date.getMonth() == currentDate.getMonth()) {
-
                 allHtml += `
-
+                
                 <div class="eventCardOuter">
                 <div class="imgCont">Image here</div>
                     <div class="eventDesc"> 
@@ -54,9 +50,6 @@ export class EventCard extends HTMLElement {
         }
         return allHtml;
     }
-
-    // return htmlCode;
-
 
 
     style() {

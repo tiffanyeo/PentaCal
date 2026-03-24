@@ -18,6 +18,8 @@ export class HomeView extends HTMLElement {
 
     sub() {
 
+
+        // Visar ursprungs homeview, har kommenterat bort för att testa newHomeView
         // PubSub.subscribe(EVENTS.VIEW.PAGE.SHOW.HOME, (data) => {
 
         //     console.log("HOME EVENT TRIGGERED", data);
