@@ -13,7 +13,7 @@ export class ProfileView extends HTMLElement {
             }
         });
         PubSub.subscribe("change:view", (data) => {
-            if (data.mainPath === "home" && data.subPath === "profile") {
+            if (data.mainPath === "calendars" && data.subPath === "profile") {
                 this.render();
             }
         });

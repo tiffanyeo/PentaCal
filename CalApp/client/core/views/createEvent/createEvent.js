@@ -17,7 +17,7 @@ export class CreateEvent extends HTMLElement {
         });
         
         PubSub.subscribe("change:view", (data) => {
-            if(data.mainPath === "calendars" && data.subPath === "createEvent"){ //url
+            if(data.mainPath === "calendars" && data.subPath === "add"){ //url
                 this.render();
             }
         });
@@ -169,13 +169,18 @@ export class CreateEvent extends HTMLElement {
             }
             try {
                 let data = await apiRequest(sendObj);
-                console.log(data);
-                store.setState({
-                    events: [
-                        ...store.getState().events, // Befintliga events
-                        data // Nytt event från API-svaret
-                    ]
-                });
+                if(typeof(data) === "object") {
+                    store.setState({
+                        events: [
+                            ...store.getState().events, 
+                            data 
+                        ]
+                    });
+                    const allInputs = document.querySelectorAll("input");
+                    for(let input of allInputs) {
+                        input.value = "";
+                    }
+                }
             } catch(error) {
                 console.error("Error adding event:", error);
             }

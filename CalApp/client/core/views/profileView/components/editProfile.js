@@ -78,12 +78,12 @@ export default class EditProfile extends HTMLElement {
         }
         try {
             let data = await apiRequest(sendObj);
-            console.log(data);
-            store.setState({isLoggedIn: {
-                ...store.getState().isLoggedIn,
-                username: inputValue
-            }});
-            console.log(store.getState());     
+            if(typeof(data) === "object") {
+                store.setState({isLoggedIn: {
+                    ...store.getState().isLoggedIn,
+                    username: inputValue
+                }});
+            }
         } catch(error) {
             console.log(error);
         }
