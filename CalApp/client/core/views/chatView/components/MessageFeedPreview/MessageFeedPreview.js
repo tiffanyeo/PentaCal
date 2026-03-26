@@ -9,19 +9,19 @@ export class MessageFeedPreview extends HTMLElement {
     constructor() {
 
         super();
-        this.subs();
-
+        
         this.attachShadow({ mode: "open" });
         this.shadowRoot.innerHTML = `
             <style>
+                
                 .popupContainer {
                     height: 100%;
                 }
-            
+                    
                 .hidden {
                     display: none;
                 }
-                    
+
                 .chatFeedContainer {
                     padding: 0 20px;
                     display: flex;
@@ -29,13 +29,6 @@ export class MessageFeedPreview extends HTMLElement {
                     gap: 8px;
                     height: 100%;
                     overflow: scroll;
-                }
-
-                .notificationCirkle {
-                    width: 8px;
-                    height: 8px;
-                    background-color: red;
-                    border-radius: 50%;
                 }
 
                 .chatBox {
@@ -46,9 +39,18 @@ export class MessageFeedPreview extends HTMLElement {
                     border-radius: 8px;
                     padding: 10px;
                 }
-                    
+
                 .chatBox:hover {
                     background-color: whitesmoke;
+                }
+
+                .notificationCirkle {
+                    width: 4px;
+                    height: 4px;
+                    background-color: red;
+                    border-radius: 50%;
+                    margin-top: -3px;
+                    padding: 3px;
                 }
 
                 .groupImg {
@@ -118,11 +120,12 @@ export class MessageFeedPreview extends HTMLElement {
     connectedCallback() {
 
         // Gör en loading screen?
+        this.subs();
 
         const state = store.getState();
         const userId = state.isLoggedIn.id;
 
-        this.allMesssages = PubSub.subscribe(EVENTS.REQUEST.SENT.MESSAGES.GET, {
+        this.allMesssages = PubSub.publish(EVENTS.REQUEST.SENT.MESSAGES.GET, {
             userId,
             msgType: "all"
         });
