@@ -10,7 +10,7 @@
 import { EVENTS } from "../../core/store/events.js";
 import { PubSub } from "../../core/store/pubsub.js"
 
-export class desicionPopup extends HTMLElement {
+export class DesicionPopup extends HTMLElement {
 
     constructor() {
         super();
@@ -212,3 +212,4 @@ export class desicionPopup extends HTMLElement {
         this.backdrop.classList.add("hidden");
     }
 }
+customElements.define("decision-popup", DesicionPopup);

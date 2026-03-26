@@ -4,7 +4,7 @@ import { EVENTS } from "../../../../store/events.js";
 import { PubSub } from "../../../../store/pubsub.js";
 import { store } from "../../../../store/store.js";
 
-export class ChatFeedPreview extends HTMLElement {
+export class MessageFeedPreview extends HTMLElement {
 
     constructor() {
 
@@ -111,9 +111,15 @@ export class ChatFeedPreview extends HTMLElement {
     }
 
     subs() {
-        PubSub.subscribe(EVENTS.VIEW.POPUP.ChatFeedPreview, () => {
+        
+        PubSub.subscribe(EVENTS.VIEW.POPUP.MESSAGES, () => {
             // openPopup()
         })
+        
+        PubSub.subscribe(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, (data) => {
+            this.renderMessages(data);
+        });
+        
     }
 
     connectedCallback() {
@@ -123,7 +129,7 @@ export class ChatFeedPreview extends HTMLElement {
         const state = getState();
         const userId = state.isLoggedIn.id;
 
-        this.allMesssages = PubSub.publish(EVENTS.REQUEST.GET.CHAT, {
+        this.allMesssages = PubSub.publish(EVENTS.REQUEST.GET.MESSAGES, {
             userId: userId,
             msgType: "all"
         });
@@ -135,23 +141,8 @@ export class ChatFeedPreview extends HTMLElement {
 
 
 
-        PubSub.subscribe(EVENTS.RESPONSE.RECEIVED.CHAT.GET, (data) => {
-            this.renderMessages(data);
-        });
 
-        // När man trycker på en chatbox, öppna upp konversationen
-        /*         this.deleteBtn.addEventListener("click", () => {
-        
-                    payload = {
-                        chatId: "",
-        
-                    }
-        
-                    PubSub.publish(EVENTS.VIEW.PAGE.SHOW.CHAT, { chatId });
-                    PubSub.publish(EVENTS.STORE.UPDATED.CALENDARS);
-                    // Ska context skickas vidare?
-                    this.closeModal();
-                }); */
+
     }
 
     // Open
@@ -252,3 +243,4 @@ export class ChatFeedPreview extends HTMLElement {
 }
 
 
+customElements.define("message-feed-preview", MessageFeedPreview);

@@ -8,7 +8,7 @@ const RESOURCES = [
     "users",
     "usergroups",
     "isloggedin", 
-    "chat"
+    "messages"
 ];
 
 const POPUPS = [
@@ -28,7 +28,8 @@ export const PAGES = [
     "contacts",
     "createGroup",
     "createEvent",
-    "chat"
+    "chat",
+    "messages"
 ];
 
 
@@ -139,6 +140,7 @@ function buildPageShowEvents() {
 export const EVENTS = {
 
     // Sysem Events (login/logout)
+    // EVENTS.STATE.LOGIN.START
     STATE: {
 
         LOGIN: {
@@ -153,15 +155,17 @@ export const EVENTS = {
         }
     },
 
-    // Data Events (updated data, user selected a resource)
+    // Data Events (updated in store, user select resource)
+    // EVENTS.STORE.UPDATED.RESOURCE
     STORE: {
         
         UPDATED: buildStoreUpdatedEvents(),
         SELECTED: buildStoreSelectedEvents()
    
     },
-    
-    // UI Events
+
+    // EVENTS.VIRW.PAGE.SHOW 
+    // EVENTS.VIRW.POPUP.SHOW
     VIEW: {
             
         PAGE: {
@@ -180,6 +184,7 @@ export const EVENTS = {
     },
 
     // API Events
+    // EVENTS.REQUEST.SENT.RESOURCE.ACTION
     REQUEST: {
 
         SENT: buildResourcesWithActions("request", "sent", CRUD_ACTIONS),
@@ -189,15 +194,17 @@ export const EVENTS = {
     },
     
     // API Events
+    // EVENTS.RESPONSE.SENT.RESOURCE.ACTION
     RESPONSE: {
-
+        
         SENT: buildResourcesWithActions("request", "error", READ_ACTIONS),
         RECEIVED: buildResourcesWithActions("response", "received", READ_ACTIONS),
         ERROR: buildResourcesWithActions("response", "error", READ_ACTIONS)
-
+        
     },
     
     // API Events
+    // EVENTS.RESOURCE.RECEIVED.RESOURCE.ACTION
     RESOURCE: {
 
         RECEIVED: buildResourcesWithActions( "resource", "received", READ_ACTIONS ),

@@ -3,13 +3,13 @@ import { apiRequest } from "./api.js";
 import { PubSub } from "../store/pubsub.js";
 import { EVENTS } from "../store/events.js";
 
-export function ChatService() {
+export function MessagesService() {
 
 
     // Payload = {userId, msgType}
-    PubSub.subscribe(EVENTS.REQUEST.GET.CHAT, async function (payload) {
+    PubSub.subscribe(EVENTS.REQUEST.MESSAGES.GET, async function (payload) {
 
-        PubSub.publish(EVENTS.REQUEST.RECEIVED.CHAT)
+        PubSub.publish(EVENTS.REQUEST.RECEIVED.MESSAGES.GET)
 
         const userId = payload.userId;
         const msgType = payload.msgType;
@@ -18,17 +18,17 @@ export function ChatService() {
 
             try {
 
-                const resourceUserCalendars = apiRequest({
+                const resourceUserCalendars = await apiRequest({
                     entity: "/user_calendars",
                     method: "GET"
                 })
 
-                const resourcePrivateMsg = apiRequest({
+                const resourcePrivateMsg = await apiRequest({
                     entity: "/private_msg",
                     method: "GET"
                 })
 
-                const resourceCalendarMsg = apiRequest({
+                const resourceCalendarMsg = await apiRequest({
                     entity: "/calendar_msg",
                     method: "GET"
                 })
@@ -36,7 +36,7 @@ export function ChatService() {
                 // Get users calendars
                 let filteredUGCals = []
                 for (let currUg of resourceUserCalendars) {
-                    if (currUg.userId = userId) {
+                    if (currUg.userId == userId) {
                         filteredUGCals.push(currUg);
                     }
                 }
@@ -60,13 +60,13 @@ export function ChatService() {
                 }
 
                 // Response
-                PubSub.publish(EVENTS.RESPONSE.RECEIVED.CHAT.GET, resourceUserCalendars)
-                PubSub.publish(EVENTS.RESPONSE.RECEIVED.CHAT.GET, resourceCalendarMsg)
-                PubSub.publish(EVENTS.RESPONSE.RECEIVED.CHAT.GET, resourcePrivateMsg)
+                PubSub.publish(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, resourceUserCalendars)
+                PubSub.publish(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, resourceCalendarMsg)
+                PubSub.publish(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, resourcePrivateMsg)
                 // Resource
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CHAT.GET, resourceUserCalendars)
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CHAT.GET, resourceCalendarMsg)
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CHAT.GET, resourcePrivateMsg)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.MESSAGES.GET, resourceUserCalendars)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.MESSAGES.GET, resourceCalendarMsg)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.MESSAGES.GET, resourcePrivateMsg)
 
                 
                 return {
@@ -74,9 +74,9 @@ export function ChatService() {
                     calendarMSG: filteredCalMsg
                 }
 
-            } catch {
+            } catch (err) {
 
-                PubSub.publish(EVENTS.REQUEST.ERROR.CHAT.GET, err)
+                PubSub.publish(EVENTS.REQUEST.ERROR.MESSAGES.GET, err)
 
             }
 
@@ -84,7 +84,7 @@ export function ChatService() {
 
             try {
 
-                const resourcePrivateMsg = apiRequest({
+                const resourcePrivateMsg = await apiRequest({
                     entity: "/private_msg",
                     method: "GET"
                 })
@@ -98,36 +98,36 @@ export function ChatService() {
 
                 
                 // Response
-                PubSub.publish(EVENTS.RESPONSE.RECEIVED.CHAT.GET, resourcePrivateMsg)
+                PubSub.publish(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, resourcePrivateMsg)
                 
                 // Resource
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CHAT.GET, resourcePrivateMsg)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.MESSAGES.GET, resourcePrivateMsg)
 
                 return {
                     privateMSG: filteredPrivateMsg,
                 }
 
-            } catch {
-                PubSub.publish(EVENTS.REQUEST.ERROR.CHAT.GET, err)
+            } catch (err) {
+                PubSub.publish(EVENTS.REQUEST.ERROR.MESSAGES.GET, err)
             }
 
         } else if (msgType == "calendar") {
 
             try {
 
-                const resourceUserCalendars = apiRequest({
+                const resourceUserCalendars = await apiRequest({
                     entity: "/user_calendars",
                     method: "GET"
                 })
 
-                const resourceCalendarMsg = apiRequest({
+                const resourceCalendarMsg = await apiRequest({
                     entity: "/calendar_msg",
                     method: "GET"
                 })
 
                 let filteredUGCals = []
                 for (let currUg of resourceUserCalendars) {
-                    if (currUg.userId = userId) {
+                    if (currUg.userId == userId) {
                         filteredUGCals.push(currUg);
                     }
                 }
@@ -143,26 +143,26 @@ export function ChatService() {
                 }
 
                 // Response
-                PubSub.publish(EVENTS.RESPONSE.RECEIVED.CHAT.GET, resourceUserCalendars)
-                PubSub.publish(EVENTS.RESPONSE.RECEIVED.CHAT.GET, resourceCalendarMsg)
+                PubSub.publish(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, resourceUserCalendars)
+                PubSub.publish(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, resourceCalendarMsg)
 
                 // Resource
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CHAT.GET, resourceUserCalendars)
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CHAT.GET, resourceCalendarMsg)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.MESSAGES.GET, resourceUserCalendars)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.MESSAGES.GET, resourceCalendarMsg)
 
                 return {
                     calendarMSG: filteredCalMsg
                 }
 
-            } catch {
-                PubSub.publish(EVENTS.REQUEST.ERROR.CHAT.GET, err)
+            } catch (err) {
+                PubSub.publish(EVENTS.REQUEST.ERROR.MESSAGES.GET, err)
             }
         }
 
-        PubSub.publish(EVENTS.REQUEST.RECEIVED.ERROR);
+        PubSub.publish(EVENTS.REQUEST.ERROR.MESSAGES.GET);
 
     })
 
 }
 
-ChatService();
+MessagesService();
