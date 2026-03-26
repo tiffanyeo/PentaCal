@@ -1,15 +1,5 @@
-/* 
-<desicion-popup 
-    popupHeader="Ta bort kalender?"
-    popuptext="Detta går inte att ångra."
-    popupBtnCancel="Nej, avbryt"
-    popupBtnDelete="Ja, ta bort">
-</desicion-popup>
-*/
+import { EVENTS } from "../../core/store/events";
 
-
-import { EVENTS } from "../../core/store/events.js";
-import { PubSub } from "../../core/store/pubsub.js";
 
 export class desicionPopup extends HTMLElement {
 
@@ -151,8 +141,19 @@ export class desicionPopup extends HTMLElement {
                 </div>
             </div>
         `;
+        
+        this.subs();
+        
     }
 
+    subs() {
+        
+        Pubsub.subscribe(EVENTS.VIEW.POPUP.DESICIONPOPUP, () => {
+            this.openModal();
+        })
+        
+    }
+    
     connectedCallback() {
 
         // Elements
