@@ -77,9 +77,11 @@ export class StoreService {
 
                 try {
                     privateMessages = await apiRequest({
-                        entity: `private_msg?userId=${userId}`,
+                        entity: `private_msg`,
                         method: "GET"
                     });
+
+                    privateMessages = privateMessages.filter((x) => x.senderId === userId || x.receiverId === userId);
 
                     if (!privateMessages) {
                         privateMessages = [];

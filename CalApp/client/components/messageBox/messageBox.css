@@ -1,7 +1,28 @@
 :host {
     display: block;
+    margin: 10px 0px;
+}
+
+label {
+    display: block;
+}
+
+#message {
+    display: flex;
 }
 
 p {
-    background-color: lime;
+    margin: 0;
+    max-width: 70%;
+    padding: 10px;
+    background-color: #d6d6d6;
+    border-radius: 8px;
+}
+
+.right-label {
+    text-align: right;
+}
+
+.right-msg {
+    justify-content: flex-end;
 }
