@@ -19,6 +19,7 @@ import "./core/services/notificationsService.js";
 import "./core/services/storeService.js"
 import "./core/services/homeService.js";
 import "./core/services/neoTest.js";
+import "./core/services/chatService.js";
 
 // VIEWS
 import "./core/views/createEvent/createEvent.js";

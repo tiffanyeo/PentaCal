@@ -7,7 +7,8 @@ const RESOURCES = [
     "events",
     "users",
     "usergroups",
-    "isloggedin"
+    "isloggedin", 
+    "chat"
 ];
 
 const POPUPS = [
