@@ -2,6 +2,7 @@
 
 import { EVENTS } from "../../../../store/events.js";
 import { PubSub } from "../../../../store/pubsub.js";
+import { store } from "../../../../store/store.js";
 
 export class ChatFeedPreview extends HTMLElement {
 
@@ -117,14 +118,24 @@ export class ChatFeedPreview extends HTMLElement {
 
     connectedCallback() {
 
+        // Gör en loading screen?
+        
+        const state = getState();
+        const userId = state.isLoggedIn.id;
+        
+        this.allMesssages = PubSub.publish(EVENTS.REQUEST.GET.CHAT, {
+            userId: userId, 
+            msgType: "all"
+        });
+        
         this.popupContainer = this.shadowRoot.querySelector(".popupContainer");
+
         
-        
 
 
 
-
-        this.deleteBtn.addEventListener("click", () => {
+        // När man trycker på en chatbox, öppna upp konversationen
+/*         this.deleteBtn.addEventListener("click", () => {
 
             payload = {
                 chatId: "",
@@ -135,7 +146,7 @@ export class ChatFeedPreview extends HTMLElement {
             PubSub.publish(EVENTS.STORE.UPDATED.CALENDARS);
             // Ska context skickas vidare?
             this.closeModal();
-        });
+        }); */
     }
 
     // Open
