@@ -86,7 +86,6 @@ export class BottomNav extends HTMLElement {
 
                 // "home", "users", "add" ... etc
                 const currPage = currBtn.classList[1];
-                console.log(currPage);
 
                 PubSub.publish("change:page", {
                     page: currPage
