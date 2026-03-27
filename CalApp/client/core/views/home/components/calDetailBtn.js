@@ -5,10 +5,34 @@ export class CalDetailBtn extends HTMLElement{
     constructor(){
         super();
         this.attachShadow({mode: "open"});
-        this.detail = "All";
         this.isOpen = false;
         this.render();
+
     }
+
+    connectedCallback() {
+        this.detail = this.getCalName(this.detail);
+        this.render();
+        
+        this._sub = PubSub.subscribe("change:detail-btn", (calId) => {
+            this.detail = this.getCalName(calId);
+            this.render();
+    });
+    }
+
+    getCalName(id) {
+        if (!id){
+            return "All";
+        }
+        const calendars = store.getState().cals;
+        const cal = calendars.find(c => c.id === id);
+        if (cal){
+            return cal.name;
+        } else {
+            return "All";
+        }
+    }
+    
     render(){
         const calendars = store.getState().cals;
         this.shadowRoot.innerHTML = `

@@ -1,7 +1,7 @@
 import { store } from "../../store/store.js";
 import { PubSub } from "../../store/pubsub.js";
 import { EVENTS } from "../../store/events.js";
-import { LandingButtonContainer } from "./components/landingButtons.js";
+import { DetailContainer } from "./components/detailContainer.js";
 import { NotificationsBar } from "../../../components/notificationsBar/notificationsBar.js";
 import { CalDetailBtn } from "./components/calDetailBtn.js";
 import { CalRender } from "./components/calRender.js";
@@ -69,7 +69,7 @@ export class HomeView extends HTMLElement {
         let content = document.querySelector("#content")
         content.innerHTML = `
         <notifications-bar></notifications-bar>
-        <cal-detail-btn></cal-detail-btn>
+        <detail-container></detail-container>
         <filter-cals></filter-cals>
         <week-chart></week-chart>
         <search-tags></search-tags>
