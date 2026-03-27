@@ -93,7 +93,8 @@ NOTE: This server NEEDS to be served on port 8000. This port is reserved for the
 > The assets directory includes the icons folder. The icons folder contains icons (images) that we use on the site. This directory will also be the place for fonts and site-wide CSS files.
 
 # API Documentation
-The following section includes the API Documentation for the project. It includes all possible endpoints, methods and expected request / response bodies.
+The following section includes the API Documentation for the project. It includes all possible endpoints, methods and expected request / response bodies. 
+All responses from are sent as JSON.
 
 ## Allowed HTTP-Methods
 The API only accepts HTTP-methods GET, POST, PATCH and DELETE. A request with any other HTTP-method will be rejected.
@@ -110,7 +111,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: array of user-objects
 - Example response(s): 
 > 200 OK
-```
+```json
 [{
     "id": "65e10aa11a001",
     "email": "elle@gamil.com",
@@ -122,7 +123,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### POST
 - Used to: Create a new user and add it to the database
 - Expected request-body:
-```
+```json
 {
     name: string,
     email: string,
@@ -133,7 +134,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: user-object of created user or error-object
 - Example response(s):
 > 201 Created | User was successfully created
-```
+```json
 {
     "id": "65e10aa11a001",
     "email": "elle@gamil.com",
@@ -143,14 +144,14 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 400 Bad Request | One or more required attributes are missing
-``` 
+```json
 {
     error: "Missing fields"
 }
 ```
 
 > 409 Conflict | User with username or email already exists
-```
+```json
 {
     error: "User aldready exists"
 }
@@ -159,7 +160,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### PATCH 
 - Used to: edit or change existing user credentials
 - Expected request-body:
-```
+```json
 {
     userId: string,
     name: string?,
@@ -171,7 +172,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: Edited user-object or error-object
 - Example response:
 > 200 OK | User was successfully edited
-```
+```json
 {
     "id": "65e10aa11a001",
     "email": "elle@gamil.com",
@@ -181,14 +182,14 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 400 Bad Request | userId attribute missing
-```
+```json
 {
     error: "Missing userId parameter"
 }
 ```
 
 > 404 Not Found | User with provided ID was not found
-```
+```json
 {
     error: "User not found"
 }
@@ -197,7 +198,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### DELETE
 - Used to: Delete user from database
 - Expected request-body: 
-```
+```json
 {
     userId: string,
     password: string,
@@ -208,28 +209,28 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: success-object or error-object
 - Example response:
 > 200 OK | User was successfully deleted
-```
+```json
 {
     message: "User successfully deleted"
 }
 ```
 
 > 400 Bad Request | Required attributes missing
-```
+```json
 {
     error: "Missing fields"
 }
 ```
 
 > 403 Forbidden | Sent password or email does not match
-```
+```json
 {
     error: "Invalid email or password"
 }
 ```
 
 > 404 Not Found | User was not found
-```
+```json
 {
     error: "User not found"
 }
@@ -243,7 +244,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: User-object or error-object
 - Example response:
 > 200 OK | Appropratie user was found
-```
+```json
 {
      "id": "65e10aa11a001",
     "email": "elle@gamil.com",
@@ -253,9 +254,58 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 404 Not Found | No user with provided ID was found
-```
+```json
 {
     error: "User not found"
+}
+```
+
+### /calendars
+#### GET
+- Used to: Get call calendars from database
+- Expected request-body: none
+- Possible response statuses: 200, 404
+- Reponse-body: array of calendar-objects or error-object
+- Example response:
+> 200 OK | Atleast one calendar was found and the array was returned
+```json
+[{
+    "id": "65e10aa11b001",
+    "creatorId": "65e10aa11a001",
+    "name": "Projekt A",
+    "description": "En samlingsplats f\u00f6r allt som r\u00f6r projektet.",
+    "type": "public"
+}]
+```
+
+> 404 Not Found | No Calendars were found
+```json
+{
+    error: "No calendars found"
+}
+```
+
+#### POST
+- Used to: Create a new calendar and add it to the database
+- Expected request-body:
+```json
+{
+    userId: string,
+    name: string,
+    type: string
+}
+```
+- Possible response statuses: 200, 400, 409
+- Response-body: Created calendar-object or error-object
+- Example response:
+> 200 OK | Calendar was created
+```json
+{
+    "id": "65e10aa11b001",
+    "creatorId": "65e10aa11a001",
+    "name": "Projekt A",
+    "description": "En samlingsplats f\u00f6r allt som r\u00f6r projektet.",
+    "type": "public"
 }
 ```
 
