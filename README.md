@@ -104,22 +104,158 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ## Endpoints
 ### /users
 #### GET
-> Used to: Get all users
-
-> Expected request-body: none
-
-> Possible response statuses: 200
-
-> Response-body: array of user-objects
-
-> Example response: 
+- Used to: Get all users
+- Expected request-body: none
+- Possible response statuses: 200 OK
+- Response-body: array of user-objects
+- Example response(s): 
+> 200 OK
 ```
-    [{
-        "id": "65e10aa11a001",
-        "email": "elle@gamil.com",
-        "pwd": "testpass",
-        "name": "Elias"
-    }]
+[{
+    "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "testpass",
+    "name": "Elias"
+}]
 ```
 
-### POST
+#### POST
+- Used to: Create a new user and add it to the database
+- Expected request-body:
+```
+{
+    name: string,
+    email: string,
+    password: string
+}
+```
+- Possible response-statuses: 201 Created, 400 Bad Request, 409 Conflict
+- Response-body: user-object of created user or error-object
+- Example response(s):
+> 201 Created | User was successfully created
+```
+{
+    "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "testpass",
+    "name": "Elias"
+}
+```
+
+> 400 Bad Request | One or more required attributes are missing
+``` 
+{
+    error: "Missing fields"
+}
+```
+
+> 409 Conflict | User with username or email already exists
+```
+{
+    error: "User aldready exists"
+}
+```
+
+#### PATCH 
+- Used to: edit or change existing user credentials
+- Expected request-body:
+```
+{
+    userId: string,
+    name: string?,
+    password: string?,
+    email: string?
+}
+```
+- Possible response statuses: 200, 400, 404
+- Response-body: Edited user-object or error-object
+- Example response:
+> 200 OK | User was successfully edited
+```
+{
+    "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "newpass",
+    "name": "Elias"
+}
+```
+
+> 400 Bad Request | userId attribute missing
+```
+{
+    error: "Missing userId parameter"
+}
+```
+
+> 404 Not Found | User with provided ID was not found
+```
+{
+    error: "User not found"
+}
+```
+
+#### DELETE
+- Used to: Delete user from database
+- Expected request-body: 
+```
+{
+    userId: string,
+    password: string,
+    email: string
+}
+```
+- Possible response statuses: 200, 400, 403, 404
+- Response-body: success-object or error-object
+- Example response:
+> 200 OK | User was successfully deleted
+```
+{
+    message: "User successfully deleted"
+}
+```
+
+> 400 Bad Request | Required attributes missing
+```
+{
+    error: "Missing fields"
+}
+```
+
+> 403 Forbidden | Sent password or email does not match
+```
+{
+    error: "Invalid email or password"
+}
+```
+
+> 404 Not Found | User was not found
+```
+{
+    error: "User not found"
+}
+```
+
+### /users?id=id
+#### GET
+- Used to: get a specific user from their userId
+- Expected request-body: none, but request-param "id" expected
+- Possible response statuses: 200, 404
+- Response-body: User-object or error-object
+- Example response:
+> 200 OK | Appropratie user was found
+```
+{
+     "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "testpass",
+    "name": "Elias"
+}
+```
+
+> 404 Not Found | No user with provided ID was found
+```
+{
+    error: "User not found"
+}
+```
+
