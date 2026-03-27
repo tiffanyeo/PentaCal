@@ -123,7 +123,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### POST
 - Used to: Create a new user and add it to the database
 - Expected request-body:
-```json
+```js
 {
     name: string,
     email: string,
@@ -134,7 +134,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: user-object of created user or error-object
 - Example response(s):
 > 201 Created | User was successfully created
-```json
+```js
 {
     "id": "65e10aa11a001",
     "email": "elle@gamil.com",
@@ -144,14 +144,14 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 400 Bad Request | One or more required attributes are missing
-```json
+```js
 {
     error: "Missing fields"
 }
 ```
 
 > 409 Conflict | User with username or email already exists
-```json
+```js
 {
     error: "User aldready exists"
 }
@@ -160,12 +160,12 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### PATCH 
 - Used to: edit or change existing user credentials
 - Expected request-body:
-```json
+```js
 {
-    userId: string,
-    name: string?,
-    password: string?,
-    email: string?
+    userId: "string",
+    name: "string?",
+    password: "string?",
+    email: "string?"
 }
 ```
 - Possible response statuses: 200, 400, 404
@@ -182,14 +182,14 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 400 Bad Request | userId attribute missing
-```json
+```js
 {
     error: "Missing userId parameter"
 }
 ```
 
 > 404 Not Found | User with provided ID was not found
-```json
+```js
 {
     error: "User not found"
 }
@@ -198,7 +198,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### DELETE
 - Used to: Delete user from database
 - Expected request-body: 
-```json
+```js
 {
     userId: string,
     password: string,
@@ -209,28 +209,28 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 - Response-body: success-object or error-object
 - Example response:
 > 200 OK | User was successfully deleted
-```json
+```js
 {
     message: "User successfully deleted"
 }
 ```
 
 > 400 Bad Request | Required attributes missing
-```json
+```js
 {
     error: "Missing fields"
 }
 ```
 
 > 403 Forbidden | Sent password or email does not match
-```json
+```js
 {
     error: "Invalid email or password"
 }
 ```
 
 > 404 Not Found | User was not found
-```json
+```js
 {
     error: "User not found"
 }
@@ -254,7 +254,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 404 Not Found | No user with provided ID was found
-```json
+```js
 {
     error: "User not found"
 }
@@ -279,7 +279,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ```
 
 > 404 Not Found | No Calendars were found
-```json
+```js
 {
     error: "No calendars found"
 }
@@ -288,7 +288,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 #### POST
 - Used to: Create a new calendar and add it to the database
 - Expected request-body:
-```json
+```js
 {
     userId: string,
     name: string,
