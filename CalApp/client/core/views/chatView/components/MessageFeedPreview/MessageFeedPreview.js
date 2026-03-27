@@ -129,7 +129,7 @@ export class MessageFeedPreview extends HTMLElement {
 
         const state = store.getState();
         const userId = state.isLoggedIn.id;
-        
+
         this.popupContainer = this.shadowRoot.querySelector(".popupContainer");
 
         // Triggers renderMessages from subs()
@@ -168,9 +168,24 @@ export class MessageFeedPreview extends HTMLElement {
         backgroundColor = "transparent"
     }
 
+    getUserName(id, users) {
+        const u = users.find(x => x.id === id);
+        return u ? u.name : "Unknown";
+    }
+
+    getCalendarName(id, calendars) {
+        const c = calendars.find(x => x.id === id);
+        return c ? c.name : "Unknown calendar";
+    }
+
     renderMessages(allMessages) {
 
         if (!allMessages) return;
+
+        this.users = allMessages.users || [];
+        this.calendars = allMessages.calendars || [];
+
+        const state = store.getState();
 
         const container = this.shadowRoot.querySelector(".chatFeedContainer");
         container.innerHTML = "";
@@ -186,24 +201,31 @@ export class MessageFeedPreview extends HTMLElement {
             return db - da;
         });
 
-        
         for (let msg of merged) {
+            
             let chatName = "";
             let senderName = "";
-            
-            // ** TODO** lägg till calendars så vi kan få ut namnen och users så vi kan få ut namnen på receivers/senders om inte det är usser
+
             if (msg.type === "private") {
-                senderName = store.getUserName(msg.senderId);
-                chatName = senderName;
-                
+
+                senderName = this.getUserName(msg.senderId, this.users);
+
+                if (msg.senderId === state.isLoggedIn.id) {
+                    chatName = this.getUserName(msg.receiverId, this.users);
+                } else {
+                    chatName = senderName;
+                }
+
             } else if (msg.type === "calendar") {
-                senderName = store.getUserName(msg.senderId);
-                chatName = store.getCalendarName(msg.calId);
+
+                senderName = this.getUserName(msg.senderId, this.users);
+                chatName = this.getCalendarName(msg.calId, this.calendars);
+
             }
-            
+
             const box = document.createElement("div");
             box.classList.add("chatBox");
-            
+
             box.innerHTML = `
             <div class="chatBoxContent">
                 <div class="groupImg"></div>
@@ -218,7 +240,7 @@ export class MessageFeedPreview extends HTMLElement {
                 </div>
             </div>
             `;
-            
+
             // 24h noti cirkle (change to "unread" in later development)
             const now = Date.now();
             const msgDate = new Date(`${msg.date}T${msg.time}`);
@@ -227,7 +249,7 @@ export class MessageFeedPreview extends HTMLElement {
             notif.classList.toggle("hidden", diffHours > 24);
 
             container.appendChild(box);
-            
+
         }
     }
 
