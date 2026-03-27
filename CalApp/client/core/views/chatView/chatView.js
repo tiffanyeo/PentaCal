@@ -1,7 +1,7 @@
 import { store } from "../../store/store.js";
 import { PubSub } from "../../store/pubsub.js";
-import { EVENTS } from "../../store/events.js";
-import "./components/MessageFeedPreview/MessageFeedPreview.js";
+import { apiRequest } from "../../services/api.js";
+
 
 export class ChatView extends HTMLElement {
     constructor() {
@@ -48,7 +48,6 @@ export class ChatView extends HTMLElement {
         <h2>Chats</h2>
         <app-input id="searchBar" placeholder="Type calender or a friend to chat"></app-input>
         <div id="data"></div>
-        <message-feed-preview></message-feed-preview>
     `
     const searchBar = content.querySelector("#searchBar");
     let dataDiv = content.querySelector("#data");
@@ -77,7 +76,8 @@ export class ChatView extends HTMLElement {
         if (cal.name) {
             allDataWithType.push({
                 name: cal.name,
-                type: "calendar"
+                type: "calendar",
+                id: cal.id
             });
         }
     }
@@ -87,13 +87,15 @@ export class ChatView extends HTMLElement {
         if (friend.name) {
             allDataWithType.push({
                 name: friend.name,
-                type: "friend"
+                type: "friend",
             });
         }
     }
 
 
-    searchBar.addEventListener("input", function(event) {
+    searchBar.addEventListener("input", () => {
+        let messageContainer = document.getElementById("messageContainer");
+        messageContainer.innerHTML = "";
         dataDiv.innerHTML = "";
 
         let valueInput = searchBar.getValue().toLowerCase();
@@ -114,14 +116,19 @@ export class ChatView extends HTMLElement {
                     div.appendChild(pName);
                     div.appendChild(pType);
                     divContainer.appendChild(div);
+                    divContainer.addEventListener("click" , () => {
+                        this.something(state.isLoggedIn.id, data.id,state )
+                    })
                     dataDiv.appendChild(divContainer);
+                    
                 }
             }
         }
 
     
-        // Render messages
-        PubSub.publish(EVENTS.VIEW.POPUP.SHOW.MESSAGES);
+
+
+        
         
     })}
     

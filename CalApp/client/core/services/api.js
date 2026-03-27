@@ -42,12 +42,12 @@ export async function apiRequest({ entity, method, body = null }) {
         console.warn("400 Bad Request: ", entity);
         return null;
     }
-    
+
     if (response.status === 409) {
         console.warn("409 Bad Request: ", entity);
         return null;
     }
-    
+
     // Throw error om annat serverfel, kanske annat alt här?
     if (!response.ok) {
         console.error("Server error: ", response.status);
@@ -57,5 +57,5 @@ export async function apiRequest({ entity, method, body = null }) {
     // Från erik: Status måste alltid returneras och en (ev. tom) body + status
     const data = await response.json();
     return data;
-    
+
 }

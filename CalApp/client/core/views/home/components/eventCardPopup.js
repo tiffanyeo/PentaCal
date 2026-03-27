@@ -13,29 +13,46 @@ class EventCardPopup extends HTMLElement {
     }
 
     html() {
+        // Få upp alla deltagare för just det eventet kanske? Eller ska vi ha det, kolla hur mycket det är
         return `
-            <div id="eventPopup">
-                <h1>Event</h1>
-                <h3>${this.event.name}</h3>
-                <p class="datumPlats">${this.event.date}</p>
-                <p class="datumPlats">${this.event.location}</p>
-                <div>
-
-                </div>
+            <div id="eventPopupBackground">
+                <div id="eventPopupContent">
+                    <h1>Event</h1>
+                    <h3>${this.event.name}</h3>
+                    <p class="datumPlats">${this.event.date}</p>
+                    <p class="datumPlats">${this.event.location}</p>
+                    <div>   
+                    </div>
+                </div>  
             </div>
         `
     }
 
     style() {
-        return `
+        return `    
             <style>
-                #eventPopup {
-                    width: 300px;
-                    height 500px;
-                    position: absolute;
+                #eventPopupBackground {
+                    display: flex;
+                    background-color: rgba(0, 0, 0, 0.45);
+                    position: fixed;
+                    z-index: 9999;
+                    inset: 0;
+                    justify-content: center;
+                    align-items: center;
                 }
-            
-            
+                #eventPopupContent {
+                    width: 300px;
+                    height: 400px;  
+                    background-color: white;
+                    border-radius: 10px;
+                    padding: 25px;
+                    display: flex;
+                    gap: 25px;
+                    flex-direction: column;
+                }
+                p {
+                    border-bottom: 2px solid black;
+                }
             </style>
 
         `

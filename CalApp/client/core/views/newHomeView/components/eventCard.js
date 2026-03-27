@@ -88,6 +88,7 @@ export class EventCard extends HTMLElement {
                 background-color: white;
                 border-radius: 10px;
                 overflow: hidden;
+                cursor: pointer;
             }
             .eventDesc {
                 display: flex;
@@ -131,8 +132,7 @@ export class EventCard extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
             ${this.style()}
-
-                ${this.html()}
+            ${this.html()}
 
    
             `
