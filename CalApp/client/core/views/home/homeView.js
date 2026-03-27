@@ -13,7 +13,6 @@ import "./components/eventCardPopup.js";
 export class HomeView extends HTMLElement {
     constructor() {
         super();
-        this.app = document.querySelector("#app");
         this.attachShadow({ mode: "open" });
         this.currentView = "my-calendar";
         this.sub();

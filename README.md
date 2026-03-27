@@ -93,7 +93,8 @@ NOTE: This server NEEDS to be served on port 8000. This port is reserved for the
 > The assets directory includes the icons folder. The icons folder contains icons (images) that we use on the site. This directory will also be the place for fonts and site-wide CSS files.
 
 # API Documentation
-The following section includes the API Documentation for the project. It includes all possible endpoints, methods and expected request / response bodies.
+The following section includes the API Documentation for the project. It includes all possible endpoints, methods and expected request / response bodies. 
+All responses from are sent as JSON.
 
 ## Allowed HTTP-Methods
 The API only accepts HTTP-methods GET, POST, PATCH and DELETE. A request with any other HTTP-method will be rejected.
@@ -104,22 +105,207 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 ## Endpoints
 ### /users
 #### GET
-> Used to: Get all users
-
-> Expected request-body: none
-
-> Possible response statuses: 200
-
-> Response-body: array of user-objects
-
-> Example response: 
-```
-    [{
-        "id": "65e10aa11a001",
-        "email": "elle@gamil.com",
-        "pwd": "testpass",
-        "name": "Elias"
-    }]
+- Used to: Get all users
+- Expected request-body: none
+- Possible response statuses: 200 OK
+- Response-body: array of user-objects
+- Example response(s): 
+> 200 OK
+```json
+[{
+    "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "testpass",
+    "name": "Elias"
+}]
 ```
 
-### POST
+#### POST
+- Used to: Create a new user and add it to the database
+- Expected request-body:
+```js
+{
+    name: string,
+    email: string,
+    password: string
+}
+```
+- Possible response-statuses: 201 Created, 400 Bad Request, 409 Conflict
+- Response-body: user-object of created user or error-object
+- Example response(s):
+> 201 Created | User was successfully created
+```js
+{
+    "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "testpass",
+    "name": "Elias"
+}
+```
+
+> 400 Bad Request | One or more required attributes are missing
+```js
+{
+    error: "Missing fields"
+}
+```
+
+> 409 Conflict | User with username or email already exists
+```js
+{
+    error: "User aldready exists"
+}
+```
+
+#### PATCH 
+- Used to: edit or change existing user credentials
+- Expected request-body:
+```js
+{
+    userId: "string",
+    name: "string?",
+    password: "string?",
+    email: "string?"
+}
+```
+- Possible response statuses: 200, 400, 404
+- Response-body: Edited user-object or error-object
+- Example response:
+> 200 OK | User was successfully edited
+```json
+{
+    "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "newpass",
+    "name": "Elias"
+}
+```
+
+> 400 Bad Request | userId attribute missing
+```js
+{
+    error: "Missing userId parameter"
+}
+```
+
+> 404 Not Found | User with provided ID was not found
+```js
+{
+    error: "User not found"
+}
+```
+
+#### DELETE
+- Used to: Delete user from database
+- Expected request-body: 
+```js
+{
+    userId: string,
+    password: string,
+    email: string
+}
+```
+- Possible response statuses: 200, 400, 403, 404
+- Response-body: success-object or error-object
+- Example response:
+> 200 OK | User was successfully deleted
+```js
+{
+    message: "User successfully deleted"
+}
+```
+
+> 400 Bad Request | Required attributes missing
+```js
+{
+    error: "Missing fields"
+}
+```
+
+> 403 Forbidden | Sent password or email does not match
+```js
+{
+    error: "Invalid email or password"
+}
+```
+
+> 404 Not Found | User was not found
+```js
+{
+    error: "User not found"
+}
+```
+
+### /users?id=id
+#### GET
+- Used to: get a specific user from their userId
+- Expected request-body: none, but request-param "id" expected
+- Possible response statuses: 200, 404
+- Response-body: User-object or error-object
+- Example response:
+> 200 OK | Appropratie user was found
+```json
+{
+     "id": "65e10aa11a001",
+    "email": "elle@gamil.com",
+    "pwd": "testpass",
+    "name": "Elias"
+}
+```
+
+> 404 Not Found | No user with provided ID was found
+```js
+{
+    error: "User not found"
+}
+```
+
+### /calendars
+#### GET
+- Used to: Get call calendars from database
+- Expected request-body: none
+- Possible response statuses: 200, 404
+- Reponse-body: array of calendar-objects or error-object
+- Example response:
+> 200 OK | Atleast one calendar was found and the array was returned
+```json
+[{
+    "id": "65e10aa11b001",
+    "creatorId": "65e10aa11a001",
+    "name": "Projekt A",
+    "description": "En samlingsplats f\u00f6r allt som r\u00f6r projektet.",
+    "type": "public"
+}]
+```
+
+> 404 Not Found | No Calendars were found
+```js
+{
+    error: "No calendars found"
+}
+```
+
+#### POST
+- Used to: Create a new calendar and add it to the database
+- Expected request-body:
+```js
+{
+    userId: string,
+    name: string,
+    type: string
+}
+```
+- Possible response statuses: 200, 400, 409
+- Response-body: Created calendar-object or error-object
+- Example response:
+> 200 OK | Calendar was created
+```json
+{
+    "id": "65e10aa11b001",
+    "creatorId": "65e10aa11a001",
+    "name": "Projekt A",
+    "description": "En samlingsplats f\u00f6r allt som r\u00f6r projektet.",
+    "type": "public"
+}
+```
+
