@@ -75,6 +75,7 @@ export class StoreService {
                 let privateMessages;
 
                 try {
+                    
                     privateMessages = await apiRequest({
                         entity: `private_msg`,
                         method: "GET"

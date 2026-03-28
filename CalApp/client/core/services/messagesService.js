@@ -29,7 +29,7 @@ export function MessagesService() {
                     entity: "users",
                     method: "GET"
                 })
-            
+
                 // Filter User Cals
                 const userCalIds = resourceUserCalendars
                     .filter(uc => uc.userId == userId)
@@ -178,6 +178,35 @@ export function MessagesService() {
         }, true);
 
     })
+
+
+    PubSub.subscribe(EVENTS.DATA.SELECTED.MESSAGES, async (payload) => {
+
+        const resourceUsers = await apiRequest({
+            entity: "users",
+            method: "GET"
+        });
+
+        const resourcePrivate = await apiRequest({
+            entity: "private_msg",
+            method: "GET"
+        });
+
+        const resourceCalendar = await apiRequest({
+            entity: "calendar_msg",
+            method: "GET"
+        });
+
+        PubSub.publish(EVENTS.DATA.RETURNED.MESSAGES, {
+            users: resourceUsers,
+            privateMSG: resourcePrivate,
+            calendarMSG: resourceCalendar,
+            chatType: payload.chatType,
+            chatId: payload.chatId
+        });
+
+    });
+
 
 }
 

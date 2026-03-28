@@ -13,6 +13,7 @@
  *
  * Add a RESOURCE (data)
  *   1.  Add under DATA.UPDATED
+ *   1.  Add under DATA.RETURNED
  *   2.  Add under DATA.SELECTED
  *   3.  Add under REQUEST.SENT      (POST, GET, PATCH, DELETE)
  *   4.  Add under REQUEST.RECEIVED  (POST, GET)
@@ -56,6 +57,10 @@ export const EVENTS = {
             USERGROUPS: "data:updated:usergroups",
             ISLOGGEDIN: "data:updated:isloggedin",
             MESSAGES: "data:updated:messages"
+        },
+        
+        RETURNED: {
+            MESSAGES: "data:returned:messages"
         },
 
         SELECTED: {

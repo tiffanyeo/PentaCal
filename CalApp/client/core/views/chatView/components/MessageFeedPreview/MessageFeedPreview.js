@@ -118,10 +118,10 @@ export class MessageFeedPreview extends HTMLElement {
         // Subscribe messages received, save returned unsubscribe fn
         this.subscriptions.push(
             PubSub.subscribe(EVENTS.RESPONSE.RECEIVED.MESSAGES.GET, (data) => {
-                console.log(data);
                 this.renderMessages(data);
             })
         );
+        
         this.subscriptions.push(
             PubSub.subscribe(EVENTS.DATA.UPDATED.MESSAGES, (data) => {
                 this.renderMessages(data);
@@ -134,7 +134,6 @@ export class MessageFeedPreview extends HTMLElement {
         this.subs();
 
         const state = store.getState();
-        console.log(state, "HI FROOM MSGFPV-1-1--2-2-2--2-")
         const userId = state.isLoggedIn.id;
 
         this.popupContainer = this.shadowRoot.querySelector(".popupContainer");
@@ -145,7 +144,6 @@ export class MessageFeedPreview extends HTMLElement {
             msgType: "all"
         });
 
-        console.log()
     }
 
     disconnectedCallback() {
@@ -177,7 +175,6 @@ export class MessageFeedPreview extends HTMLElement {
     }
 
     getUserName(id, users) {
-        console.log("GET USERNAME:", id, users)
         const u = users.find(x => x.id === id);
         return u ? u.name : "Unknown";
     }
