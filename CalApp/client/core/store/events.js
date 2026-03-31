@@ -102,7 +102,7 @@ export const EVENTS = {
                 CREATEEVENT: "view:popup:createEvent:show",
                 SEARCHMODAL: "view:popup:searchModal:show",
                 CREATEPOPUP: "view:popup:createPopup:show",
-                DECICIONPOPUP: "view:popup:decicionPopup:show",
+                DECISIONPOPUP: "view:popup:decisionpopup:show",
                 MESSAGEFEEDPREVIEW: "view:popup:messagefeedpreview:show"
             },
 
@@ -111,7 +111,7 @@ export const EVENTS = {
                 CREATEEVENT: "view:popup:createEvent:close",
                 SEARCHMODAL: "view:popup:searchModal:close",
                 CREATEPOPUP: "view:popup:createPopup:close",
-                DECICIONPOPUP: "view:popup:decicionPopup:close",
+                DECISIONPOPUP: "view:popup:decisionpopup:close",
                 MESSAGEFEEDPREVIEW: "view:popup:messagefeedpreview:close"
             }
 
@@ -421,7 +421,7 @@ const POPUPS = [
     "createEvent",
     "searchModal",
     "createPopup",
-    "decicionPopup",
+    "decisionpopup",
     "ChatFeedPreview"
 ];
 
