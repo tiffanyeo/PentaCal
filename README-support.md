@@ -7,7 +7,7 @@
 <!-- FRIENDSHIPS -->
 <!-- FRIENDSHIPS -->
 
-### /friendships?userId=id
+### /friendships?userId=string
 #### GET
 - Used to: Get all users friendship from database
 - Expected request-body: none
@@ -16,18 +16,18 @@
 > 200 OK
 ```json
 {
-    "id": "",
-    "userId1": "",
-    "userId2": ""
+    "id": "string",
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
 #### POST
 - Used to: Create a new friendship
 - Expected request-body:
-```js
+```json
 {
-    "userId1": "id",
-    "userId2": "id"
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
 - Possible response statuses: 200, 404, 409
@@ -36,25 +36,25 @@
 > 201 Created | Event was created
 ```json
 {
-    "id": "id",
-    "userId1": "id",
-    "userId2": "id"
+    "id": "string",
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
 > 400 Bad Request | Any required attributes are missing
-```js
+```json
 {
     error: "Missing attributes"
 }
 ```
 > 404 Not Found | User could not be found
-```js
+```json
 {
     error: "User not found"
 }
 ```
 > 409 Not Found | Users are already friends
-```js
+```json
 {
     error: "Friend invitation already sent"
 }
@@ -62,10 +62,10 @@
 #### DELETE
 - Used to: Delete a friendship
 - Expected request-body:
-```js
+```json
 {
-    "userId1": "id",
-    "userId2": "id"
+    "userId1": "string",
+    "userId2": "string"
 }
 - Possible response statuses: 200, 400, 404
 - Response-body: message-object
@@ -88,7 +88,7 @@
     message: "User not found"
 }
 ```
-### /friendships?userId1=id§userId2=id
+### /friendships?userId1=string&userId2=string
 #### GET
 - Used to: Get all users friendship from database
 - Expected request-body: none
@@ -97,9 +97,9 @@
 > 200 OK
 ```json
 {
-    "id": "",
-    "userId1": "",
-    "userId2": ""
+    "id": "string",
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
 > 400 Missing parameters | userId1 or userId2 is missing
@@ -117,10 +117,10 @@
 #### POST
 - Used to: Create a new friendship
 - Expected request-body:
-```js
+```json
 {
-    "userId1": "id",
-    "userId2": "id"
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
 - Possible response statuses: 200, 404, 409
@@ -129,25 +129,25 @@
 > 201 Created | Event was created
 ```json
 {
-    "id": "id",
-    "userId1": "id",
-    "userId2": "id"
+    "id": "string",
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
 > 400 Bad Request | Any required attributes are missing
-```js
+```json
 {
     error: "Missing attributes"
 }
 ```
 > 404 Not Found | User could not be found
-```js
+```json
 {
     error: "User not found"
 }
 ```
 > 409 Not Found | Users are already friends
-```js
+```json
 {
     error: "Friend invitation already sent"
 }
@@ -155,10 +155,10 @@
 #### DELETE
 - Used to: Delete a friendship
 - Expected request-body:
-```js
+```json
 {
-    "userId1": "id",
-    "userId2": "id"
+    "userId1": "string",
+    "userId2": "string"
 }
 - Possible response statuses: 200, 400, 404
 - Response-body: message-object
@@ -194,121 +194,117 @@
 
 
 ### /private_msg
-#### GET
-- Used to: Get all private messages from database
-- Expected request-body: none
-- Possible response statuses: 200
-- Reponse-body: array of private_msg-objects
-- Example response:
-> 200 OK | Atleast one message was found and the array was returned
-```json
-[{
-    "id": "",
-    "senderId": "",
-    "receiverId": "",
-    "date": "2026-03-01",
-    "time": "18:00:00",
-    "content": "",
-    "hasChange": true
-}]
-```
-
 #### POST
 - Used to: Send a private message to another user
 - Expected request-body:
-```js
+```json
 {
-    userId: string,
-    receiverId: string,
-    content: string
+    userId: "string",
+    receiverId: "string",
+    content: "string"
 }
 ```
 - Possible response statuses: 200, 400, 404
 - Response-body: success-object or error-object
 - Example response:
 > 200 OK | Message was sent
-```js
+```json
 {
     message: "Message is send to receiver"
 }
 ```
-
 > 400 Bad Request | Attributes missing in request-body
-```js
+```json
 {
     error: "Bad request"
 }
 ```
-
 > 404 Not Found | Receiver does not exist
-```js
+```json
 {
     error: "The receiver doesn't exist"
 }
 ```
-
 #### PATCH
 - Used to: Edit an existing private message
 - Expected request-body:
-```js
+```json
 {
-    privMsgId: string,
-    content: string
+    privMsgId: "string",
+    content: "string"
 }
 ```
 - Possible response statuses: 200, 400, 404
 - Response-body: success-object or error-object
 - Example response:
 > 200 OK | Message was successfully updated
-```js
+```json
 {
     message: "Successfully update message"
 }
 ```
-
 > 400 Bad Request | Required attributes missing
-```js
+```json
 {
     error: "Bad request"
 }
 ```
-
 > 404 Not Found | No message with provided id was found
-```js
+```json
 {
     error: "The message couldn't be found"
 }
 ```
-
 #### DELETE
 - Used to: Delete a private message from database
 - Expected request-body:
-```js
+```json
 {
-    privMsgId: string
+    privMsgId: "string"
 }
 ```
 - Possible response statuses: 200, 400, 404
 - Response-body: success-object or error-object
 - Example response:
 > 200 OK | Message was successfully deleted
-```js
+```json
 {
     message: "The message successfully deleted"
 }
 ```
-
 > 400 Bad Request | If privMsgId attribute is missing
-```js
+```json
 {
     error: "Bad request"
 }
 ```
-
 > 404 Not Found | No message with provided id was found
-```js
+```json
 {
     error: "The message couldn't be found"
+}
+```
+#### private_msg?senderId=string&receiverId=string
+### GET
+- Used to: Get conversation between two users
+- Expected request-body: none
+- Possible response statuses: 200, 404
+> 200 OK
+```json
+[{
+    "id": "string",
+    "senderId": "string",
+    "receiverId": "string",
+    "date": "YYYY-MM-DD",
+    "time": "HH:MM:SS",
+    "content": "string",
+    "hasChanged": true
+}]
+```
+> 404 Not Found
+```json
+{
+    error: "No messages found"
 }
 ```
 
@@ -341,29 +337,26 @@
     "hasChanged": true
 }]
 ```
-
 > 400 Bad Request | Missing required query parameters
-```js
+```json
 {
     error: "Missing attributes"
 }
 ```
-
 > 404 Not Found | No messages found for specified calendar
-```js
+```json
 {
     error: "Messages not found"
 }
 ```
-
 #### POST
 - Used to: Create a new calendar message
 - Expected request-body:
-```js
+```json
 {
-    senderId: string,
-    calId: string,
-    content: string
+    senderId: "string",
+    calId: "string",
+    content: "string"
 }
 ```
 - Possible response statuses: 201, 400, 404
@@ -381,28 +374,25 @@
     "hasChanged": false
 }
 ```
-
 > 400 Bad Request | Missing required attributes
-```js
+```json
 {
     error: "Missing attributes"
 }
 ```
-
 > 404 Not Found | Calendar does not exist
-```js
+```json
 {
     error: "Invalid calendar"
 }
 ```
-
 #### PATCH
 - Used to: Edit an existing calendar message
 - Expected request-body:
-```js
+```json
 {
-    id: string,
-    content: string
+    id: "string",
+    content: "string"
 }
 ```
 - Possible response statuses: 200, 400, 404
@@ -420,16 +410,14 @@
     "hasChanged": true
 }
 ```
-
 > 400 Bad Request | Missing required attributes
-```js
+```json
 {
     error: "Missing attributes"
 }
 ```
-
 > 404 Not Found | Message not found
-```js
+```json
 {
     error: "Message not found"
 }
@@ -438,7 +426,7 @@
 #### DELETE
 - Used to: Delete a calendar message
 - Expected request-body:
-```js
+```json
 {
     id: string
 }
@@ -460,15 +448,403 @@
 ```
 
 > 400 Bad Request | Missing required attributes
-```js
+```json
 {
     error: "Missing attributes"
 }
 ```
-
 > 404 Not Found | Message not found
-```js
+```json
 {
     error: "Message not found"
+}
+```
+### /calendar_msg?calId=string&senderId=string
+#### GET
+- Used to: Get messages for a calendar (optionally filtered by sender)
+- Expected request-body: none
+- Possible response statuses: 200, 400, 404
+> 200 OK
+```json
+[{
+    "id": "string",
+    "senderId": "string",
+    "calId": "string",
+    "date": "YYYY-MM-DD",
+    "time": "HH:MM:SS",
+    "content": "string",
+    "hasChanged": true
+}]
+```
+> 400 Bad Request
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found
+```json
+{
+    error: "Messages not found"
+}
+```
+
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+<!-- EVENTS_RSVP -->
+
+
+
+### /events_rsvp
+#### GET
+- Used to: Get a specific TSSVP based on eventId and userId
+- Expected request-body: none, but query params required
+```json
+{
+    eventId: "string",
+    userId: "string"
+}
+```
+- Possible response statuses: 200, 400, 404
+- Response-body: RSVP-object or error-object
+- Example response:
+> 200 OK | RSVP found
+```json
+{
+    "id": "string",
+    "eventId": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isGoing": "string",
+    "reminder": true
+}
+```
+> 400 Bad Request | Missing required query params
+```json
+{
+    error: "Missing attributes"
+}
+```
+>  404 Not Found | RSVP not found
+```json
+
+{
+    error: "RSVP not found"
+}
+```
+#### POST
+- Used to: Create a new RSVP
+- Expected request-body:
+```json
+{
+    eventId: "string",
+    userId: "string",
+    isGoing: "string",
+    reminder: "bool"
+}
+```
+- Possible response statuses: 201, 400, 409
+- Response-body: created RSVP-object or error-object
+- Example response:
+> 201 Created | RSVP created
+```json
+{
+    "id": "string",
+    "eventId": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isGoing": "string",
+    "reminder": true
+}
+```
+> 400 Bad Request | Missing required attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 409 Conflict | RSVP already exists
+```json
+{
+    error: "RSVP already exists"
+}
+```
+#### PATCH
+- Used to: Update an existing RSVP
+- Expected request-body:
+```json
+{
+    eventId: "string",
+    userId: "string",
+    isGoing: "string",
+    reminder: "bool"
+}
+```
+- Possible response statuses: 200, 400, 404
+- Response-body: updated RSVP-object or error-object
+- Example response:
+> 200 OK | RSVP updated
+```json
+{
+    "id": "string",
+    "eventId": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isGoing": "string",
+    "reminder": "bool"
+}
+```
+> 400 Bad Request | Missing required attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found | RSVP not found
+```json
+{
+    error: "RSVP not found"
+}
+```
+#### DELETE
+- Used to: Delete an RSVP
+- Expected request-body:
+```json
+{
+    eventId: "string",
+    userId: "string"
+}
+```
+- Possible response statuses: 200, 400, 404
+- Response-body: deleted RSVP-object or error-object
+- Example response:
+> 200 OK | RSVP deleted
+```json
+{
+    "id": "string",
+    "eventId": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isGoing": "string",
+    "reminder": "bool"
+}
+```
+> 400 Bad Request | Missing required attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found | RSVP not found
+```json
+{
+    error: "RSVP not found"
+}
+```
+
+
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+<!-- USER AVAILS -->
+
+
+### /users_availabilities
+#### POST
+- Used to: Create a new availability entry
+- Expected request-body:
+```json
+{
+    userId: "string",
+    date: "string",
+    isAvailable: "bool",
+    calId: "string"
+}
+```
+- Possible response statuses: 201, 400, 404, 409
+- Response-body: created availability-object or error-object
+- Example response:
+
+> 201 Created | Availability created
+```json
+{
+    "id": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isAvailable": "bool",
+    "calId": "string"
+}
+```
+> 400 Bad Request | Missing attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found | User or calendar not found
+```json
+{
+    error: "User or calendar not found"
+}
+```
+> 409 Conflict | Availability already exists
+```json
+{
+    error: "Availability already exists"
+}
+```
+#### PATCH
+- Used to: Update an existing availability entry
+- Expected request-body:
+```json
+{
+    userId: "string",
+    date: "string",
+    isAvailable: "bool",
+    calId: "string"
+}
+```
+- Possible response statuses: 200, 400, 404, 409
+- Response-body: updated availability-object or error-object
+- Example response:
+> 200 OK | Availability updated
+```json
+{
+    "id": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isAvailable": "bool",
+    "calId": "string"
+}
+```
+> 400 Bad Request | Missing attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found | Availability not found
+```json
+{
+    error: "Availability not found"
+}
+```
+> 409 Conflict | No changes made
+```json
+{
+    message: "No changes made"
+}
+```
+#### DELETE
+- Used to: Delete an availability entry
+- Expected request-body:
+```json
+{
+    userId: "string",
+    date: "string",
+    calId: "string"
+}
+```
+- Possible response statuses: 200, 400, 404
+- Response-body: deleted availability-object or error-object
+- Example response:
+> 200 OK | Availability deleted
+```json
+{
+    "id": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isAvailable": "bool",
+    "calId": "string"
+}
+```
+> 400 Bad Request | Missing attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found | Availability not found
+```json
+{
+    error: "Availability not found"
+}
+```
+### /users_availabilities?userId=string&date=string
+#### GET
+- Used to: Get a user's availability for a specific date
+- Expected request-body: none
+- Possible response statuses: 200, 400, 404
+- Response-body: array of availability-objects or error-object
+- Example response:
+> 200 OK | Availability found 
+```json
+[{
+    "id": "string",
+    "userId": "string",
+    "date": "YYYY-MM-DD",
+    "isAvailable": "bool",
+    "calId": "string"
+}]
+```
+> 400 Bad Request | Missing attributes
+```json
+{
+    error: "Missing attributes"
+}
+```
+> 404 Not Found | Availability not found
+```json
+{
+    error: "Availability not found"
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+<!-- AEXEMPEL -->
+
+
+
+### /friendships?userId=id
+#### GET
+- Used to: Get all users friendship from database
+- Expected request-body: none
+- Possible response statuses: 200
+- Example response:
+> 200 OK
+```json
+{
+    "id": "string",
+    "userId1": "string",
+    "userId2": "string"
 }
 ```
