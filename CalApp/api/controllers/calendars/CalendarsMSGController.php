@@ -1,14 +1,14 @@
 
 <?php
 
-require_once __DIR__ . "/../services/CalendarsMSGService.php";
-require_once __DIR__ . "sendJSON.php";
+require_once __DIR__ . "/../../services/CalendarsMSGService.php";
+require_once __DIR__ . "/../sendJSON.php";
 
 class CalendarsMSGController {
     public static function handle($method, $input) {
         if ($method === "GET") {
             try {
-                CalendarsMSGService::getAll($input);
+                sendJSON(CalendarsMSGService::getAll($input), 200);
             } catch (Exception $e) {
                 $msg = $e->getMessage();
                 $data = ["error" => $msg];
@@ -18,6 +18,8 @@ class CalendarsMSGController {
                     sendJSON($data, 404);
                 }
             }
+        } else if ($method === "POST") {
+
         }
     }
 }
