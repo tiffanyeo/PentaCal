@@ -107,7 +107,13 @@ Shortcuts to all endpoints:
 - [/events?calId=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#eventscalidid)
 - [/events?eventId=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#eventseventidid)
 - [/event_admins](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#event_admins)
-- []
+- [/event_admins?eventId=id&userId=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#event_adminseventididuseridid)
+- [/event_admins?eventId=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#event_adminseventid)
+- [/event_admins?userId=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#event_adminsuseridid)
+- [/friendships?userId=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#friendshipsuseridstring)
+- [/friendships?userId1=id&userId2=id](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#friendshipsuserid1stringuserid2string)
+- [/private_msg](https://github.com/tiffanyeo/PentaCal?tab=readme-ov-file#private_msg)
+- [/]
 
 ## Allowed HTTP-Methods
 The API only accepts HTTP-methods GET, POST, PATCH and DELETE. A request with any other HTTP-method will be rejected.
@@ -1357,8 +1363,8 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
     error: "The message couldn't be found"
 }
 ```
-#### private_msg?senderId=string&receiverId=string
-### GET
+### private_msg?senderId=string&receiverId=string
+#### GET
 - Used to: Get conversation between two users
 - Expected request-body: none
 - Possible response statuses: 200, 404
