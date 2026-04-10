@@ -1,7 +1,7 @@
 
 <?php
 
-require_once __DIR__ . "/../services/CalendarsMSGService.php";
+require_once __DIR__ . "/../../services/CalendarsMSGService.php";
 require_once __DIR__ . "sendJSON.php";
 
 class CalendarsMSGController {

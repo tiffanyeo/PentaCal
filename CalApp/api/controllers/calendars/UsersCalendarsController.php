@@ -4,83 +4,98 @@ require_once __DIR__ . "/../../services/UsersCalendarsService.php";
 
 class UsersCalendarsController {
 
-    public static function handle($method, $input): void {
-
-        if ($method === "GET") {
-            try {
-                $id      = $_GET["id"] ?? null;
-                $userId  = $_GET["userId"] ?? null;
-                $calId = $_GET["calId"] ?? null;
-
-                if ($id) {
-                    $result = UsersCalendarsService::getRelationById($id);
-                } elseif ($userId) {
-                    $result = UsersCalendarsService::getAllRelationsByUser($userId);
-                } elseif ($calId) {
-                    $result = UsersCalendarsService::getAllRelationsByCalId($calId);
+    public static function handle($method, $input) {
+        try {
+            if ($method === "GET") {
+                if (empty($input)) {
+                    $data = UsersCalendarsService::getAll();
+                    sendJson($data, 200);
+                } else if (isset($input["userId"])) {
+                    $data = UsersCalendarsService::getByParam($input);
+                    sendJson($data, 200);
+                } else if (isset($input["calId"])) {
+                    $data = UsersCalendarsService::getByParam($input);
+                    sendJson($data, 200);
                 } else {
-                    $result = UsersCalendarsService::getAll();
+                    throw new Exception("Missing attributes");
                 }
-
-                self::json($result, 200);
-                return;
-
-            } catch (Exception $exc) {
-                $code = $exc->getCode() ?:400;
-                self::json(["error" => $exc->getMessage()],$code);
-                return;
             }
-        }
-
-
-        if ($method === "POST") {
-            try {
-                $result = UsersCalendarsService::addUserToCalendar($input);
-                http_response_code(201);
-                echo json_encode($result);
-                return;
-
-            } catch (Exception $exc) {
-                $code = $exc->getCode() ?:400;
-                self::json(["error" => $exc->getMessage()],$code);
-                return;
+    
+            if ($method === "POST") {
+                if (!isset($input["userId"]) || !isset($input["calId"]) || !isset($input["isAdmin"])) {
+                    throw new Exception("Missing attributes");
+                }
+                $data = UsersCalendarsService::post($input);
+                sendJson($data, 201);
             }
-        }
-
-        if ($method === "PATCH") {
-            try {
-                $result = UsersCalendarsService::makeUserCalAdmin($input);
-                http_response_code(200);
-                echo json_encode($result);
-                return;
-
-            } catch (Exception $exc) {
-                $code = $exc->getCode() ?:400;
-                self::json(["error" => $exc->getMessage()],$code);
-                return;
+    
+            if ($method === "PATCH") {
+                if (!isset($input["id"]) || !isset($input["userId"]) || !isset($input["calId"]) || !isset($input["isAdmin"])) {
+                    throw new Exception("User ID / CAL ID missing");
+                }
+                $data = UsersCalendarsService::patch($input);
+                sendJson($data, 200);
             }
-        }
-
-        if ($method === "DELETE") {
-            try {
-                $result = UsersCalendarsService::removeUserFromCal($input);
-                http_response_code(200);
-                echo json_encode($result);
-                return;
-
-            } catch (Exception $exc) {
-                $code = $exc->getCode() ?:400;
-                self::json(["error" => $exc->getMessage()],$code);
-                return;
+    
+            if ($method === "DELETE") {
+                if (!isset($input["userId"]) || !isset($input["calId"])) {
+                    throw new Exception("User ID / Cal ID missing");
+                }
+                $data = UsersCalendarsService::delete($input);
+                sendJson($data, 200);
             }
+
+            // Hantera okända metoder
+            throw new Exception("Method not allowed");
+
+        } catch (Exception $error) {
+            self::errorHandler($error);
         }
     }
 
-    private static function json($data, $status)
-    {
-        http_response_code($status);
-        header("Content-Type: application/json");
-        echo json_encode($data);
-        exit;
+    public static function errorHandler($error) {
+        $message = $error->getMessage(); 
+
+        // Generella fel
+        if ($message === "Missing attributes") {
+            sendJson(["error" => "Missing attributes"], 400);
+        }
+
+        // GET
+        if ($message === "No calendars found") {
+            sendJson(["error" => "No calendars found"], 404);
+        }
+        if ($message === "Calendar not found") {
+            sendJson(["error" => "Calendar not found"], 404);
+        }
+        if ($message === "User not found") {
+            sendJson(["error" => "User not found"], 404);
+        }
+
+        // POST
+        if ($message === "User or cal not found") {
+            sendJson(["error" => "User or cal not found"], 404);
+        }
+        if ($message === "User is already in cal") {
+            sendJson(["error" => "User is already in cal"], 409);
+        }
+
+        // PATCH
+        if ($message === "User ID / CAL ID missing") {
+            sendJson(["error" => "User ID / CAL ID missing"], 400);
+        }
+        if ($message === "User not in calendar") {
+            sendJson(["error" => "User not in calendar"], 400);
+        }
+
+        // DELETE
+        if ($message === "User not found / Cal not found") {
+            sendJson(["error" => "User not found / Cal not found"], 404);
+        }
+        if ($message === "Relation not found") {
+            sendJson(["error" => "Relation not found"], 404);
+        }
+
+        sendJson(["error" => "Internal server error"], 500);
     }
 }
