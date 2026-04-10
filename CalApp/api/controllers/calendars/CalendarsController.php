@@ -12,13 +12,13 @@ class CalendarsController{
             try {
                 if(empty($input)) {
                     $data = CalendarsService::getAll();
-                    sendJson([$data],200);
+                    sendJson($data,200);
                 } else {
                     if(!isset($input["id"])) {
                         throw new Exception("value missing");
                     }
                     $data = CalendarsService::getByParams($input);
-                    sendJson([$data],200);
+                    sendJson($data,200);
                 }
             } catch(Exception $error) {
                 self::errorHandler($error);
@@ -31,7 +31,7 @@ class CalendarsController{
                     throw new Exception("Missing attributes");
                 } 
                 $data = CalendarsService::post($input);
-                sendJson([$data],200);
+                sendJson($data,200);
 
             } catch(Exception $error) {
                 self::errorHandler($error);
@@ -46,7 +46,7 @@ class CalendarsController{
                     throw new Exception("No values to change");
                 }
                 $data = CalendarsService::patch($input);
-                sendJson([$data], 200);
+                sendJson($data, 200);
                 
             } catch(Exception $error) {
                 self::errorHandler($error);
@@ -58,7 +58,7 @@ class CalendarsController{
                     throw new Exception("Missing attributes");
                 } 
                 $data = CalendarsService::delete($input);
-                sendJson([$data], 200);
+                sendJson($data, 200);
 
             } catch(Exception $error) {
                 self::errorHandler($error);
