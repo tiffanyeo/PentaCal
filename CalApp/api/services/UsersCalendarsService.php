@@ -106,10 +106,10 @@ class UsersCalendarsService {
         $dbC = new DBAccess("calendars");
 
         if(!$dbU->findById($userId)){
-            throw new Exception("User not found", 404);
+            throw new Exception("User not found / Cal not found");
         }
         if(!$dbC->findById($calId)){
-            throw new Exception("Calendar not found", 404);
+            throw new Exception("User not found / Cal not found");
         }
 
         $relations = $dbUG->getAll();
@@ -120,7 +120,7 @@ class UsersCalendarsService {
             }
         }
         if (!$relId) {
-            throw new Exception("Relation not found.", 404);
+            throw new Exception("Relation not found");
         }
 
 
@@ -148,10 +148,9 @@ class UsersCalendarsService {
 
 
     //  Requires: id (relation id), adminId? Denna inte klar.
-    public static function makeUserCalAdmin($input)
+    public static function patch($input)
     {
-        if (!isset($input["userId"])) throw new Exception("User ID missing.");
-        if (!isset($input["calId"])) throw new Exception("Calendar ID missing.");
+        if (!isset($input["userId"], $input["calId"])) throw new Exception("Missing attributes");
 
         $userId = $input["userId"];
         $calId    = $input["calId"];
