@@ -6,10 +6,8 @@ import { EVENTS } from "../../../store/events.js";
 export class TestComp1 extends HTMLElement {
 
     constructor() {
-
         super();
         this.attachShadow({ mode: "open" });
-
     }
 
     connectedCallback() {
@@ -20,7 +18,8 @@ export class TestComp1 extends HTMLElement {
 
     disconnectedCallback() {
 
-        // Run unsub fn when popup is disconnected
+        // Run unsub fns when popup is disconnected 
+        // i.e (when view changes and #content.innerHTML changes)
         if (this.unsubscribeOpen) this.unsubscribeOpen();
         if (this.unsubscribeDataUpd) this.unsubscribeDataUpd();
 
@@ -28,7 +27,7 @@ export class TestComp1 extends HTMLElement {
 
     subs() {
 
-        // Save all unsub fn to unsub in disconnectedCallback
+        // Save all unsub fns (used in disconnectedCallback)
 
         this.unsubscribeOpen = PubSub.subscribe(EVENTS.VIEW.POPUP.SHOW.TEST1,
             () => {
@@ -43,20 +42,17 @@ export class TestComp1 extends HTMLElement {
             }
         );
 
-
     }
 
     getValue() {
-
         // Metod om komponent ska returnera något
         // Ex. en lista events, användare, T/F etc
         return this.data;
-
     }
 
     setValue(data) {
         // Metod om komponent ska ta emot värde
-        this.data = data;
+        this.data = data || null;
     }
 
     openPopup(data) {
@@ -64,7 +60,6 @@ export class TestComp1 extends HTMLElement {
         if (this.isOpen) return;
 
         this.isOpen = true;
-        this.data = data || null;
         this.setValue(data);
 
         this.shadowRoot.querySelector(".popup").style.display = "block";
@@ -81,7 +76,6 @@ export class TestComp1 extends HTMLElement {
 
         this.shadowRoot.querySelector(".popup").style.display = "none";
     }
-
 
     // UI and Events
     render() {
@@ -103,7 +97,9 @@ export class TestComp1 extends HTMLElement {
             }
 
         });
+        
     }
+    
 }
 
 customElements.define("test-comp-1", TestComp1);
