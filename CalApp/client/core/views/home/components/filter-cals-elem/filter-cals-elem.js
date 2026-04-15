@@ -1,5 +1,6 @@
-import { PubSub } from "../../../../store/Pubsub";
-import { EVENTS } from "../../../../store/Events";
+import { PubSub } from "../../../../store/Pubsub.js";
+import { EVENTS } from "../../../../store/Events.js";
+import { StoreService } from "../../../../services/StoreService.js";
 
 class FilterCalendarsElem extends HTMLElement {
 
@@ -9,7 +10,39 @@ class FilterCalendarsElem extends HTMLElement {
     }
 
     connectedCallback() {
+        this.subs();
+        this.service();
         this.render();
+        this.eListeners();
+    }
+
+    subs() {
+        // Updated cals in state
+        StoreService.getNotifiedStoreChanges("cals", (updatedCals) => {
+            // Re-render
+            this.data = updatedCals;
+            this.render();
+            this.eListeners();
+        });
+    }
+
+    service() {
+        // Users cals
+        this.data = PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS);
+    }
+    
+    createBoxes() {
+
+        let calBoxHTML = "";
+
+        for (let currCal of this.data) {
+            calBoxHTML += `
+                <div class="calBoxes" id="${currCal.id}">
+                ${currCal.name}
+                </div>
+            `;
+        }
+        return calBoxHTML;
     }
 
     style() {
@@ -55,62 +88,39 @@ class FilterCalendarsElem extends HTMLElement {
                     
                 .selectedBox {
                     background-color: blue;
-                }
-                    
+                }   
             </style>
-        `
-    }
-
-    html() {
-        let allHtml = "";
-        for (let cal of this.userCals) {
-            allHtml += `
-                <div class="calBoxes" id="${cal.id}">${cal.name}</div>
-            `
-        }
-        return allHtml;
-    }
-
-    render() {
-        this.shadowRoot.innerHTML = `
-            ${this.style()}
-            <div id="filter-container">
-                <div id="cals">
-                    ${this.html()}
-                </div>
-                <button id="createGroupBtn">+ Create Group</button>
-            </div>
-        `
+        `;
     }
     
+    render() {
+        this.shadowRoot.innerHTML = `
+        
+            ${this.style()}
+            
+            <div id="filter-container">
+                <div id="cals"> ${this.createBoxes()}</div>
+                <button id="createGroupBtn">+ Create Group</button>
+            </div>
+        `;
+    }
+
     eListeners() {
 
-        let allCalendarBoxes = this.shadowRoot.querySelectorAll(".calBoxes");
+        const allCalendarBoxes = this.shadowRoot.querySelectorAll(".calBoxes");
 
-        for (let calBox of allCalendarBoxes) {
-            
+        for (let currCalBox of allCalendarBoxes) {
+
             // subscribe through store
-            calBox.addEventListener("click", () => {
-                
-                if (!calBox.classList.contains("selected")) {
-                    
-                    const selectedCal = this.userCals.find(cal => calBox.id == cal.id)
-                    
-                    PubSub.publish(EVENTS.DATA.SELECTED.EVENTS, );
-                    PubSub.publish("SELECTEDCALS.EVENTS.STATE.POST", this.userCals.find(cal => calBox.id == cal.id));
-                    
-                    calBox.classList.add("selectedBox");
-                    
-                } else {
-                    
-                    PubSub.publish("SELECTEDCALS.EVENTS.STATE.DELETE", this.userCals.find(cal => calBox.id == cal.id));
+            currCalBox.addEventListener("click", () => {
 
-                    calBox.classList.remove("selectedBox");
-                }
+                //Change to "EVENTS.VIEW.POPUP.SHOW.EVENT"
+                const selectedCal = this.data.find(cal => currCalBox.id == cal.id);
+                PubSub.publish(EVENTS.VIEW.POPUP.SHOW.TEST1, (selectedCal));
+
             })
         }
     }
-
 
 }
 
