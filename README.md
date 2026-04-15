@@ -1109,20 +1109,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 }
 ```
 
-### /friendships?userId=string
-#### GET
-- Used to: Get all users friendship from database
-- Expected request-body: none
-- Possible response statuses: 200
-- Example response:
-> 200 OK
-```json
-{
-    "id": "string",
-    "userId1": "string",
-    "userId2": "string"
-}
-```
+### /friendships
 #### POST
 - Used to: Create a new friendship
 - Expected request-body:
@@ -1169,6 +1156,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
     "userId1": "string",
     "userId2": "string"
 }
+```
 - Possible response statuses: 200, 400, 404
 - Response-body: message-object
 - Example response:
@@ -1187,7 +1175,29 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
 > 404 Not deleted | Friendship was not deleted
 ```json
 {
-    message: "User not found"
+    message: "Friendship not found"
+}
+```
+
+### /friendships?userId=string
+#### GET
+- Used to: Get all users friendship from database
+- Expected request-body: none
+- Possible response statuses: 200
+- Example response:
+> 200 OK
+```json
+{
+    "id": "string",
+    "userId1": "string",
+    "userId2": "string"
+}
+```
+
+> 400 Bad Request | Required request-params missing
+```js
+{
+    error: "Missing attributes"
 }
 ```
 ### /friendships?userId1=string&userId2=string
@@ -1216,73 +1226,7 @@ If you send a POST, PATCH or DELETE request, the Content-Type header must be set
     "message": "Friendship not found"
 }
 ```
-#### POST
-- Used to: Create a new friendship
-- Expected request-body:
-```json
-{
-    "userId1": "string",
-    "userId2": "string"
-}
-```
-- Possible response statuses: 200, 404, 409
-- Response-body: created friendship-object or error-object
-- Example response:
-> 201 Created | Event was created
-```json
-{
-    "id": "string",
-    "userId1": "string",
-    "userId2": "string"
-}
-```
-> 400 Bad Request | Any required attributes are missing
-```json
-{
-    error: "Missing attributes"
-}
-```
-> 404 Not Found | User could not be found
-```json
-{
-    error: "User not found"
-}
-```
-> 409 Not Found | Users are already friends
-```json
-{
-    error: "Friend invitation already sent"
-}
-```
-#### DELETE
-- Used to: Delete a friendship
-- Expected request-body:
-```json
-{
-    "userId1": "string",
-    "userId2": "string"
-}
-- Possible response statuses: 200, 400, 404
-- Response-body: message-object
-- Example response:
-> 200 Deleted | Friendship was deleted
-```json
-{
-    message: "Deleted successfully!"
-}
-```
-> 400 Missing attributes | Friendship was not deleted
-```json
-{
-    message: "Missing attributes"
-}
-```
-> 404 Not deleted | Friendship was not deleted
-```json
-{
-    message: "User not found"
-}
-```
+
 
 ### /private_msg
 #### POST

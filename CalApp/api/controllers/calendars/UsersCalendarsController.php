@@ -13,11 +13,11 @@ class UsersCalendarsController {
                     sendJSON($data, 200);
                     return;
                 } else if (isset($input["userId"])) {
-                    $data = UsersCalendarsService::getByParam($input);
+                    $data = UsersCalendarsService::getByParams($input);
                     sendJSON($data, 200);
                     return;
                 } else if (isset($input["calId"])) {
-                    $data = UsersCalendarsService::getByParam($input);
+                    $data = UsersCalendarsService::getByParams($input);
                     sendJSON($data, 200);
                     return;
                 } else {
@@ -69,8 +69,8 @@ class UsersCalendarsController {
         }
 
         // GET
-        if ($message === "No calendars found") {
-            sendJSON(["error" => "No calendars found"], 404);
+        if ($message === "No connections found") {
+            sendJSON(["error" => "No connections found"], 404);
         }
         if ($message === "Calendar not found") {
             sendJSON(["error" => "Calendar not found"], 404);

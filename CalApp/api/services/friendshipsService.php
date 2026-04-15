@@ -2,104 +2,67 @@
 
 require_once __DIR__ . "/../repository/DBAccess.php";
 
-class FriendshipsService{
+class FriendshipsService {
 
-    public static function getAllFriendsByUser($userId){
+    public static function getByParams($input) {
         $usersDb = new DBAccess("users");
-        $friendsDb = new DBAccess("friendships");
-
-        if (!$usersDb->findById($userId)) {
-            throw new Exception("User not found: $userId", 404);
-        }
-        $relations = $friendsDb->getAll();
-        $friendsIds = [];
-        foreach ($relations as $r) {
-            if ($r["userId1"] == $userId){
-                $friendsIds[] = $r["userId2"];
-            } elseif ($r["userId2"] == $userId){
-                $friendsIds[] = $r["userId1"];
-            }
-        }
-
-        $friends = [];
-        foreach ($friendsIds as $fId){
-            $friend = $usersDb->findById($fId);
-            if ($friend) {
-                $friends[] = [
-                    "id" => $friend["id"],
-                    "name" => $friend["name"]
-                ];
-            }
-        }
-        return $friends;
-    }
-
-    public static function getFriendship($id1, $id2){
-        if (!$userId1 || !$userId2) {
-            throw new Exception("Missing parameters", 400);
-        }
         $friendsDb = new DBAccess("friendships");
         $relations = $friendsDb->getAll();
 
-        foreach ($relations as $rel) {
-            if (
-                ($rel["userId1"] == $userId1 && $rel["userId2"] == $userId2) ||
-                ($rel["userId1"] == $userId2 && $rel["userId2"] == $userId1)
-            ) {
-                return $rel;
-            }
+        if (!isset($input["userId1"]) && !isset($input["userId2"])) throw new Exception("Missing attributes", 400);
+
+        if (!$usersDb->findById($input["userId1"])) throw new Exception("User not found", 404);
+        if (isset($input["userId2"])) {
+            if (!$usersDb->findById($input["userId2"])) throw new Exception("User not found", 404);
+
+            $relation = array_find($relations, fn($x) => $x["userId1"] === $input["userId1"] && $x["userId2"] === $input["userId2"]);
+            if (!$relation) $relation = array($relations, fn($x) => $x["userId2"] === $input["userId1"] && $x["userId1"] === $input["userId2"]);
+
+            if (!$relation) throw new Exception("Friendship not found");
+            else return $relation;
         }
-        throw new Exception("Friendship not found", 404);
+
+        $relationsArr = array_values(array_filter($relations, fn($x) => $x["userId1"] === $input["userId1"]));
+        $relationsArr2 = array_values(array_filter($relations, fn($x) => $x["userId2"] === $input["userId1"]));
+        return [...$relationsArr, ...$relationsArr2];
     }
 
-    public static function newFriend($id1, $id2){
-        $frDb = new DBAccess("friendships");
+    public static function post($input) {
+        $friendsDb = new DBAccess("friendships");
         $usersDb = new DBAccess("users");
+        $relations = $friendsDb->getAll();
 
-        if(!$usersDb->findById($id1) || !$usersDb->findById($id2)) {
-            throw new Exception("User not found!", 404);
+        if (!$usersDb->findById($input["userId1"]) || !$usersDb->findById($input["userId2"])) {
+            throw new Exception("User not found");
         }
-        $relations = $frDb->getAll();
+        if (!isset($input["userId1"], $input["userId2"])) throw new Exception("Missing attributes");
 
-        foreach ($relations as $rel) {
-            if (
-                ($rel["userId1"] == $id1 && $rel["userId2"] == $id2) ||
-                ($rel["userId1"] == $id2 && $rel["userId2"] == $id1)
-            ) {
-                throw new Exception("Friend invitation already sent");
-            }
-        }
-        $newRel = [
+        $exists = array_find($relations, fn($x) => $x["userId1"] === $input["userId1"] && $x["userId2"] === $input["userId2"]);
+        if (!$exists) $exists = array_find($relations, fn($x) => $x["userId2"] === $input["userId1"] && $x["userId1"] === $input["userId2"]);
+        if ($exists) throw new Exception("Users are already friends");
+
+        $new = [
             "id" => uniqid(),
-            "userId1" => $id1,
-            "userId2" => $id2
+            "userId1" => $input["userId1"],
+            "userId2" => $input["userId2"]
         ];
-        $res = $frDb->postData($newRel);
-        return $res;
-        
+        return $friendsDb->postData($new);
     }
 
-    public static function deleteFriend($id1, $id2)
-    {
-        if (!isset($id2)) {
-            throw new Exception("Missing friendId", 400);
+    public static function delete($input) {
+        if (!isset($input["userId1"], $input["userId2"])) {
+            throw new Exception("Missing attributes");
         }
 
         $friendsDb = new DBAccess("friendships");
-
         $relations = $friendsDb->getAll();
 
-        foreach ($relations as $rel) {
-            if (
-                $rel["userId1"] == $id1 &&
-                $rel["userId2"] == $id2
-            ) {
-                $friendsDb->deleteData($rel["id"]);
-                return ["message"=>"Deleted successfully!"];
-            }
-        }
+        $relation = array_find($relations, fn($x) => $x["userId1"] === $input["userId1"] && $x["userId2"] === $x["userId2"]);
+        if (!$relation) array_find($relations, fn($x) => $x["userId2"] === $input["userId1"] && $x["userId1"] === $x["userId2"]);
+        if (!$relation) throw new Exception("Friendship not found");
 
-        throw new Exception("User not found", 404);
+        $friendsDb->deleteData($relation["id"]);
+        return ["success" => "Deleted successfully!"];
     }
 }
 
