@@ -1,4 +1,4 @@
-import { Store } from "../../../../store/Store.js";
+
 import { PubSub } from "../../../../store/Pubsub.js";
 import { EVENTS } from "../../../../store/Events.js";
 
@@ -24,7 +24,7 @@ export class CalDetailBtnElem extends HTMLElement {
     }
 
     unsubs() {
-        if (this.unsubChangeDetailBtn) unsubChangeDetailBtn();
+        if (this.unsubChangeDetailBtn) this.unsubChangeDetailBtn();
     }
 
     connectedCallback() {

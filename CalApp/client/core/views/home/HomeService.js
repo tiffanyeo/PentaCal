@@ -122,6 +122,7 @@ export class HomeService {
         const eventCardPopup = document.querySelector("event-card-popup");
 
         createPopup.addEventListener("click", () => {
+            // Trigger popup-rendering ***
             PubSub.publish(EVENTS.VIEW.POPUP.SHOW.TEST1);
         });
         
@@ -129,6 +130,7 @@ export class HomeService {
             const id = "getIDfromSomewhere"
             const url = "/events?id="
             this.setURL(`${url}${id}`); // Måste resettas sen -> se över ***
+            // Trigger popup-rendering ***
             PubSub.publish(EVENTS.VIEW.POPUP.SHOW.TEST2);
         });
         

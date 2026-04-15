@@ -3,7 +3,6 @@ import { apiRequest } from "../ApiService";
 import { PubSub } from "../../store/Pubsub.js";
 import { EVENTS } from "../../store/Events.js";
 
-
 // Service + Controller
 // Always listening? ***
 
@@ -39,7 +38,7 @@ class calendarAPIService {
     }
 
     sendErrorMSG() {
-        return "";
+        return { error: "Something went wrong." };
     }
 
     // METHODS
@@ -53,8 +52,8 @@ class calendarAPIService {
             // If in state, return calendar from state
             const cal = userCalendars.find(c => c.id === id);
             if (cal) {
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET)
-                return cal
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET);
+                return cal;
             }
 
             try {
@@ -62,17 +61,17 @@ class calendarAPIService {
                 const allCals = apiRequest({
                     "entity": "calendars",
                     "method": "GET"
-                })
+                });
 
                 // PUB OK
-                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET)
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET);
 
                 const calendar = allCals.find(c => c.id === id);
                 return calendar;
 
             } catch (err) {
                 // PUB !OK
-                PubSub.publish(EVENTS.RESOURCE.ERROR.CALENDARS.GET)
+                PubSub.publish(EVENTS.RESOURCE.ERROR.CALENDARS.GET);
                 return err;
             }
         }
@@ -90,7 +89,7 @@ class calendarAPIService {
             return allCals;
 
         } catch (err) {
-            PubSub.publish(EVENTS.RESOURCE.ERROR.CALENDARS.GET)
+            PubSub.publish(EVENTS.RESOURCE.ERROR.CALENDARS.GET);
             return err;
         }
 
