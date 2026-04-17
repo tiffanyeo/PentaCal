@@ -12,7 +12,7 @@ class PinnedCalendarsController{
         try {
 
             if($method == "GET"){
-                $data = PinnedCalendarsService::get();
+                $data = PinnedCalendarsService::getAll();
                 sendJson([$data], 200);
 
             } else if($method == "POST"){

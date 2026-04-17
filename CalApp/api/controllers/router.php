@@ -234,7 +234,7 @@ function Router($requestUrl = null){
             }  
             break;      
 
-        case "users_pinned_calendars":
+        case "pinned_calendars":
             switch ($method) {
                 case "GET":
                     CorsMiddleware::handle();
