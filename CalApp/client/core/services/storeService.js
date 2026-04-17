@@ -270,18 +270,41 @@ export class storeService {
         PubSub.subscribe(EVENTS.DATA.SELECTED.CALENDARS, (ids = null) => {
             // Expects array if sevral
 
-            const currStateCals = store.getState().cals;
+            const currStateNotis = store.getState().cals;
 
             // No ID (return all)
-            if (!ids) return currStateCals;
+            if (!ids) return currStateNotis;
 
             // One ID (return filtered)
-            if (!ids[1]) return currStateCals.find(currCal => currCal.id == id);
+            if (!ids[1]) return currStateNotis.find(currNotis => currNotis.id == id);
+
+            // Sevral IDs (return filtered)
+            let filteredNotis = [];
+            for (let currId of ids) {
+                for (currNotis of currStateNotis) {
+                    if (currNotis.id == currId) filteredNotis.push(currCal);
+                }
+            }
+            return filteredNotis;
+
+        })
+        
+        
+        PubSub.subscribe(EVENTS.DATA.SELECTED.NOTIFICATIONS, (ids = null) => {
+            // Expects array if sevral
+
+            const currStateNotis = store.getState().notis;
+
+            // No ID (return all)
+            if (!ids) return currStateNotis;
+
+            // One ID (return filtered)
+            if (!ids[1]) return currStateNotis.find(currCal => currCal.id == id);
 
             // Sevral IDs (return filtered)
             let filteredCals = [];
             for (let currId of ids) {
-                for (currCal of currStateCals) {
+                for (currCal of currStateNotis) {
                     if (currCal.id == currId) filteredCals.push(currCal);
                 }
             }
@@ -289,6 +312,7 @@ export class storeService {
 
         })
 
+        
     }
 
     // Use to subscribe to changes in state

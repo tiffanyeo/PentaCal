@@ -72,7 +72,8 @@ export const EVENTS = {
             USERS: "data:selected:users",
             USERGROUPS: "data:selected:usergroups",
             ISLOGGEDIN: "data:selected:isloggedin",
-            MESSAGES: "data:selected:messages"
+            MESSAGES: "data:selected:messages",
+            NOTIFICATIONS: "data:selected:notifications",
         }
 
     },
