@@ -8,7 +8,7 @@ class EventAdminsController {
 
         try {
             if($method == "GET") {
-                if(isset($input["eventId"]) || isset($input["userId"])) {
+                if(isset($input["eventId"]) && isset($input["userId"])) {
                     $data = EventAdminsService::getByParams($input);
                     sendJson([$data],200);
                 }
@@ -24,6 +24,7 @@ class EventAdminsController {
                     $data = EventAdminsService::getAll($input);
                     sendJson([$data],200);
                 }
+                throw new Exception("Missing attributes");
 
             } elseif($method == "POST") {
                 if(!isset($input["userId"]) || !isset($input["eventId"]) || !isset($input["canDelete"]) || !isset($input["canEdit"]) || !isset($input["isCreator"])) {
