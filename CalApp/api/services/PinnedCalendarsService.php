@@ -16,7 +16,7 @@ class PinnedCalendarsService {
 
     }
 
-    public static function pinnedCalendarsGetById($input){
+    public static function getByParams($input) {
         $db = new DBAccess("pinned_calendars");
         $pinnedCalendarTable = $db->getAll();
         $filterdPinnedCalendars = array_values(array_filter($pinnedCalendarTable, fn($pinCal) => $pinCal["userId"] == $input["userId"]));
