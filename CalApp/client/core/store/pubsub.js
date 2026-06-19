@@ -5,10 +5,11 @@ export class Pubsub {
         this.events = {};
     }
 
-    subscribe(event, callBack, consoleLogIt = false) {
+    subscribe(event, callBack, consoleLogIt = false, loggingFrom = null) {
 
         // Development support
         if (consoleLogIt) {
+            if (loggingFrom) console.log("New sub: ", event, " with: ", callBack, "from: ", loggingFrom);
             console.log("New sub: ", event, " with: ", callBack);
         }
         
@@ -28,6 +29,7 @@ export class Pubsub {
         
         // Development support
         if (consoleLogIt) {
+            if (loggingFrom) console.log("New sub: ", event, " with: ", callBack, "from: ", loggingFrom);
             console.log("New pub: ", event, " with: ", data);
         }
 

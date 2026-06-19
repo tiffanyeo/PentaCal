@@ -35,6 +35,7 @@ export class HomeViewService {
             if (data.mainPath == "home") {
                 // Show (!loggedIn || loggedIn) home view
                 // Hur triggar vi event/pub-loop med ID härifrån?
+                console.log(this.isLoggedIn, "LOGGED IN?")
                 HomeView.renderHTML(this.isLoggedIn);
             } else {
                 // Om vyn byts (OBS MÅSTE VARA DET GLOB. PRAC. SÅ ALLA VYER BYTS PÅ DETTA SÄTT)
@@ -46,33 +47,37 @@ export class HomeViewService {
         PubSub.subscribe(EVENTS.AUTH.LOGIN.SUCCESS, () => {
             this.isLoggedIn = true;
             PubSub.publish(EVENTS.VIEW.PAGE.SHOW.HOME);
-        }, true);
-
+            // true, "HomeViewService.js" logg dev
+        });
+        
         PubSub.subscribe(EVENTS.AUTH.LOGOUT.SUCCESS, () => {
             this.isLoggedIn = false;
             PubSub.publish(EVENTS.VIEW.PAGE.SHOW.HOME);
-        }, true);
-
+            // true, "HomeViewService.js" logg dev
+        });
+        
         PubSub.subscribe(EVENTS.VIEW.PAGE.SHOW.HOME, () => {
             // Show (!loggedIn || loggedIn) home view
             HomeView.renderHTML(this.isLoggedIn);
             if (this.isLoggedIn) eListeners();
         });
-
+        
         // COMPONENT-SPECIFIC, REMINDER: some needs to be unsubbed when view changes
         this.unsubReqCalendars = PubSub.subscribe(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET, (allCals) => {
             this.data.allCalendars = allCals;
             this.tryBuildUserCalendars();
         });
-
+        
         PubSub.subscribe(EVENTS.RESOURCE.RECEIVED.USERSCALENDARS.GET, (allUGs) => {
+            console.log("TRAVELLING")
             this.data.allUGs = allUGs;
             this.tryBuildUserCalendars();
         });
-
-
-        /* this.unsubSelectedCalendars = PubSub.subscribe(EVENTS.DATA.SELECTED.CALENDARS, function (data) {
-
+        
+        
+        this.unsubSelectedCalendars = PubSub.subscribe(EVENTS.DATA.SELECTED.CALENDARS, (data) => {
+            // 1. 
+            console.log("TRAVELLING")
             if (!this.selectedCalendars) this.selectedCalendars = data;
 
             const newSelCal = [];
@@ -87,39 +92,42 @@ export class HomeViewService {
 
         })
 
+        /* refctor later for events 
         this.unsubSelectedEvents = PubSub.subscribe(EVENTS.DATA.SELECTED.EVENTS, function (data) {
-
-            if (!this.selectedEvents) return this.selectedEvents = data;
-
-            const newSelEvents = [];
-            this.selectedEvents.forEach(event => {
-                newSelEvents.push(event)
-            });
-            data.forEach(event => {
-                newSelEvents.push(event);
-            })
-
-            this.selectedEvents = newSelEvents;
-
-        })
-
-        this.unsubSelectedTags = PubSub.subscribe(EVENTS.DATA.SELECTED.EVENTS, function (data) {
-
-            if (!this.selectedTags) return this.selectedTags = data;
-
-            const newSelTag = [];
-            this.selectedTags.forEach(tag => {
-                newSelTag.push(tag)
-            });
-            data.forEach(tag => {
-                newSelTag.push(tag);
-            })
-
-            this.selectedTags = newSelTag;
-
-        })
-            
+        
+                    if (!this.selectedEvents) return this.selectedEvents = data;
+        
+                    const newSelEvents = [];
+                    this.selectedEvents.forEach(event => {
+                        newSelEvents.push(event)
+                    });
+                    data.forEach(event => {
+                        newSelEvents.push(event);
+                    })
+        
+                    this.selectedEvents = newSelEvents;
+        
+                }) 
         */
+
+        /* refactor later for tags
+                this.unsubSelectedTags = PubSub.subscribe(EVENTS.DATA.SELECTED, function (data) {
+        
+                    if (!this.selectedTags) return this.selectedTags = data;
+        
+                    const newSelTag = [];
+                    this.selectedTags.forEach(tag => {
+                        newSelTag.push(tag)
+                    });
+                    data.forEach(tag => {
+                        newSelTag.push(tag);
+                    })
+        
+                    this.selectedTags = newSelTag;
+        
+                })
+        */
+
     }
 
     unsub() {
@@ -159,6 +167,8 @@ export class HomeViewService {
 
     // DEVELOPMENT
     tryBuildUserCalendars() {
+        
+        
         if (!this.data.allCalendars || !this.data.allUGs) return;
 
         const dummyUserId = "65f3aa11a01e";
@@ -170,22 +180,25 @@ export class HomeViewService {
 
         this.data.usersFilteredCals = filteredCals;
 
+        // filtered cals = null
         PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS, filteredCals);
     }
 
-
-    loadSelectedData(data) {
-
-        if (data = "") {
-            PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS, data, false)
-        } else if (data = "") {
-            PubSub.publish(EVENTS.DATA.SELECTED.EVENTS, data, false)
-        } else if (data = "") {
-            PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS, data, false)
+    /* not in use yet
+        loadSelectedData(data) {
+    
+            console.log("W DONT DO ANTHINGE. HERE")
+            if (data = "") {
+                PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS, data, false)
+            } else if (data = "") {
+                PubSub.publish(EVENTS.DATA.SELECTED.EVENTS, data, false)
+            } else if (data = "") {
+                PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS, data, false)
+            }
+    
         }
-
-    }
-
-} 
+    */
+    
+}
 
 new HomeViewService();

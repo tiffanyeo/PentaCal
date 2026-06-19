@@ -100,7 +100,7 @@ class EventsAPIService {
                 responseData: patchEvent,
             });
 
-            // PubSub.publish(EVENTS.RESPONSE.SENT.PATCH, true);
+            // PubSub.publish(EVENTS.RESPONSE.SENT.PATCH, true, "EventsAPIService.js");
 
         } catch (responseMessage) {
             PubSub.publish(EVENTS.RESPONSE.ERROR.EVENTS.PATCH, { message: responseMessage });

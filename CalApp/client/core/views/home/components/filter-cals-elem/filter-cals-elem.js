@@ -20,33 +20,39 @@ class FilterCalsElem extends HTMLElement {
 
     subs() {
 
+        // Trigger
         PubSub.subscribe(EVENTS.DATA.SELECTED.CALENDARS, (cals) => {
             this.data = cals;
             this.render();
             this.eListeners();
         });
 
+        // GET ALL CALS
+        PubSub.publish(EVENTS.DATA.SELECTED.CALENDARS)
 
 
         // Get cals, and updated cals in state
-        /*         StoreService.getNotifiedStoreChanges("cals", (updatedCals) => {
+        /*          StoreService.getNotifiedStoreChanges("cals", (updatedCals) => {
                     // Re-render
                     this.data = updatedCals;
                     this.render();
                     this.eListeners();
-                }); */
+                });  */
 
     }
 
     service() {
-        // Trigger HomeViewService
+        // Trigger HomeViewService + CalAPI?
         PubSub.publish(EVENTS.REQUEST.SENT.CALENDARS.GET);
+        console.log("FILTER CALS: I AM PUBLISHING GET NOW");
+        console.log("FILTER CALS PUBLISHES:", EVENTS.REQUEST.SENT.CALENDARS.GET);
         PubSub.publish(EVENTS.REQUEST.SENT.USERSCALENDARS.GET);
     }
 
     createBoxes() {
 
         if (!this.data) return console.log("I DONT HAVE THE DATA YET");
+        console.log("MY DATA IS: ", this.data, "<")
         let calBoxHTML = "";
 
         for (let currCal of this.data) {

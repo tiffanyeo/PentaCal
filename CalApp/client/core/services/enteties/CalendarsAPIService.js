@@ -7,16 +7,16 @@ import { EVENTS } from "../../store/Events.js";
 // Always listening? ***
 
 class calendarAPIService {
-
     constructor() {
+        console.log("DO WE LOLAD???")
         this.subs();
     }
 
     subs() {
-
+        console.log("CAL API SUBSCRIBES TO:", EVENTS.REQUEST.SENT.CALENDARS.GET)
         this.unsubGET = PubSub.subscribe(EVENTS.REQUEST.SENT.CALENDARS.GET, (data) => {
             this.GET(data);
-            // console.log("HI I WAS CALLED? (from calAPI)", data)
+            console.log("HI I WAS CALLED? (from calAPI)", data)
         })
         this.unsubPOST = PubSub.subscribe(EVENTS.REQUEST.SENT.CALENDARS.POST, (data) => {
             this.POST(data);
@@ -47,36 +47,36 @@ class calendarAPIService {
 
 
         // Return one calendar
-        /*  if (id) {
- 
-             // If in state, return calendar from state
-             const cal = userCalendars.find(c => c.id === id);
-             if (cal) {
-                 PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET, cal);
-                 return cal;
-             }
- 
-             try {
- 
-                 const allCals = APIRequest({
-                     "entity": "calendars",
-                     "method": "GET"
-                 });
- 
-                 // PUB OK
-                 PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET, (allCals));
-                 console.log(allCals + "HEEEEEEEEJ")
- 
-                 const calendar = allCals.find(c => c.id === id);
-                 return calendar;
- 
-             } catch (err) {
-                 // PUB !OK
-                 PubSub.publish(EVENTS.RESOURCE.ERROR.CALENDARS.GET);
-                 return err;
-             }
-         }
-  */
+        if (id) {
+
+            // If in state, return calendar from state
+            const cal = userCalendars.find(c => c.id === id);
+            if (cal) {
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET, cal);
+                return cal;
+            }
+
+            try {
+
+                const allCals = APIRequest({
+                    "entity": "calendars",
+                    "method": "GET"
+                });
+
+                // PUB OK
+                PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET, (allCals));
+                console.log(allCals + "HEEEEEEEEJ")
+
+                const calendar = allCals.find(c => c.id === id);
+                return calendar;
+
+            } catch (err) {
+                // PUB !OK
+                PubSub.publish(EVENTS.RESOURCE.ERROR.CALENDARS.GET);
+                return err;
+            }
+        }
+
         // Return all calendars
         try {
 
@@ -86,7 +86,7 @@ class calendarAPIService {
             })
 
             PubSub.publish(EVENTS.RESOURCE.RECEIVED.CALENDARS.GET, allCals);
-            // console.log("IM GIVING YOU THIS DATA NOW:", allCals, "(from calAPI)");
+            console.log("IM GIVING YOU THIS DATA NOW:", allCals, "(from calAPI)");
             return allCals;
 
         } catch (err) {

@@ -1,31 +1,20 @@
 
 
 export const State = {
-
     isLoggedIn: {
         id: "",
         username: "",
         email: ""
     },
-
     cals: [],
-
     usercalendars: [],
-
     events: [],
-
     friends: [],
-
     privateMessages: [],
-
     calendarMessages: [],
-
     userPinnedCalendars: [],
-
     availabilites: [],
-
     notis: []
-
 };
 
 
@@ -48,4 +37,6 @@ export const StateSchema = {
 };
 
 
-
+console.log("----------")
+console.log(State)
+console.log("----------")
