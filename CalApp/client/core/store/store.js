@@ -1,6 +1,6 @@
 
-import { State } from "./State.js";
-import { StateSchema } from "./State.js";
+import { State } from "./state.js";
+import { StateSchema } from "./state.js";
 
 export class store {
 

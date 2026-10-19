@@ -1,6 +1,6 @@
 import { APIRequest } from "./APIService.js";
 import { PubSub } from "../store/Pubsub.js";
-import { Store } from "../store/Store.js";
+import { Store } from "../store/store.js";
 import { EVENTS } from "../store/Events.js";
 
 
