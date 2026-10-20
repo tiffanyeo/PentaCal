@@ -43,8 +43,10 @@ export class CalDetailBtn extends HTMLElement{
             }
 
             button {
+                background-color: rgba(255, 255, 255, 0.5);
                 padding: 8px 16px;
                 border: none;
+                border-radius: 4px;
                 font: bold 16px Helvetica;
                 text-decoration: underline;
                 cursor: pointer;
@@ -95,7 +97,6 @@ export class CalDetailBtn extends HTMLElement{
         let clicked = 0;
 
         detailButton.addEventListener("click", () =>{
-            isDown = true;
             this.toggleDropdown(true);
         })
         detailButton.addEventListener("pointerdown", () =>{
@@ -110,6 +111,7 @@ export class CalDetailBtn extends HTMLElement{
         })
         detailButton.addEventListener("pointerup", () => {
             isDown = false;
+            this.toggleDropdown(isDown);
             clicked = 1;
         })
 
@@ -122,10 +124,8 @@ export class CalDetailBtn extends HTMLElement{
             this.toggleDropdown(false);
         });
         document.addEventListener("click", (e) => {
-            if (clicked == 0){
+            if (!e.composedPath().includes(this)){
                 this.toggleDropdown(false)
-            } else if (clicked == 1){
-                clicked = 0;
             }
         });
     }

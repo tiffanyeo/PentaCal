@@ -1,7 +1,8 @@
 
 import { PubSub } from "../../store/pubsub.js";
 import { EVENTS } from "../../store/events.js";
-import { LandingButtonContainer } from "./components/landingButtons.js";
+import { DetailContainer } from "./components/detailContainer.js"; 
+import { WeekDays } from "./components/weekDays.js";
 import { NotificationsBar } from "../../../components/notificationsBar/notificationsBar.js";
 import { CalDetailBtn } from "./components/calDetailBtn.js";
 import { CalRender } from "./components/calRender.js";

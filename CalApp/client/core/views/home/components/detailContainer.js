@@ -22,7 +22,8 @@ export class DetailContainer extends HTMLElement{
             :host {
 
                 display: flex;
-                justify-content: space-around; 
+                justify-content: space-around;
+                padding: 4px 0;
             }
         </style>
         <cal-detail-btn></cal-detail-btn>

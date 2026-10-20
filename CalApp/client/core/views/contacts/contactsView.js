@@ -6,7 +6,6 @@ import "./components/contactCardContainer.js"
 export class ContactsView extends HTMLElement {
     constructor() {
         super();
-        this.content = document.querySelector("#content");
         this.attachShadow({ mode: "open" });
         this.sub();
     }
@@ -66,7 +65,8 @@ export class ContactsView extends HTMLElement {
                 return err;
             }
         }
-        this.content.innerHTML = `
+        let content = document.querySelector("#content");
+        content.innerHTML = `
         <style>
             app-input{
                 display: inline-block;
